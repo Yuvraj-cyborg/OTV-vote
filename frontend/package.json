@@ -15,6 +15,7 @@
     "axios": "^1.7.9",
     "canvg": "^4.0.2",
     "dom-to-image-more": "^3.5.0",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.475.0",
