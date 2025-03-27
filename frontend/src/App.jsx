@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
-import PollAnalytics from "./pages/PollAnalytics";
 import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import NominationPage from "./pages/Nomination";
@@ -22,7 +21,6 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/polls/:id/analytics" element={<PollAnalytics />} />
         <Route path="/vote" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/nominate" element={<NominationPage />} />
