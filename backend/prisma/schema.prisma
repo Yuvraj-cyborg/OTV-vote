@@ -1,0 +1,97 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+
+model User {
+  id          Int      @id @default(autoincrement())
+  userId      String   @unique
+  username    String
+  password    String
+  photo       String?  // Optional profile photo
+  isAdmin     Boolean  @default(false)
+  nominations Nomination[]
+  votes       Vote[]
+}
+
+model Nomination {
+  id            Int      @id @default(autoincrement())
+  nomineeName   String
+  nomineeEmail  String   // Allows multiple nominations per email
+  nomineePhoto  String
+  instagramUrl  String?
+  facebookId    String?  // Optional
+  xId           String?  // Optional (for Twitter/X)
+  youtubeId     String?  // Optional
+  userId        Int?     // Optional, in case of self-nomination
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status        String   @default("pending") // "pending", "approved", "rejected"
+  createdAt     DateTime @default(now())
+  categories    NominationCategory[]  // Many-to-many relation with categories
+  votes         Int      @default(0) // New field to track votes
+  payments      Payment[] // Link to payment records
+  Vote          Vote[]
+}
+
+model Vote {
+  id          Int      @id @default(autoincrement())
+  userId      Int      // Foreign key referencing User
+  nominationId Int     // Foreign key referencing Nomination
+  categoryId  Int      // Foreign key referencing Category
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nomination  Nomination @relation(fields: [nominationId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categoryId]) // Prevent multiple votes in the same category
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  nominations  NominationCategory[]  // Many-to-many relation with nominations
+  votes        Vote[]
+}
+
+model NominationCategory {
+  nominationId Int
+  categoryId   Int
+  nomination   Nomination @relation(fields: [nominationId], references: [id], onDelete: Cascade)
+  category     Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([nominationId, categoryId]) // Composite primary key for many-to-many relation
+}
+
+model OTP {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  code      String
+  expiresAt DateTime
+}
+
+model AdminState {
+  id          Int      @id @default(autoincrement())
+  phase       String   @default("nomination") // "nomination" or "voting"
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id          Int      @id @default(autoincrement())
+  paymentId   String   @unique
+  orderId     String   @unique
+  status      String
+  amount      Float
+  currency    String
+  nominationId Int?    // Link to the nomination
+  nomination  Nomination? @relation(fields: [nominationId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

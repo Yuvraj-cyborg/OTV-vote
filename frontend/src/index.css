@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --border: hsl(var(--border));
+  --input: hsl(var(--input));
+  --ring: hsl(var(--ring));
+  --background: hsl(var(--background));
+  --foreground: hsl(var(--foreground));
+
+  --primary: hsl(var(--primary));
+  --primary-foreground: hsl(var(--primary-foreground));
+
+  --secondary: hsl(var(--secondary));
+  --secondary-foreground: hsl(var(--secondary-foreground));
+
+  --destructive: hsl(var(--destructive));
+  --destructive-foreground: hsl(var(--destructive-foreground));
+
+  --muted: hsl(var(--muted));
+  --muted-foreground: hsl(var(--muted-foreground));
+
+  --accent: hsl(var(--accent));
+  --accent-foreground: hsl(var(--accent-foreground));
+
+  --popover: hsl(var(--popover));
+  --popover-foreground: hsl(var(--popover-foreground));
+
+  --card: hsl(var(--card));
+  --card-foreground: hsl(var(--card-foreground));
+
+  /* Award Colors */
+  --award-red: #e50914;
+  --award-orange: #ff5e00;
+  --award-yellow: #ffb700;
+
+  /* Border Radius */
+  --radius: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Container */
+  --container-padding: 2rem;
+  --container-max-width: 1400px;
+
+  /* Keyframes */
+  --keyframes-accordion-down: {
+    from: { height: 0; }
+    to: { height: var(--radix-accordion-content-height); }
+  };
+  --keyframes-accordion-up: {
+    from: { height: var(--radix-accordion-content-height); }
+    to: { height: 0; }
+  };
+
+  /* Animations */
+  --animation-accordion-down: accordion-down 0.2s ease-out;
+  --animation-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* Apply Theme Variables */
+:root {
+  /* Colors */
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+
+  /* Award Colors */
+  --award-red: #e50914;
+  --award-orange: #ff5e00;
+  --award-yellow: #ffb700;
+
+  /* Border Radius */
+  --radius: 0.5rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Container */
+  --container-padding: 2rem;
+  --container-max-width: 1400px;
+}
+
+/* Keyframes */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Animations */
+.accordion-down {
+  animation: var(--animation-accordion-down);
+}
+
+.accordion-up {
+  animation: var(--animation-accordion-up);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  max-width: var(--container-max-width);
+}
+
+/* Utilities */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, var(--award-red), var(--award-orange), var(--award-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
