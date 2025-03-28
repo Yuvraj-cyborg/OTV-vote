@@ -64,9 +64,8 @@ export default function Landing() {
 
   return (
     <div className="bg-black min-h-screen">
-      <Navbar/>
       {/* Hero Section */}
-      <section className="relative h-[80vh] bg-black">
+      <section className="relative h-[90vh] md:h-[80vh] bg-black overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-gradient-to-br from-black via-gray-900 to-[#e50914]">
             <div className="absolute inset-0 opacity-30">
@@ -173,91 +172,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
-      // Add this section after the Categories section in your Landing page
-
-{/* Influential Sessions Section */}
-<section className="py-20 bg-gradient-to-b from-black to-gray-900">
-  <div className="container mx-auto px-4">
-    <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-      <span className="text-white">FEATURED </span>
-      <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-        GUESTS
-      </span>
-    </h2>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {[
-        {
-          name: "Adah Sharma",
-          role: "Lead Actress: The Kerala Story",
-          image: "https://randomuser.me/api/portraits/women/44.jpg"
-        },
-        {
-          name: "Saurabh Dwivedi",
-          role: "Founder of The Lallantop",
-          image: "https://randomuser.me/api/portraits/men/32.jpg"
-        },
-        {
-          name: "Tejasvi Surya",
-          role: "Young Political Leader",
-          image: "https://randomuser.me/api/portraits/men/75.jpg"
-        },
-        {
-          name: "RJ Raunac",
-          role: "India's Favorite Radio Voice",
-          image: "https://randomuser.me/api/portraits/men/65.jpg"
-        }
-      ].map((guest, index) => (
-        <div key={index} className="bg-gray-900 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
-          <div className="h-48 bg-gray-700 overflow-hidden">
-            <img 
-              src={guest.image} 
-              alt={guest.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <h3 className="text-xl font-bold text-white">{guest.name}</h3>
-            <p className="text-[#ffb700] mt-2">{guest.role}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-{/* Sponsors Section */}
-<section className="py-20 bg-black">
-  <div className="container mx-auto px-4">
-    <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-      <span className="text-white">OUR </span>
-      <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-        SPONSORS
-      </span>
-    </h2>
-
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {[
-        { name: "OTV Network", logo: "https://via.placeholder.com/150x80?text=OTV" },
-        { name: "Tech Odisha", logo: "https://via.placeholder.com/150x80?text=Tech+Odisha" },
-        { name: "Digital Bhubaneswar", logo: "https://via.placeholder.com/150x80?text=Digital+BBSR" },
-        { name: "Creators Guild", logo: "https://via.placeholder.com/150x80?text=Creators+Guild" }
-      ].map((sponsor, index) => (
-        <div key={index} className="flex flex-col items-center">
-          <div className="w-full h-20 bg-gray-800 rounded-lg flex items-center justify-center p-4">
-            <img 
-              src={sponsor.logo} 
-              alt={sponsor.name}
-              className="max-h-full max-w-full object-contain"
-            />
-          </div>
-          <p className="text-white mt-4 text-center">{sponsor.name}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+      
 
       {/* Why Nominate Section */}
       <section className="py-20 bg-black">

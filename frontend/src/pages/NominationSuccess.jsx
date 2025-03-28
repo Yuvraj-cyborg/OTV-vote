@@ -8,7 +8,7 @@ const NominationSuccess = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/");
-    }, 5000);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, [navigate]);

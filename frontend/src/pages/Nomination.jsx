@@ -1,8 +1,27 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { submitNomination, fetchCategories, createRazorpayOrder, fetchRazorpayKey } from "../api";
-import { Camera, Instagram, Facebook, Twitter, Youtube, User, Mail } from "lucide-react";
+import { Camera, Instagram, Facebook, Twitter, Youtube, User, Mail, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+
+const LoadingPage = ({ message = "Processing..." }) => {
+  return (
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center">
+      <div className="text-center">
+        <div className="flex justify-center mb-4">
+          <Loader2 className="h-12 w-12 text-[#ffb700] animate-spin" />
+        </div>
+        <h2 className="text-2xl font-bold text-white mb-2">Please wait</h2>
+        <p className="text-gray-300">{message}</p>
+        <div className="flex justify-center mt-4 space-x-1">
+          <div className="h-2 w-2 bg-[#ffb700] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+          <div className="h-2 w-2 bg-[#e50914] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+          <div className="h-2 w-2 bg-[#ff5e00] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const NominationPage = () => {
   const navigate = useNavigate();
@@ -16,9 +35,9 @@ const NominationPage = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [photo, setPhoto] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
-  const [submittedData, setSubmittedData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [razorpayKey, setRazorpayKey] = useState("");
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   // Fetch categories and Razorpay key
   useEffect(() => {
@@ -68,6 +87,7 @@ const NominationPage = () => {
 
   // Handle payment
   const handlePayment = async (nominationData) => {
+    setIsProcessingPayment(true);
     try {
       const amount = 100; // ₹1 in paise
       const order = await createRazorpayOrder({
@@ -85,16 +105,17 @@ const NominationPage = () => {
         description: "Payment for nomination submission",
         handler: async (response) => {
           try {
-            const submissionResponse = await submitNomination({
+            await submitNomination({
               ...nominationData,
               paymentId: response.razorpay_payment_id,
               orderId: response.razorpay_order_id,
             });
-            toast.success("Nomination submitted successfully!");
             navigate("/nomination-success");
           } catch (error) {
             console.error("Error submitting nomination:", error);
             toast.error("Submission failed. Please contact support.");
+          } finally {
+            setIsProcessingPayment(false);
           }
         },
         prefill: {
@@ -111,7 +132,7 @@ const NominationPage = () => {
     } catch (error) {
       console.error("Error during payment:", error);
       toast.error("Payment failed. Please try again.");
-      setLoading(false);
+      setIsProcessingPayment(false);
     }
   };
 
@@ -149,8 +170,11 @@ const NominationPage = () => {
     await handlePayment(nominationData);
     setLoading(false);
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 pt-20">
+      {isProcessingPayment && <LoadingPage message="Confirming your payment..." />}
+      
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 text-center">Submit Your Nomination</h1>
@@ -171,7 +195,7 @@ const NominationPage = () => {
                     required
                     value={nomineeName}
                     onChange={(e) => setNomineeName(e.target.value)}
-                    className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                    className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                     placeholder="Enter full name"
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -191,7 +215,7 @@ const NominationPage = () => {
                     required
                     value={nomineeEmail}
                     onChange={(e) => setNomineeEmail(e.target.value)}
-                    className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                    className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                     placeholder="you@example.com"
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -211,7 +235,7 @@ const NominationPage = () => {
                       name="instagram"
                       value={instagramUrl}
                       onChange={(e) => setInstagramUrl(e.target.value)}
-                      className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                      className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                       placeholder="@username"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -229,7 +253,7 @@ const NominationPage = () => {
                       name="facebook"
                       value={facebookId}
                       onChange={(e) => setFacebookId(e.target.value)}
-                      className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                      className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                       placeholder="Facebook ID"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -247,7 +271,7 @@ const NominationPage = () => {
                       name="xId"
                       value={xId}
                       onChange={(e) => setXId(e.target.value)}
-                      className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                      className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                       placeholder="@username"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -265,7 +289,7 @@ const NominationPage = () => {
                       name="youtube"
                       value={youtubeId}
                       onChange={(e) => setYoutubeId(e.target.value)}
-                      className="w-full px-[6vh] py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                      className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
                       placeholder="Channel ID"
                     />
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -286,7 +310,7 @@ const NominationPage = () => {
                         value={category.id}
                         checked={selectedCategories.includes(category.id)}
                         onChange={handleCategoryChange}
-                        className="mr-2"
+                        className="mr-2 h-4 w-4 text-[#ffb700] focus:ring-[#ffb700] border-gray-600 rounded"
                         disabled={selectedCategories.length >= 3 && !selectedCategories.includes(category.id)}
                       />
                       <span className="text-gray-300">{category.name}</span>
@@ -348,18 +372,26 @@ const NominationPage = () => {
               </div>
 
               {/* Payment Amount */}
-              <div>
-                <p className="text-sm font-medium text-white">Payment Amount: ₹1</p>
+              <div className="text-center py-4">
+                <p className="text-lg font-medium text-white">Payment Amount: <span className="text-[#ffb700]">₹1</span></p>
+                <p className="text-sm text-gray-400 mt-1">Nomination fee to verify your submission</p>
               </div>
 
               {/* Submit Button */}
               <div>
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 bg-[#ffb700] text-black rounded-lg font-bold hover:bg-[#ffa600] transition-colors"
+                  className="w-full px-4 py-3 bg-[#ffb700] text-black rounded-lg font-bold hover:bg-[#ffa600] transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                   disabled={loading}
                 >
-                  {loading ? "Submitting..." : "Proceed to Payment (₹1)"}
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      Processing...
+                    </span>
+                  ) : (
+                    "Proceed to Payment (₹1)"
+                  )}
                 </button>
               </div>
             </form>
