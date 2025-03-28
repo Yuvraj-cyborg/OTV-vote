@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware
 app.use(cors({ 
-  origin: ['http://localhost:5173', 'https://your-frontend-url.com'],
+  origin: ['http://localhost:5173', 'https://otv-vote.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
