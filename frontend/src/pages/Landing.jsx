@@ -82,18 +82,18 @@ export default function Landing() {
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-                INFLUENCER
+                INSIGHT
               </span>
               <br />
-              <span className="text-white">AWARDS 2025</span>
+              <span className="text-white">2025</span>
             </h1>
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">CELEBRATING THE POWER OF INFLUENCE</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">Odisha's 1st Creators Award Show</h2>
 
             <div className="flex items-center space-x-2 text-white mb-8">
               <Calendar className="h-5 w-5 text-[#ffb700]" />
-              <span className="text-xl font-bold">14 NOV</span>
+              <span className="text-xl font-bold">COMING SOON</span>
               <MapPin className="h-5 w-5 ml-4 text-[#ffb700]" />
-              <span> NONE, BHUBANESHWAR</span>
+              <span>BHUBANESHWAR, ODISHA</span>
             </div>
 
             <div className="flex flex-wrap gap-4">
@@ -123,42 +123,50 @@ export default function Landing() {
         </div>
       </section>
 
+    
       {/* Categories Section */}
-      <section className="py-20 bg-black">
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-            <span className="text-white">CATEGORIES</span>
+            <span className="text-white">AWARD CATEGORIES</span>
             <br />
             <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-              INFLUENCER AWARDS
+              FOR INSIGHT 2025
             </span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Star, name: "Rising Star", desc: "Emerging talents making waves" },
-              { icon: Mic, name: "Public Speaking", desc: "Outstanding orators and presenters" },
-              { icon: Camera, name: "Photography", desc: "Capturing moments that matter" },
-              { icon: Brush, name: "Digital Art", desc: "Creative digital masterpieces" },
-              { icon: Code, name: "Technology", desc: "Innovation in tech" },
-              { icon: Music, name: "Music", desc: "Exceptional musical talent" },
-              { icon: Film, name: "Film & Video", desc: "Cinematic excellence" },
-              { icon: Book, name: "Content Creation", desc: "Engaging digital content" },
+              { name: "Storyteller of the Year", desc: "For those who weave magic with words, visuals, and emotions" },
+              { name: "Best Travel Influencer", desc: "Explorers who take us on unforgettable journeys around Odisha and India" },
+              { name: "Best Food Creator", desc: "From street food gems to gourmet delicacies, these creators redefine food storytelling" },
+              { name: "Best Art Influencer", desc: "Visionaries who turn imagination into reality through art" },
+              { name: "Best Lifestyle/Fashion Influencer", desc: "Trendsetters who inspire us with their style and everyday elegance" },
+              { name: "Impact Creator of the Year", desc: "Changemakers using platforms for awareness and positive transformation" },
+              { name: "Guardian of Heritage Award", desc: "Honoring those who preserve and celebrate our cultural treasures" },
+              { name: "Regional Influencer of the Year", desc: "Voices that amplify regional stories and communities" },
+              { name: "Cultural Ambassador of the Year", desc: "Champions of our traditions, art, and heritage" },
+              { name: "Sambalpuri Icon of the Year", desc: "Recognizing work that brings Sambalpuri culture into the limelight" },
+              { name: "Rising Star of the Year", desc: "Breakout creators making waves and capturing hearts" },
+              { name: "Best Comedy Creator", desc: "Masters of humor delivering laughter and pure joy" },
+              { name: "Best Music Creator", desc: "Artists redefining how we experience music online" },
+              { name: "Podcast of the Year", desc: "Celebrating the best in podcasting with inspiring conversations" },
+              { name: "Excellence in Digital Journalism", desc: "Fearless, innovative storytelling in digital news" },
+              { name: "Digital News Leader", desc: "Pioneers setting benchmarks for credible digital reporting" },
+              { name: "Creator of the Year", desc: "The ultimate content powerhouse inspiring millions" },
+              { name: "Global Odia Creator Award", desc: "Honoring Odia creators making a mark beyond borders" },
             ].map((category, index) => (
               <div
                 key={index}
                 className="bg-gray-900 rounded-xl p-6 text-white transition-all duration-300 hover:bg-gray-800 hover:shadow-md"
               >
-                <div className="text-5xl mb-4 text-[#ffb700]">
-                  <category.icon className="w-12 h-12" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{category.name}</h3>
+                <h3 className="text-xl font-bold mb-2 text-[#ffb700]">{category.name}</h3>
                 <p className="text-gray-300 mb-4">{category.desc}</p>
                 <button
                   onClick={() => navigate(`/categories/${category.name.toLowerCase().replace(/ /g, "-")}`)}
-                  className="text-[#ffb700] hover:text-[#ff5e00] p-0"
+                  className="text-white hover:text-[#ff5e00] p-0"
                 >
-                  View Subcategories <ChevronDown className="ml-1 h-4 w-4" />
+                  Learn More <ChevronDown className="ml-1 h-4 w-4 inline" />
                 </button>
               </div>
             ))}
@@ -166,42 +174,122 @@ export default function Landing() {
         </div>
       </section>
 
+      // Add this section after the Categories section in your Landing page
+
+{/* Influential Sessions Section */}
+<section className="py-20 bg-gradient-to-b from-black to-gray-900">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+      <span className="text-white">FEATURED </span>
+      <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+        GUESTS
+      </span>
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {[
+        {
+          name: "Adah Sharma",
+          role: "Lead Actress: The Kerala Story",
+          image: "https://randomuser.me/api/portraits/women/44.jpg"
+        },
+        {
+          name: "Saurabh Dwivedi",
+          role: "Founder of The Lallantop",
+          image: "https://randomuser.me/api/portraits/men/32.jpg"
+        },
+        {
+          name: "Tejasvi Surya",
+          role: "Young Political Leader",
+          image: "https://randomuser.me/api/portraits/men/75.jpg"
+        },
+        {
+          name: "RJ Raunac",
+          role: "India's Favorite Radio Voice",
+          image: "https://randomuser.me/api/portraits/men/65.jpg"
+        }
+      ].map((guest, index) => (
+        <div key={index} className="bg-gray-900 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+          <div className="h-48 bg-gray-700 overflow-hidden">
+            <img 
+              src={guest.image} 
+              alt={guest.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="p-6">
+            <h3 className="text-xl font-bold text-white">{guest.name}</h3>
+            <p className="text-[#ffb700] mt-2">{guest.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Sponsors Section */}
+<section className="py-20 bg-black">
+  <div className="container mx-auto px-4">
+    <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+      <span className="text-white">OUR </span>
+      <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+        SPONSORS
+      </span>
+    </h2>
+
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {[
+        { name: "OTV Network", logo: "https://via.placeholder.com/150x80?text=OTV" },
+        { name: "Tech Odisha", logo: "https://via.placeholder.com/150x80?text=Tech+Odisha" },
+        { name: "Digital Bhubaneswar", logo: "https://via.placeholder.com/150x80?text=Digital+BBSR" },
+        { name: "Creators Guild", logo: "https://via.placeholder.com/150x80?text=Creators+Guild" }
+      ].map((sponsor, index) => (
+        <div key={index} className="flex flex-col items-center">
+          <div className="w-full h-20 bg-gray-800 rounded-lg flex items-center justify-center p-4">
+            <img 
+              src={sponsor.logo} 
+              alt={sponsor.name}
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+          <p className="text-white mt-4 text-center">{sponsor.name}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
       {/* Why Nominate Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-20 bg-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-16">WHY SHOULD YOU NOMINATE?</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-16">WHY PARTICIPATE IN INSIGHT 2025?</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Keynotes & Sessions With Thought Leaders</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Credibility & Recognition</h3>
               <p className="text-gray-300">
-                Experience a stellar lineup of speakers at the Influencer Awards, delivering keynotes and sessions for
-                brands and influencers. Gain valuable insights and opportunities for growth.
+                Establish yourself as a pioneer in Odisha's digital space with recognition from OTV, Odisha's largest media network.
               </p>
             </div>
 
             <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">A Fusion Between Brands And Influencers</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Amplify Your Influence</h3>
               <p className="text-gray-300">
-                Our platform is the perfect space for brands and influencers to connect, discuss business, and build
-                valuable connections. Join us and forge new relationships with ease.
+                With television, live-streaming, and digital amplification, your work will be showcased to millions, expanding your reach beyond social media.
               </p>
             </div>
 
             <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Networking Opportunities</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Community-Driven & Transparent</h3>
               <p className="text-gray-300">
-                Navigating social media for connections can be challenging. Our event offers a golden opportunity to
-                strengthen your brand by fostering lasting connections among influencers. Join us and supercharge your
-                network.
+                Unlike closed-door jury selections, INSIGHT 2025 puts power in audience hands with public nomination and voting for authentic recognition.
               </p>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Watch Sessions On Repeat</h3>
+            <div className="bg-gray-900 rounded-xl p-8 md:col-span-3">
+              <h3 className="text-xl font-bold text-white mb-4">Connect, Learn & Grow</h3>
               <p className="text-gray-300">
-                You can watch any session any time at your convenience from your device. Never miss an important insight
-                or connection opportunity.
+                Beyond awards, it's a hub for creators, brands, and experts. Attend exclusive panels and networking sessions to fuel your next breakthrough. Gain insights from industry leaders shaping the digital world.
               </p>
             </div>
           </div>
@@ -213,7 +301,7 @@ export default function Landing() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Ready to be recognized?</h2>
           <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
-            Join the most prestigious influencer awards event and showcase your talent to the world.
+            Join Odisha's most prestigious digital creators award show and showcase your talent to the world.
           </p>
           {phaseState.loading ? (
             <LoadingState />
@@ -224,7 +312,7 @@ export default function Landing() {
               onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
               className="px-8 py-3 bg-black hover:bg-gray-800 text-white rounded-full cursor-pointer font-semibold"
             >
-              {phaseState.isVotingPhase ? "Cast Your Vote" : "Submit Your Nomination"}
+              {phaseState.isVotingPhase ? "Cast Your Vote Now" : "Submit Your Nomination"}
             </button>
           )}
         </div>
@@ -235,15 +323,15 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">Influencer Awards 2025</h3>
+              <h3 className="text-xl font-bold mb-4">INSIGHT 2025</h3>
               <p className="text-gray-400">
-                Celebrating the power of influence and recognizing outstanding talent in the industry.
+                Odisha's 1st Creators Award Show celebrating digital voices shaping the state's evolving landscape.
               </p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-400">Email: info@influencerawards.com</p>
-              <p className="text-gray-400">Phone: +1 (123) 456-7890</p>
+              <p className="text-gray-400">Email: info@insight2025.com</p>
+              <p className="text-gray-400">Phone: +91 XXXXX XXXXX</p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Follow Us</h3>
@@ -288,7 +376,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-            <p className="text-gray-400">&copy; {new Date().getFullYear()} Influencer Awards. All rights reserved.</p>
+            <p className="text-gray-400">&copy; {new Date().getFullYear()} INSIGHT 2025. All rights reserved. Powered by OTV.</p>
           </div>
         </div>
       </footer>
