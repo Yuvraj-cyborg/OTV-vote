@@ -1,0 +1,14 @@
+{
+    "routes": [
+      {
+        "src": "/.*",
+        "dest": "/index.html",
+        "status": 200
+      }
+    ],
+    "rewrites": [
+      { "source": "/(admin|nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*)", 
+        "destination": "/index.html" 
+      }
+    ]
+  }
