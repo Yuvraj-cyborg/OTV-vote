@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { UserCircle2, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import otvlogo from "../assets/otv-logo.png";
 
 export default function Navbar() {
   const isLoggedIn = !!localStorage.getItem("token");
@@ -24,8 +25,7 @@ export default function Navbar() {
           {/* Logo - tighter spacing */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <span className="text-white font-bold text-lg md:text-2xl">Influencer</span>
-              <span className="text-[#ffb700] font-bold text-lg md:text-2xl ml-1">Awards</span>
+              <img src={otvlogo} alt="Logo" className="h-[9vh] w-[25vh]" />
             </Link>
           </div>
 
