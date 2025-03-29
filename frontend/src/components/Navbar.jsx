@@ -13,6 +13,7 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const navLinks = [
+    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Categories", href: "/categories" },
   ];

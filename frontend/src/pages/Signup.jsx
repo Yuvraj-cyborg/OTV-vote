@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser, sendOTP } from "../api";
+import { registerUser, sendOTP, loginWithGoogle } from "../api";
 import { Mail, Lock, User } from "lucide-react";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
+
+const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE";
 
 export default function Signup() {
-  const [userId, setUserId] = useState(""); // Email
+  const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
@@ -13,50 +18,105 @@ export default function Signup() {
 
   const handleSendOTP = async () => {
     if (!userId || !username) {
-      alert("Email and Username are required to send OTP.");
+      toast.error("Email and Username are required to send OTP.");
       return;
     }
 
+    const otpToast = toast.loading("Sending OTP...");
     try {
-      await sendOTP({ userId: userId, username: username });
+      await sendOTP({ userId, username });
       setIsOTPSent(true);
-      alert("✅ OTP sent to your email!");
+      toast.success("OTP sent to your email!", { id: otpToast });
     } catch (error) {
-      alert(`❌ Failed to send OTP: ${error.response?.data?.error || "Try again later"}`);
+      toast.error(
+        `Failed to send OTP: ${error.response?.data?.error || "Try again later"}`,
+        { id: otpToast }
+      );
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!userId || !username || !password || !otp) {
-      alert("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
 
+    const signupToast = toast.loading("Creating account...");
     try {
       await registerUser({ userId, username, password, otp });
-      alert("✅ Signup successful! Please login.");
+      toast.success("Signup successful! Please login.", { id: signupToast });
       navigate("/login");
     } catch (error) {
-      alert(`❌ Signup failed: ${error.response?.data?.error || "Try again later"}`);
+      toast.error(
+        `Signup failed: ${error.response?.data?.error || "Try again later"}`,
+        { id: signupToast }
+      );
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    const googleToast = toast.loading("Signing in with Google...");
+    
+    try {
+      const decoded = jwtDecode(credentialResponse.credential);
+      const response = await loginWithGoogle({
+        credential: credentialResponse.credential,
+        email: decoded.email,
+        name: decoded.name,
+        picture: decoded.picture
+      });
+      localStorage.setItem("token", response.data.token);
+      toast.success("Google login successful!", { id: googleToast });
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        `Google login failed: ${error.response?.data?.error || "Try again later"}`,
+        { id: googleToast }
+      );
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error("Google login failed. Please try again.");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="overflow-hidden min-h-screen bg-gradient-to-b from-black to-gray-900 flex items-center justify-center py-[12vh] px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-white">Create Account</h2>
           <p className="mt-2 text-gray-300">Join our community today</p>
         </div>
 
+        <div className="flex justify-center">
+          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              text="signup_with"
+              shape="pill"
+              size="large"
+              theme="filled_blue"
+            />
+          </GoogleOAuthProvider>
+        </div>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-600"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-gray-900 text-gray-400">OR</span>
+          </div>
+        </div>
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {/* Email (UserID) */}
             <div>
               <label htmlFor="userId" className="block text-sm font-medium text-white">
-                Email (User ID)
+                Email
               </label>
               <div className="mt-1 relative">
                 <input
@@ -75,7 +135,6 @@ export default function Signup() {
               </div>
             </div>
 
-            {/* Username */}
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-white">
                 Username
@@ -97,7 +156,6 @@ export default function Signup() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-white">
                 Password
@@ -119,7 +177,6 @@ export default function Signup() {
               </div>
             </div>
 
-            {/* OTP Field */}
             {isOTPSent && (
               <div>
                 <label htmlFor="otp" className="block text-sm font-medium text-white">
@@ -141,7 +198,6 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Submit Button */}
           <div>
             {!isOTPSent ? (
               <button
@@ -154,7 +210,6 @@ export default function Signup() {
             ) : (
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-black bg-[#ffb700] hover:bg-[#ffa600] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#ffb700]"
               >
                 Signup
@@ -162,6 +217,16 @@ export default function Signup() {
             )}
           </div>
         </form>
+
+        <div className="text-center">
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="text-[#ffb700] hover:text-[#ffa600]"
+          >
+            Already have an account? Sign in
+          </button>
+        </div>
       </div>
     </div>
   );

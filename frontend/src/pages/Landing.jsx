@@ -169,7 +169,7 @@ export default function Landing() {
                 <h3 className="text-xl font-bold mb-2 text-[#ffb700]">{category.name}</h3>
                 <p className="text-gray-300 mb-4">{category.desc}</p>
                 <button
-                  onClick={() => navigate(`/categories/${category.name.toLowerCase().replace(/ /g, "-")}`)}
+                  onClick={() => navigate(`/categories`)}
                   className="text-white hover:text-[#ff5e00] p-0"
                 >
                   Learn More <ChevronDown className="ml-1 h-4 w-4 inline" />

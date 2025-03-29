@@ -11,7 +11,14 @@ import {
   Book,
   MapPin,
   ChevronRight,
-  Award
+  Award,
+  Globe,
+  TrendingUp,
+  Laugh,
+  Podcast,
+  Newspaper,
+  Users,
+  Feather
 } from 'lucide-react';
 
 export default function Categories() {
@@ -65,6 +72,66 @@ export default function Categories() {
       name: "Regional Influencer of the Year", 
       desc: "Amplifying regional stories and communities",
       subcategories: ["Language Content", "Local Traditions", "Regional Development"]
+    },
+    { 
+      icon: Globe, 
+      name: "Cultural Ambassador of the Year", 
+      desc: "Champions of our traditions, art, and heritage",
+      subcategories: ["Cultural Events", "Traditional Arts", "Heritage Promotion"]
+    },
+    { 
+      icon: Award, 
+      name: "Sambalpuri Icon of the Year", 
+      desc: "Bringing Sambalpuri culture into the limelight",
+      subcategories: ["Sambalpuri Music", "Sambalpuri Dance", "Sambalpuri Textiles"]
+    },
+    { 
+      icon: TrendingUp, 
+      name: "Rising Star of the Year", 
+      desc: "Breakout creators making waves and capturing hearts",
+      subcategories: ["New Creators", "Emerging Talent", "Fresh Perspectives"]
+    },
+    { 
+      icon: Laugh, 
+      name: "Best Comedy Creator", 
+      desc: "Masters of humor delivering laughter and pure joy",
+      subcategories: ["Skits", "Stand-up", "Impressions"]
+    },
+    { 
+      icon: Music, 
+      name: "Best Music Creator", 
+      desc: "Artists redefining how we experience music online",
+      subcategories: ["Covers", "Original Music", "Music Production"]
+    },
+    { 
+      icon: Podcast, 
+      name: "Podcast of the Year", 
+      desc: "Celebrating the best in podcasting with inspiring conversations",
+      subcategories: ["Interviews", "Storytelling", "Educational"]
+    },
+    { 
+      icon: Newspaper, 
+      name: "Excellence in Digital Journalism", 
+      desc: "Fearless, innovative storytelling in digital news",
+      subcategories: ["Investigative", "Feature Stories", "News Analysis"]
+    },
+    { 
+      icon: Users, 
+      name: "Digital News Leader", 
+      desc: "Pioneers setting benchmarks for credible digital reporting",
+      subcategories: ["Breaking News", "Community Reporting", "Mobile Journalism"]
+    },
+    { 
+      icon: Star, 
+      name: "Creator of the Year", 
+      desc: "The ultimate content powerhouse inspiring millions",
+      subcategories: ["Content Quality", "Engagement", "Innovation"]
+    },
+    { 
+      icon: Feather, 
+      name: "Global Odia Creator Award", 
+      desc: "Honoring Odia creators making a mark beyond borders",
+      subcategories: ["International Reach", "Cross-cultural Content", "Diaspora Engagement"]
     }
   ];
 
@@ -103,7 +170,7 @@ export default function Categories() {
               </div>
               
               <div className="mt-6">
-                <h3 className="text-sm font-semibold text-[#ffb700] mb-2">SUBCATEGORIES</h3>
+                <h3 className="text-sm font-semibold text-[#ffb700] mb-2">Featured</h3>
                 <ul className="space-y-2">
                   {category.subcategories.map((subcat, i) => (
                     <li key={i} className="flex items-center text-gray-300 hover:text-white">
@@ -113,14 +180,6 @@ export default function Categories() {
                   ))}
                 </ul>
               </div>
-
-              <button
-                onClick={() => navigate(`/categories/${category.name.toLowerCase().replace(/ /g, "-")}`)}
-                className="mt-6 w-full py-2 bg-transparent border border-[#ffb700] text-[#ffb700] rounded-lg hover:bg-[#ffb700] hover:text-black transition-colors flex items-center justify-center"
-              >
-                <Award className="h-4 w-4 mr-2" />
-                View Nominees
-              </button>
             </div>
           ))}
         </div>

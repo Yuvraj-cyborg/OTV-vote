@@ -7,7 +7,8 @@ const { createClient } = require("@supabase/supabase-js");
 const { sendOTPEmail } = require("../utils/mailer");
 const { storeOTP, verifyOTP } = require("../utils/redis");
 const dotenv = require("dotenv");
-
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 dotenv.config(); // Load environment variables
 
 const prisma = new PrismaClient();
@@ -149,5 +150,63 @@ const sendOTP = async (req, res) => {
     res.status(500).json({ error: "Failed to send OTP" });
   }
 };
+
+
+/**
+ * @route POST /api/auth/google
+ * @desc Authenticate user with Google & return token
+ */
+const googleAuth = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    // Verify Google token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { sub: googleId, email, name, picture } = payload;
+
+    // Check if user exists
+    let user = await prisma.user.findUnique({
+      where: { userId: email } // Using email as userId
+    });
+
+    // If user doesn't exist, create new user
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          userId: email,
+          username: name,
+          photo: picture,
+          provider: 'google',
+          password: '' // Empty password for Google users
+        }
+      });
+    }
+
+    // Generate JWT token
+    const jwtToken = jwt.sign(
+      { userId: user.userId }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
+
+    res.json({ 
+      token: jwtToken,
+      user: {
+        username: user.username,
+        photo: user.photo
+      }
+    });
+
+  } catch (error) {
+    console.error('Google Auth Error:', error);
+    res.status(500).json({ error: 'Google authentication failed' });
+  }
+};
+
 // Export functions
-module.exports = {sendOTP, registerUser, loginUser, getUserProfile, upload };
+module.exports = {sendOTP, registerUser, loginUser, getUserProfile,googleAuth, upload };

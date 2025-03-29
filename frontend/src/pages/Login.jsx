@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../api";
+import { loginUser, loginWithGoogle } from "../api";
 import { Mail, Lock, ArrowRight } from "lucide-react";
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
+
+const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID_HERE";
 
 export default function Login() {
   const [userId, setUserId] = useState("");
@@ -10,15 +15,45 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const loginToast = toast.loading("Signing in...");
+    
     try {
       const response = await loginUser({ userId, password });
-      localStorage.setItem("token", response.data.token); // Save token to localStorage
-      alert("Login successful!");
-      navigate("/"); // Redirect to home page
+      localStorage.setItem("token", response.data.token);
+      toast.success("Login successful!", { id: loginToast });
+      navigate("/");
     } catch (error) {
-      alert("Login failed. Please check your credentials.");
+      toast.error(
+        `Login failed: ${error.response?.data?.error || "Invalid credentials"}`,
+        { id: loginToast }
+      );
     }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    const googleToast = toast.loading("Signing in with Google...");
+    
+    try {
+      const decoded = jwtDecode(credentialResponse.credential);
+      const response = await loginWithGoogle({
+        credential: credentialResponse.credential,
+        email: decoded.email,
+        name: decoded.name,
+        picture: decoded.picture
+      });
+      localStorage.setItem("token", response.data.token);
+      toast.success("Google login successful!", { id: googleToast });
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        `Google login failed: ${error.response?.data?.error || "Try again later"}`,
+        { id: googleToast }
+      );
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error("Google login failed. Please try again.");
   };
 
   return (
@@ -29,12 +64,34 @@ export default function Login() {
           <p className="mt-2 text-gray-300">Sign in to your account</p>
         </div>
 
+        <div className="flex justify-center">
+          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              text="signin_with"
+              shape="pill"
+              size="large"
+              theme="filled_blue"
+            />
+          </GoogleOAuthProvider>
+        </div>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-600"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-gray-900 text-gray-400">OR</span>
+          </div>
+        </div>
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {/* User ID */}
             <div>
               <label htmlFor="userId" className="block text-sm font-medium text-white">
-                User ID
+                Email
               </label>
               <div className="mt-1 relative">
                 <input
@@ -53,7 +110,6 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-white">
                 Password
@@ -76,7 +132,6 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -89,7 +144,6 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Signup Link */}
           <div className="text-center">
             <button
               type="button"

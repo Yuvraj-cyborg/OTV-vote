@@ -2,6 +2,8 @@ import axios from "axios";
 
 // const API_URL = `${import.meta.env.REACT_APP_API_URL}`;
 const API_URL = "https://otv-vote.onrender.com/api";
+// const API_URL = "http://localhost:5000/api";
+
 
 export const registerUser = async (formData) => {
   return await axios.post(`${API_URL}/auth/register`, formData, {
@@ -237,4 +239,13 @@ export const fetchRazorpayKey = async () => {
     console.error("Error fetching Razorpay key:", error);
     throw error;
   }
+};
+
+export const loginWithGoogle = async (googleData) => {
+  return axios.post(`${API_URL}/auth/google`, {
+    token: googleData.credential,
+    email: googleData.email,
+    name: googleData.name,
+    picture: googleData.picture
+  });
 };

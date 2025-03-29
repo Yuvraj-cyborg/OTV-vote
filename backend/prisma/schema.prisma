@@ -12,11 +12,12 @@ datasource db {
 
 model User {
   id          Int      @id @default(autoincrement())
-  userId      String   @unique
+  userId      String   @unique  // Will store Google ID for Google users
   username    String
-  password    String
-  photo       String?  // Optional profile photo
+  password    String?  // Make password optional for Google users
+  photo       String?  // Can store Google profile picture URL
   isAdmin     Boolean  @default(false)
+  provider    String   @default("credentials") // "google" or "credentials"
   nominations Nomination[]
   votes       Vote[]
 }
