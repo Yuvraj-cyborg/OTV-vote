@@ -18,8 +18,11 @@ import {
   Podcast,
   Newspaper,
   Users,
-  Feather
+  Feather,
+  Loader
 } from 'lucide-react';
+import { fetchPhaseState } from "../api";
+import { useState, useEffect } from 'react';
 
 export default function Categories() {
   const navigate = useNavigate();
@@ -134,6 +137,39 @@ export default function Categories() {
       subcategories: ["International Reach", "Cross-cultural Content", "Diaspora Engagement"]
     }
   ];
+  const LoadingState = () => (
+    <div className="flex items-center justify-center space-x-2">
+      <Loader className="h-5 w-5 animate-spin text-[#ffb700]" />
+      <span className="text-white">Loading...</span>
+    </div>
+  );
+
+const [phaseState, setPhaseState] = useState({
+    loading: true,
+    isVotingPhase: false,
+    error: null
+  });
+
+    useEffect(() => {
+      const getPhase = async () => {
+        try {
+          const phase = await fetchPhaseState();
+          setPhaseState({
+            loading: false,
+            isVotingPhase: phase === "voting",
+            error: null
+          });
+        } catch (error) {
+          console.error("Error fetching phase:", error);
+          setPhaseState({
+            loading: false,
+            isVotingPhase: false,
+            error: "Failed to load phase information"
+          });
+        }
+      };
+      getPhase();
+    }, []);
 
   return (
     <div className="min-h-screen bg-black py-20">
@@ -185,13 +221,18 @@ export default function Categories() {
         </div>
 
         <div className="mt-16 text-center">
-          <button
-            onClick={() => navigate('/nominate')}
-            className="px-8 py-3 bg-[#ffb700] text-black rounded-full font-bold hover:bg-[#ffa600] transition-colors inline-flex items-center"
-          >
-            Submit Your Nomination
-            <ChevronRight className="ml-2 h-5 w-5" />
-          </button>
+          {phaseState.loading ? (
+            <LoadingState />
+          ) : phaseState.error ? (
+            <div className="text-red-500">{phaseState.error}</div>
+          ) : (
+            <button
+              onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
+              className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
+            >
+              {phaseState.isVotingPhase ? "Cast Your Vote Now" : "Submit Your Nomination"}
+            </button>
+          )}
         </div>
       </div>
     </div>

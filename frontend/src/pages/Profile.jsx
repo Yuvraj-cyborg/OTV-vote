@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUserProfile, fetchUserNominations } from "../api";
+import { fetchUserProfile } from "../api";
 import { Instagram, Facebook, Twitter, Youtube, LogOut, Award, Loader2, User } from "lucide-react";
 import toast from "react-hot-toast";
 
