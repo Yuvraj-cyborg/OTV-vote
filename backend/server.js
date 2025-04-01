@@ -32,7 +32,7 @@ app.use("/api", adminRoutes);
 app.use(express.static("public"));
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
