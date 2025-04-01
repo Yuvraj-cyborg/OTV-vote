@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser, loginWithGoogle } from "../api";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
@@ -12,6 +12,8 @@ export default function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnUrl = location.state?.returnUrl || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Login() {
       const response = await loginUser({ userId, password });
       localStorage.setItem("token", response.data.token);
       toast.success("Login successful!", { id: loginToast });
-      navigate("/");
+      navigate(returnUrl);
     } catch (error) {
       toast.error(
         `Login failed: ${error.response?.data?.error || "Invalid credentials"}`,
@@ -43,7 +45,7 @@ export default function Login() {
       });
       localStorage.setItem("token", response.data.token);
       toast.success("Google login successful!", { id: googleToast });
-      navigate("/");
+      navigate(returnUrl);
     } catch (error) {
       toast.error(
         `Google login failed: ${error.response?.data?.error || "Try again later"}`,
@@ -62,6 +64,9 @@ export default function Login() {
         <div className="text-center">
           <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
           <p className="mt-2 text-gray-300">Sign in to your account</p>
+          {returnUrl !== "/" && (
+            <p className="mt-2 text-sm text-[#ffb700]">You'll be redirected back after login</p>
+          )}
         </div>
 
         <div className="flex justify-center">
@@ -147,7 +152,7 @@ export default function Login() {
           <div className="text-center">
             <button
               type="button"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/signup", { state: { returnUrl } })}
               className="text-[#ffb700] hover:text-[#ffa600]"
             >
               Don't have an account? Sign up

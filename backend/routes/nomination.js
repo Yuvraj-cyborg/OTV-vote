@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require("multer");
-const { createNomination,fetchNominations,approveNominee,getApprovedNominations,fetchUserDetails,createRazorpayOrder,getRazorpayKey,rejectNominee   } = require('../controllers/nominationController.js');
+const { createNomination,fetchNominations,approveNominee,getApprovedNominations,fetchUserDetails,createRazorpayOrder,getRazorpayKey,rejectNominee,getUserNominations } = require('../controllers/nominationController.js');
+const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -22,5 +23,8 @@ router.post('/nominate', upload.single('nomineePhoto'), (req, res, next) => {
   router.get('/approved', getApprovedNominations); // Fetch approved nominations
   router.get('/razorpay-key', getRazorpayKey);
   router.post("/:id/reject", rejectNominee);
+
+// Add route to fetch user's nominations (requires authentication)
+router.get('/user', authenticateToken, getUserNominations);
 
 module.exports = router;

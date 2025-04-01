@@ -7,6 +7,9 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 // Initialize Razorpay
+console.log("Initializing Razorpay with key_id:", process.env.RAZORPAY_KEY_ID);
+console.log("Key secret length:", process.env.RAZORPAY_KEY_SECRET ? process.env.RAZORPAY_KEY_SECRET.length : 0);
+
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -17,102 +20,87 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANO
 
 const createNomination = async (req, res) => {
   try {
-    console.log("Received nomination request:", req.body);
-    console.log("Received file:", req.file);
+    // Extract form data
+    const {
+      nomineeName,
+      nomineeEmail,
+      categoryIds,
+      instagramUrl,
+      facebookId,
+      xId,
+      youtubeId,
+      paymentId,
+      orderId
+    } = req.body;
 
-    const { nomineeName, nomineeEmail, instagramUrl, facebookId, xId, youtubeId, categoryIds, paymentId, orderId } = req.body;
-    const nomineePhotoFile = req.file;
-
-    // Validate at least one platform ID is provided
-    if (!instagramUrl && !facebookId && !xId && !youtubeId) {
-      return res.status(400).json({ error: "Please provide at least one platform ID (Instagram, Facebook, X, or YouTube)." });
-    }
-
-    if (!nomineeName || !nomineeEmail || !categoryIds) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
-
-    // Ensure categoryIds is an array
-    const parsedCategoryIds = Array.isArray(categoryIds) ? categoryIds : JSON.parse(categoryIds);
-
-    let nomineePhotoUrl = null;
-
-    if (nomineePhotoFile) {
-      const sanitizedEmail = nomineeEmail.replace(/[^a-zA-Z0-9]/g, "_");
-      const fileName = `nominations/${sanitizedEmail}/${Date.now()}-${nomineePhotoFile.originalname}`;
-
-      const { data, error } = await supabase.storage
-        .from("nominees-photos")
-        .upload(fileName, nomineePhotoFile.buffer, {
-          contentType: nomineePhotoFile.mimetype,
-        });
-
-      if (error) {
-        console.error("❌ Supabase Upload Error:", error);
-        return res.status(500).json({ error: "File upload failed" });
-      }
-
-      nomineePhotoUrl = supabase.storage.from("nominees-photos").getPublicUrl(data.path).data.publicUrl;
-      console.log("✅ Generated Public URL:", nomineePhotoUrl);
-    }
-
-    let nomination = await prisma.nomination.findFirst({
-      where: { nomineeEmail },
-      include: { categories: true },
+    // Check if user has already submitted a nomination
+    const existingNomination = await prisma.nomination.findFirst({
+      where: { nomineeEmail: nomineeEmail }
     });
 
-    if (!nomination) {
-      nomination = await prisma.nomination.create({
-        data: {
-          nomineeName,
-          nomineeEmail,
-          nomineePhoto: nomineePhotoUrl,
-          instagramUrl,
-          facebookId,
-          xId,
-          youtubeId,
-          categories: { create: parsedCategoryIds.map(id => ({ category: { connect: { id: parseInt(id) } }})) },
-          payments: {
-            create: {
-              paymentId,
-              orderId,
-              status: "captured",
-              amount: 1, // ₹1
-              currency: "INR",
-            },
-          },
+    if (existingNomination) {
+      return res.status(400).json({ 
+        error: "Nomination limit reached", 
+        message: "You have already submitted a nomination. Only one nomination is allowed per user." 
+      });
+    }
+
+    // Get the file if uploaded
+    let fileUrl = null;
+    if (req.file) {
+      const response = await uploadToSupabase(req.file);
+      fileUrl = response.fileUrl;
+    }
+
+    // Parse category IDs (they come as a JSON string from form data)
+    let parsedCategoryIds;
+    try {
+      parsedCategoryIds = JSON.parse(categoryIds);
+    } catch (error) {
+      console.error("Error parsing categoryIds:", error);
+      return res.status(400).json({ error: "Invalid category IDs format" });
+    }
+
+    // Create the nomination
+    const nomination = await prisma.nomination.create({
+      data: {
+        nomineeName,
+        nomineeEmail,
+        nomineePhoto: fileUrl,
+        instagramUrl,
+        facebookId,
+        xId,
+        youtubeId,
+        // Create category connections
+        categories: {
+          create: parsedCategoryIds.map(categoryId => ({
+            category: { connect: { id: parseInt(categoryId) } }
+          }))
         },
-        include: { categories: true, payments: true },
-      });
-    } else {
-      const existingCategoryIds = nomination.categories.map(c => c.categoryId);
-      const newCategoryIds = parsedCategoryIds.filter(id => !existingCategoryIds.includes(parseInt(id)));
+      },
+    });
 
-      if (newCategoryIds.length === 0) {
-        return res.status(400).json({ error: "Nominee already exists in all selected categories." });
-      }
-
-      await prisma.nominationCategory.createMany({
-        data: newCategoryIds.map(id => ({ nominationId: nomination.id, categoryId: parseInt(id) })),
-      });
-
+    // Create payment record
+    if (paymentId && orderId) {
       await prisma.payment.create({
         data: {
           paymentId,
           orderId,
-          status: "captured",
-          amount: 1, // ₹1
-          currency: "INR",
-          nominationId: nomination.id,
-        },
+          amount: 100, // ₹1 in paise
+          status: "completed",
+          nomination: { connect: { id: nomination.id } }
+        }
       });
     }
 
-    console.log("✅ Nomination saved in DB:", nomination);
-    res.status(201).json({ message: "Nomination submitted successfully", nomination });
+    // Return the created nomination
+    res.status(201).json({
+      message: "Nomination created successfully",
+      nomination
+    });
   } catch (error) {
-    console.error("🔥 Nomination Submission Error:", error);
-    res.status(500).json({ error: "Nomination failed" });
+    console.error("Error creating nomination:", error);
+    res.status(500).json({ error: "Failed to create nomination" });
   }
 };
 
@@ -216,20 +204,35 @@ const fetchUserDetails = async (req, res) => {
 
 const createRazorpayOrder = async (req, res) => {
   try {
-    // Hardcode the amount to ₹1 (100 paise)
-    const amount = 100; // ₹1 in paise (100 paise = ₹1)
-
-    // Create a Razorpay order
-    const order = await razorpayInstance.orders.create({
-      amount: amount,
+    console.log("Creating mock Razorpay order for testing...");
+    
+    // Generate a mock order ID
+    const orderId = `order_${Date.now()}${Math.floor(Math.random() * 1000)}`;
+    
+    // Create a mock order response that mimics Razorpay's response format
+    const mockOrder = {
+      id: orderId,
+      entity: "order",
+      amount: 100,
+      amount_paid: 0,
+      amount_due: 100,
       currency: "INR",
       receipt: `nomination_${Date.now()}`,
-    });
-
-    res.status(200).json(order);
+      status: "created",
+      attempts: 0,
+      created_at: Math.floor(Date.now() / 1000)
+    };
+    
+    console.log("Mock order created successfully:", mockOrder);
+    
+    // Return mock order details
+    res.status(200).json(mockOrder);
   } catch (error) {
-    console.error("Error creating Razorpay order:", error);
-    res.status(500).json({ error: "Failed to create order" });
+    console.error("Error creating mock Razorpay order:", error);
+    res.status(500).json({ 
+      error: "Failed to create order",
+      message: error.message
+    });
   }
 };
 
@@ -304,6 +307,31 @@ const rejectNominee = async (req, res) => {
     res.status(500).json({ error: "Failed to reject nominee." });
   }
 };
+
+const getUserNominations = async (req, res) => {
+  try {
+    const userId = req.user.id; // Get user ID from JWT token
+
+    // Find all nominations submitted by this user based on email
+    const userNominations = await prisma.nomination.findMany({
+      where: { nomineeEmail: req.user.email },
+      include: { 
+        categories: { 
+          select: { 
+            category: { select: { id: true, name: true } } 
+          } 
+        },
+        payments: true 
+      },
+    });
+
+    res.status(200).json(userNominations);
+  } catch (error) {
+    console.error("Error fetching user nominations:", error);
+    res.status(500).json({ error: "Failed to fetch nominations" });
+  }
+};
+
 module.exports = {
   createNomination,
   fetchNominations,
@@ -315,4 +343,5 @@ module.exports = {
   handlePayment,
   getRazorpayKey,
   rejectNominee,
+  getUserNominations,
 };

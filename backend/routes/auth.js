@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getUserProfile, sendOTP,googleAuth } = require('../controllers/authController');
-const authenticateToken = require("../middleware/auth");
+const { registerUser, loginUser, getUserProfile, sendOTP, googleAuth } = require('../controllers/authController');
+const { authenticateToken } = require("../middleware/auth");
 
 // Register route (without image upload)
 router.post('/register', registerUser);

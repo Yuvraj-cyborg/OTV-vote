@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_APP_API_URL || "http://localhost:5000/api"; // Default to localhost if not set
+const API_URL = "http://localhost:5001/api"; // Default to localhost if not set
 // const API_URL = "https://otv-vote.onrender.com/api";
 // const API_URL = "http://localhost:5000/api";
 
@@ -109,12 +109,14 @@ export const fetchCategories = async () => {
   }
 };
 
-export const createRazorpayOrder = async (data) => {
+export const createRazorpayOrder = async () => {
   try {
-    const response = await axios.post(`${API_URL}/nominations/create-order`, data);
+    console.log("Creating Razorpay order...");
+    const response = await axios.post(`${API_URL}/nominations/create-order`);
+    console.log("Order created successfully:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error creating Razorpay order:", error);
+    console.error("Error creating Razorpay order:", error.response?.data || error.message);
     throw error;
   }
 };
@@ -248,4 +250,21 @@ export const loginWithGoogle = async (googleData) => {
     name: googleData.name,
     picture: googleData.picture
   });
+};
+
+export const fetchUserNominations = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User not authenticated");
+
+  try {
+    const response = await axios.get(`${API_URL}/nominations/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user nominations:", error);
+    throw error;
+  }
 };

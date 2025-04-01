@@ -1,11 +1,13 @@
 const express = require("express");
+const { authenticateToken } = require("../middleware/auth");
 const { submitVote, getVotesForCategory } = require("../controllers/voteController");
-const authMiddleware = require("../middleware/auth");
 
 const router = express.Router();
 
-// Submit a vote (protected route)
-router.post("/", authMiddleware, submitVote);
+// Vote submission route (protected)
+router.post("/", authenticateToken, submitVote);
+
+// Get votes by category
 router.get("/:categoryId", getVotesForCategory);
 
 module.exports = router;
