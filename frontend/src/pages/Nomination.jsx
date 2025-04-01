@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { submitNomination, fetchCategories, createRazorpayOrder, fetchRazorpayKey } from "../api";
+import { submitNomination, fetchCategories, createRazorpayOrder, fetchRazorpayKey, fetchUserProfile } from "../api";
 import { Camera, Instagram, Facebook, Twitter, Youtube, User, Mail, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -39,8 +39,9 @@ const NominationPage = () => {
   const [razorpayKey, setRazorpayKey] = useState("");
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
 
-  // Check if user is logged in
+  // Check if user is logged in and get profile
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -48,6 +49,18 @@ const NominationPage = () => {
       navigate("/login", { state: { returnUrl: "/nominate" } });
     } else {
       setIsAuthenticated(true);
+      
+      // Get the user profile to get their email
+      fetchUserProfile()
+        .then(profileData => {
+          console.log("User profile loaded:", profileData);
+          setUserProfile(profileData);
+          setNomineeEmail(profileData.email);
+        })
+        .catch(error => {
+          console.error("Error fetching user profile:", error);
+          toast.error("Failed to load your profile");
+        });
     }
   }, [navigate]);
 
@@ -184,13 +197,18 @@ const NominationPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!photo) {
+      toast.error("Please upload a photo for your nomination");
+      return;
+    }
+
     if (!instagramUrl && !facebookId && !xId && !youtubeId) {
       toast.error("Please provide at least one social media handle");
       return;
     }
 
-    if (!photo || selectedCategories.length === 0) {
-      toast.error("Please upload a photo and select at least one category");
+    if (selectedCategories.length === 0) {
+      toast.error("Please select at least one category");
       return;
     }
 
@@ -199,7 +217,6 @@ const NominationPage = () => {
       return;
     }
 
-    setLoading(true);
     const nominationData = {
       nomineeName,
       nomineeEmail,
@@ -208,11 +225,15 @@ const NominationPage = () => {
       xId,
       youtubeId,
       categoryIds: selectedCategories,
-      photo,
+      photo
     };
 
-    await handlePayment(nominationData);
-    setLoading(false);
+    try {
+      await handlePayment(nominationData);
+    } catch (error) {
+      console.error("Error in nomination submission:", error);
+      toast.error("Failed to submit nomination. Please try again.");
+    }
   };
 
   // If not authenticated, don't render the form at all
@@ -261,16 +282,16 @@ const NominationPage = () => {
                     type="email"
                     id="email"
                     name="email"
-                    required
+                    disabled
                     value={nomineeEmail}
-                    onChange={(e) => setNomineeEmail(e.target.value)}
-                    className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
-                    placeholder="you@example.com"
+                    className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700] opacity-70"
+                    placeholder="Loading your email..."
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
                     <Mail className="h-5 w-5 text-gray-400" />
                   </div>
                 </div>
+                <p className="mt-1 text-sm text-gray-400">Your nomination will use your account email</p>
               </div>
 
               {/* Social Media Handles */}

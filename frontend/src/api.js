@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = import.meta.env.VITE_APP_API_URL || "http://localhost:5000/api"; // Default to localhost if not set
-const API_URL = "https://otv-vote.onrender.com/api";
+const API_URL = "http://localhost:5000/api"; // Default to localhost if not set
+// const API_URL = "https://otv-vote.onrender.com/api";
 
 
 export const registerUser = async (formData) => {
@@ -72,6 +72,22 @@ export async function fetchNominationsWithVotes(categoryId) {
   }
 }
 
+// Add this to your api.js
+export const fetchNominationsByEmail = async (email) => {
+  try {
+    const response = await axios.get(`${API_URL}/nominations/by-email/:email`, {
+      params: { email },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching nominations by email:", error);
+    throw error;
+  }
+};
+
 export const fetchUserProfile = async () => {
   return await axios.get(`${API_URL}/auth/profile`, {
     headers: {
@@ -110,7 +126,17 @@ export const fetchCategories = async () => {
 
 export const createRazorpayOrder = async (data) => {
   try {
-    const response = await axios.post(`${API_URL}/nominations/create-order`, data);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("You must be logged in to create an order");
+    }
+
+    console.log("Creating Razorpay order with token");
+    const response = await axios.post(`${API_URL}/nominations/create-order`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
     console.error("Error creating Razorpay order:", error);
@@ -121,23 +147,30 @@ export const createRazorpayOrder = async (data) => {
 export const submitNomination = async (nominationData) => {
   const formData = new FormData();
   formData.append("nomineeName", nominationData.nomineeName);
-  formData.append("nomineeEmail", nominationData.nomineeEmail);
-  formData.append("instagramUrl", nominationData.instagramUrl);
-  formData.append("facebookId", nominationData.facebookId);
-  formData.append("xId", nominationData.xId);
-  formData.append("youtubeId", nominationData.youtubeId);
-  formData.append("categoryIds", JSON.stringify(nominationData.categoryIds)); // Ensure this is an array
-  formData.append("paymentId", nominationData.paymentId);
-  formData.append("orderId", nominationData.orderId);
+  formData.append("instagramUrl", nominationData.instagramUrl || "");
+  formData.append("facebookId", nominationData.facebookId || "");
+  formData.append("xId", nominationData.xId || "");
+  formData.append("youtubeId", nominationData.youtubeId || "");
+  formData.append("categoryIds", JSON.stringify(nominationData.categoryIds || []));
+  formData.append("paymentId", nominationData.paymentId || "");
+  formData.append("orderId", nominationData.orderId || "");
 
   if (nominationData.photo) {
+    console.log("Including photo in nomination:", nominationData.photo.name);
     formData.append("nomineePhoto", nominationData.photo);
   }
 
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("You must be logged in to submit a nomination");
+  }
+
   try {
+    console.log("Submitting nomination to:", `${API_URL}/nominations/nominate`);
     const response = await axios.post(`${API_URL}/nominations/nominate`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
       },
     });
     return response.data;
@@ -146,6 +179,7 @@ export const submitNomination = async (nominationData) => {
     throw error;
   }
 };
+
 export const approveNominee = async (id) => {
   return await axios.post(`${API_URL}/nominations/${id}/approve`, {}, {
     headers: {
@@ -247,4 +281,28 @@ export const loginWithGoogle = async (googleData) => {
     name: googleData.name,
     picture: googleData.picture
   });
+};
+
+export const fetchUserNominations = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return [];
+
+  try {
+    console.log("Fetching user nominations from endpoint");
+    const response = await axios.get(`${API_URL}/nominations/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
+    console.log("User nominations response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user nominations:", error);
+    if (error.response?.status === 401) {
+      console.error("User not authenticated");
+      // localStorage.removeItem("token");
+    }
+    return [];
+  }
 };
