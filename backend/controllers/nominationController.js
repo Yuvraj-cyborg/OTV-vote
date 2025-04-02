@@ -342,33 +342,26 @@ const fetchUserDetails = async (req, res) => {
 const createRazorpayOrder = async (req, res) => {
   try {
     console.log("Creating Razorpay order for user:", req.user.userId);
-    
-    // Generate a unique order ID
-    const orderId = `order_${Date.now()}${Math.floor(Math.random() * 1000)}`;
-    
-    // Create a mock order response that mimics Razorpay's response format
-    const mockOrder = {
-      id: orderId,
-      entity: "order",
-      amount: 100,
-      amount_paid: 0,
-      amount_due: 100,
+
+    // Hardcode the amount to ₹1 (100 paise)
+    const amount = 100; // ₹1 in paise (100 paise = ₹1)
+
+    // Create an order using Razorpay API
+    const order = await razorpayInstance.orders.create({
+      amount: amount,
       currency: "INR",
       receipt: `nomination_${Date.now()}`,
-      status: "created",
-      attempts: 0,
-      created_at: Math.floor(Date.now() / 1000)
-    };
-    
-    console.log("Order created successfully:", mockOrder);
-    
-    // Return order details
-    res.status(200).json(mockOrder);
+    });
+
+    console.log("Order created successfully:", order);
+
+    // Return the order details
+    res.status(200).json(order);
   } catch (error) {
     console.error("Error creating Razorpay order:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: "Failed to create order",
-      message: error.message
+      message: error.message,
     });
   }
 };

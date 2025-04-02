@@ -121,40 +121,9 @@ const NominationPage = () => {
       // Create a Razorpay order
       const order = await createRazorpayOrder();
       console.log("Order created:", order);
-
-      // In dev environment, we'll simulate a successful payment
-      if (process.env.NODE_ENV === 'development' || !window.Razorpay) {
-        console.log("Using mock payment flow for testing");
-        
-        // Simulate payment processing delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Create mock payment response
-        const mockPaymentResponse = {
-          razorpay_payment_id: `pay_${Date.now()}`,
-          razorpay_order_id: order.id,
-          razorpay_signature: `${Date.now()}_mock_signature`
-        };
-        
-        try {
-          await submitNomination({
-            ...nominationData,
-            paymentId: mockPaymentResponse.razorpay_payment_id,
-            orderId: mockPaymentResponse.razorpay_order_id,
-          });
-          navigate("/nomination-success");
-        } catch (error) {
-          console.error("Error submitting nomination:", error);
-          toast.error("Submission failed. Please contact support.");
-        } finally {
-          setIsProcessingPayment(false);
-        }
-        return;
-      }
-
-      // For production, continue with actual Razorpay flow
+  
       const options = {
-        key: razorpayKey,
+        key: razorpayKey, // Dynamically fetched Razorpay key
         amount: order.amount,
         currency: order.currency,
         order_id: order.id,
@@ -183,7 +152,7 @@ const NominationPage = () => {
           color: "#3399cc",
         },
       };
-
+  
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (error) {
