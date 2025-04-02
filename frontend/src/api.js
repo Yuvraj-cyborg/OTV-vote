@@ -181,11 +181,39 @@ export const submitNomination = async (nominationData) => {
 };
 
 export const approveNominee = async (id) => {
-  return await axios.post(`${API_URL}/nominations/${id}/approve`, {}, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
+  const token = localStorage.getItem("token");
+  
+  if (!token) {
+    console.error("No authentication token found in localStorage");
+    throw new Error("You need to be logged in to perform this action");
+  }
+
+  try {
+    const response = await axios.post(
+      `${API_URL}/nominations/${id}/approve`,
+      {}, // empty body
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error in approveNominee:", {
+      status: error.response?.status,
+      data: error.response?.data,
+      config: error.config
+    });
+    
+    if (error.response?.status === 401) {
+      // Clear invalid token and redirect
+      localStorage.removeItem("token");
+      window.location.href = "/login?redirect=" + encodeURIComponent(window.location.pathname);
+    }
+    throw error;
+  }
 };
 
 export const rejectNominee = async (id) => {

@@ -96,9 +96,28 @@ export default function AdminDashboard() {
   const handleApprove = async (id) => {
     try {
       await approveNominee(id);
-      setNominations(nominations.map((n) => (n.id === id ? { ...n, status: "approved" } : n)));
+      // Update UI optimistically
+      setNominations(nominations.map(n => 
+        n.id === id ? { ...n, status: "approved" } : n
+      ));
     } catch (error) {
-      console.error("Error approving nominee:", error);
+      console.error("Approval failed:", {
+        error: error.message,
+        status: error.response?.status,
+        data: error.response?.data
+      });
+  
+      if (error.response?.status === 401) {
+        // Show a more user-friendly message
+        alert("Your session has expired. Please log in again.");
+        // Optionally redirect to login
+        navigate('/login', { state: { from: location.pathname } });
+      } else {
+        // Show generic error for other cases
+        alert(`Failed to approve nominee: ${error.message}`);
+        // Revert UI change if needed
+        setNominations([...nominations]);
+      }
     }
   };
 
