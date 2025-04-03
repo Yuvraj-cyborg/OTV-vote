@@ -63,7 +63,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-14 md:h-16">
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <img src={otvlogo} alt="Logo" className="h-[9vh] w-[25vh]" />
+              <img src={otvlogo} alt="Logo" className="h-14 w-auto md:h-16 lg:h-16" />
             </Link>
           </div>
 

@@ -1,7 +1,7 @@
-// Sponsors data for the Landing page
 
-// Import the KL University logo
 import klLogo from './assets/kl-logo.png';
+import panasonic from './assets/panasonic.jpg';
+import lalchand from './assets/lalchand.png';
 
 const sponsors = [
   // Platinum Sponsors
@@ -9,7 +9,7 @@ const sponsors = [
     id: 1,
     name: "KL University",
     tier: "platinum",
-    logo: klLogo, // Use the imported image
+    logo: klLogo, 
     website: "https://www.kluniversity.in/"
   },
   // {
@@ -55,14 +55,14 @@ const sponsors = [
     id: 7,
     name: "Lalchand Jwellers",
     tier: "silver",
-    logo: "https://via.placeholder.com/200x100/cccccc/000000?text=Kalinga+Studios",
+    logo: lalchand,
     website: "https://lalchnd.com/"
   },
   {
     id: 8,
     name: "Panasonic",
     tier: "silver",
-    logo: "https://via.placeholder.com/200x100/999999/ffffff?text=Odisha+Bytes",
+    logo: panasonic,
     website: "https://www.panasonic.com/in/"
   },
   // {

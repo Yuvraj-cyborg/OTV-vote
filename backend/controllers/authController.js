@@ -79,19 +79,19 @@ const getUserProfile = async (req, res) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const userProfile = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { userId: req.user.userId },
       select: {
         username: true,
-        email: true,  
+        userId: true,  
       },
     });
 
-    if (!userProfile) {
+    if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.json(userProfile);
+    res.json(user);
   } catch (error) {
     console.error("Profile Fetch Error:", error);
     res.status(500).json({ error: error.message });  
