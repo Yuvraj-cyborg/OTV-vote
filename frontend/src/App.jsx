@@ -29,13 +29,13 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/nominate" element={<NominationPage />} />
         <Route path="/nomination-card/:id" element={<NominationCard />} />
-        <Route path="/about" element={<About />} /> {/* Add About route */}
-        <Route path="/categories" element={<Categories />} /> {/* Add Categories route */}
+        <Route path="/about" element={<About />} /> 
+        <Route path="/categories" element={<Categories />} />
         <Route path="/nomination-success" element={<NominationSuccess />} />
-        <Route path="/about-us" element={<AboutUs />} /> {/* Add new AboutUs route */}
-        <Route path="/contact-us" element={<ContactUs />} /> {/* Add ContactUs route */}
-        <Route path="/terms" element={<Terms />} /> {/* Add Terms route */}
-        <Route path="/price-detail" element={<PriceDetail />} /> {/* Add PriceDetail route */}
+        <Route path="/about-us" element={<AboutUs />} /> 
+        <Route path="/contact-us" element={<ContactUs />} /> 
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/price-detail" element={<PriceDetail />} /> 
       </Routes>
     </Router>
   );
