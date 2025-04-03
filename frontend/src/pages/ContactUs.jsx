@@ -35,7 +35,7 @@ ${formData.message}
     const encodedBody = encodeURIComponent(emailBody);
     
     // Redirect to Gmail compose
-    window.location.href = `https://mail.google.com/mail/?view=cm&fs=1&to=odishatvotv@gmail.com&su=${encodedSubject}&body=${encodedBody}`;
+    window.location.href = `https://mail.google.com/mail/?view=cm&fs=1&to=insight@odishatv.com&su=${encodedSubject}&body=${encodedBody}`;
   };
 
   return (
@@ -59,7 +59,7 @@ ${formData.message}
                   <Mail className="h-6 w-6 text-[#ffb700] mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-white">Email</h3>
-                    <p>odishatvotv@gmail.com</p>
+                    <p>insight@odishatv.com</p>
                   </div>
                 </div>
                 
@@ -87,8 +87,8 @@ ${formData.message}
                   <MessageSquare className="h-6 w-6 text-[#ffb700] mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-white">Social Media</h3>
-                    <p>Twitter: @OTVVote</p>
-                    <p>Instagram: @otvvoteofficial</p>
+                    <p>Facebook: @insightbyotv</p>
+                    <p>Instagram: @insightbyotv</p>
                   </div>
                 </div>
               </div>
