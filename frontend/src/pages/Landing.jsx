@@ -369,8 +369,8 @@ export default function Landing() {
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-400">Email: info@insight2025.com</p>
-              <p className="text-gray-400">Phone: +91 XXXXX XXXXX</p>
+              <p className="text-gray-400">Email: odishatvotv@gmail.com</p>
+              <p className="text-gray-400">Phone: +91 70633 90994</p>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Follow Us</h3>

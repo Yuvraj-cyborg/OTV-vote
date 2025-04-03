@@ -272,63 +272,12 @@ export const fetchProfileDetails = async () => {
 }
 
 export const fetchPhaseState = async () => {
-  // Check if we have the phase cached in sessionStorage and it's not expired
-  const cachedData = sessionStorage.getItem('app_phase_data');
-  if (cachedData) {
-    try {
-      const { phase, timestamp } = JSON.parse(cachedData);
-      // Check if cache is still fresh (less than 5 minutes old)
-      const isFresh = (Date.now() - timestamp) < 5 * 60 * 1000;
-      if (isFresh) {
-        console.log('Using cached phase data');
-        return phase;
-      }
-    } catch (e) {
-      // Invalid cache format, will fetch fresh data
-      console.log('Invalid cache format, fetching fresh data');
-    }
-  }
-
   try {
-    // Set a timeout for the request to prevent long waiting periods
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-    
-    const response = await axios.get(`${API_URL}/phase`, { 
-      signal: controller.signal,
-      // Reduce default timeout from Axios
-      timeout: 5000
-    });
-    
-    clearTimeout(timeoutId);
-    
-    // Cache the result in sessionStorage with timestamp
-    const phaseData = {
-      phase: response.data.phase,
-      timestamp: Date.now()
-    };
-    sessionStorage.setItem('app_phase_data', JSON.stringify(phaseData));
-    
+    const response = await axios.get(`${API_URL}/phase`);
     return response.data.phase; // Returns "nomination" or "voting"
   } catch (error) {
     console.error("Error fetching phase state:", error.response?.data || error.message);
-    
-    // Check if we have an older cached value we can use as fallback
-    const cachedFallback = sessionStorage.getItem('app_phase_data');
-    if (cachedFallback) {
-      try {
-        const { phase } = JSON.parse(cachedFallback);
-        console.log('Using expired cache as fallback');
-        return phase;
-      } catch (e) {
-        // Fallback to a default if all else fails
-        console.log('Using default phase as fallback');
-        return 'nomination'; // Default to nomination phase if everything fails
-      }
-    }
-    
-    // If no cache exists at all, default to nomination
-    return 'nomination';
+    return 'nomination'; // Default to nomination phase if request fails
   }
 };
 

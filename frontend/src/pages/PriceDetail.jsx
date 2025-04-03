@@ -56,7 +56,7 @@ export default function PriceDetail() {
               <div className="border-b border-gray-800 pb-4">
                 <h3 className="font-bold text-white mb-2 text-lg">Is there a refund policy?</h3>
                 <p className="text-gray-300">
-                  <strong>All payments are final and non-refundable</strong> once processed. If you have any issues with your nomination, please contact our support team at support@otvvote.com.
+                  <strong>All payments are final and non-refundable</strong> once processed. If you have any issues with your nomination, please contact our support team at odishatvotv@gmail.com.
                 </p>
               </div>
               
