@@ -1,13 +1,16 @@
 // Sponsors data for the Landing page
 
+// Import the KL University logo
+import klLogo from './assets/kl-logo.png';
+
 const sponsors = [
   // Platinum Sponsors
   {
     id: 1,
-    name: "OTV Network",
+    name: "KL University",
     tier: "platinum",
-    logo: "https://via.placeholder.com/400x200/0099ff/ffffff?text=OTV+Network",
-    website: "https://example.com/otv"
+    logo: klLogo, // Use the imported image
+    website: "https://www.kluniversity.in/"
   },
   {
     id: 2,
