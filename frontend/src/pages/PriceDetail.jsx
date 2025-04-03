@@ -25,7 +25,7 @@ export default function PriceDetail() {
             
             <div className="text-gray-300 space-y-4 max-w-2xl mx-auto">
               <p>
-                A single nomination fee of ₹300 applies to all participants. This fee provides full access to our secure voting platform, complete profile visibility, and eligibility for event participation.
+                A single nomination fee of ₹299 applies to all participants. This fee provides full access to our secure voting platform, complete profile visibility, and eligibility for event participation.
               </p>
               
               <div className="p-4 my-6 border border-yellow-600 rounded-lg bg-yellow-900 bg-opacity-20">
