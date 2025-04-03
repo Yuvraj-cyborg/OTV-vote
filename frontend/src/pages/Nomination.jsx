@@ -64,7 +64,6 @@ const NominationPage = () => {
     }
   }, [navigate]);
 
-  // Fetch categories and Razorpay key
   useEffect(() => {
     async function loadCategories() {
       try {
@@ -118,12 +117,11 @@ const NominationPage = () => {
     setIsProcessingPayment(true);
     try {
       console.log("Creating order...");
-      // Create a Razorpay order
       const order = await createRazorpayOrder();
       console.log("Order created:", order);
   
       const options = {
-        key: razorpayKey, // Dynamically fetched Razorpay key
+        key: razorpayKey, 
         amount: order.amount,
         currency: order.currency,
         order_id: order.id,

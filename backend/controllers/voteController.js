@@ -4,16 +4,13 @@ const prisma = new PrismaClient();
 
 const submitVote = async (req, res) => {
   try {
-    console.log("Received vote request:", req.body); // Debugging step
-
     const { nominationId, categoryId } = req.body;
-    const userId = req.user?.id; // Ensure user is authenticated
+    const userId = req.user?.id; 
 
     if (!nominationId || !categoryId) {
       return res.status(400).json({ message: "Nomination ID and Category ID are required." });
     }
 
-    // Check if user has already voted in this category
     const existingVote = await prisma.vote.findFirst({
       where: { userId, categoryId },
     });
@@ -22,7 +19,6 @@ const submitVote = async (req, res) => {
       return res.status(400).json({ message: "You have already voted in this category!" });
     }
 
-    // Create the vote
     await prisma.vote.create({
       data: { userId, nominationId, categoryId },
     });

@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const fetchCategories = async (req, res) => {
   try {
-    const categories = await prisma.category.findMany(); // Ensure you have a 'category' table
+    const categories = await prisma.category.findMany(); 
     res.status(200).json(categories);
   } catch (error) {
     console.error("🔥 Error fetching categories:", error);
