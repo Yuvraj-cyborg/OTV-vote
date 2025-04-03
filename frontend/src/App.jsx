@@ -11,6 +11,10 @@ import NominationCard from "./components/NomineeCard";
 import About from "./pages/About"; // Import the About component
 import Categories from "./pages/Categories"; // Import the Categories component
 import NominationSuccess from "./pages/NominationSuccess";
+import AboutUs from "./pages/AboutUs"; // Import the new AboutUs component
+import ContactUs from "./pages/ContactUs"; // Import the ContactUs component
+import Terms from "./pages/Terms"; // Import the Terms component
+import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail component
 
 export default function App() {
   return (
@@ -28,6 +32,10 @@ export default function App() {
         <Route path="/about" element={<About />} /> {/* Add About route */}
         <Route path="/categories" element={<Categories />} /> {/* Add Categories route */}
         <Route path="/nomination-success" element={<NominationSuccess />} />
+        <Route path="/about-us" element={<AboutUs />} /> {/* Add new AboutUs route */}
+        <Route path="/contact-us" element={<ContactUs />} /> {/* Add ContactUs route */}
+        <Route path="/terms" element={<Terms />} /> {/* Add Terms route */}
+        <Route path="/price-detail" element={<PriceDetail />} /> {/* Add PriceDetail route */}
       </Routes>
     </Router>
   );

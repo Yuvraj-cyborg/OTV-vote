@@ -19,10 +19,13 @@ import {
   Calendar,
   MapPin,
   Loader,
+  ExternalLink
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import SponsorCarousel from "../components/SponsorCaraousel";
 import { fetchPhaseState } from "../api";
+import guests from "../guests";
+import sponsors from "../sponsors";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -180,6 +183,120 @@ export default function Landing() {
         </div>
       </section>
       
+      {/* Guests Section */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">DISTINGUISHED</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              GUESTS & SPEAKERS
+            </span>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {guests.map((guest) => (
+              <div key={guest.id} className="bg-gray-900 rounded-xl overflow-hidden group">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={guest.image}
+                    alt={guest.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-1">{guest.name}</h3>
+                  <p className="text-[#ffb700] text-sm mb-4">{guest.designation}</p>
+                  <p className="text-gray-300 text-sm line-clamp-3">{guest.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sponsors Section */}
+      <section className="py-20 bg-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">OUR</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              SPONSORS
+            </span>
+          </h2>
+
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "platinum")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Gold Sponsors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "gold")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-4 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
+                  >
+                    <div className="relative w-full h-24 mb-3">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-base">{sponsor.name}</h4>
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "silver")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-3 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
+                  >
+                    <div className="relative w-full h-16 mb-2">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-sm">{sponsor.name}</h4>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Why Nominate Section */}
       <section className="py-20 bg-black">

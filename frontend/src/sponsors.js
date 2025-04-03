@@ -1,0 +1,95 @@
+// Sponsors data for the Landing page
+
+const sponsors = [
+  // Platinum Sponsors
+  {
+    id: 1,
+    name: "OTV Network",
+    tier: "platinum",
+    logo: "https://via.placeholder.com/400x200/0099ff/ffffff?text=OTV+Network",
+    website: "https://example.com/otv"
+  },
+  {
+    id: 2,
+    name: "Odisha Tourism",
+    tier: "platinum",
+    logo: "https://via.placeholder.com/400x200/00ccff/ffffff?text=Odisha+Tourism",
+    website: "https://example.com/odishatourism"
+  },
+  
+  // Gold Sponsors
+  {
+    id: 3,
+    name: "Tech Odisha",
+    tier: "gold",
+    logo: "https://via.placeholder.com/300x150/ffcc00/000000?text=Tech+Odisha",
+    website: "https://example.com/techodisha"
+  },
+  {
+    id: 4,
+    name: "Eastern Media",
+    tier: "gold",
+    logo: "https://via.placeholder.com/300x150/ff9900/ffffff?text=Eastern+Media",
+    website: "https://example.com/easternmedia"
+  },
+  {
+    id: 5,
+    name: "BhubaneshwarOne",
+    tier: "gold",
+    logo: "https://via.placeholder.com/300x150/cc6600/ffffff?text=BhubaneshwarOne",
+    website: "https://example.com/bhubaneswharOne"
+  },
+  {
+    id: 6,
+    name: "Coastal Creators",
+    tier: "gold",
+    logo: "https://via.placeholder.com/300x150/996633/ffffff?text=Coastal+Creators",
+    website: "https://example.com/coastalcreators"
+  },
+  
+  // Silver Sponsors
+  {
+    id: 7,
+    name: "Kalinga Studios",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/cccccc/000000?text=Kalinga+Studios",
+    website: "https://example.com/kalinga"
+  },
+  {
+    id: 8,
+    name: "Odisha Bytes",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/999999/ffffff?text=Odisha+Bytes",
+    website: "https://example.com/odishabytes"
+  },
+  {
+    id: 9,
+    name: "City 360",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/666666/ffffff?text=City+360",
+    website: "https://example.com/city360"
+  },
+  {
+    id: 10,
+    name: "Digital Odisha",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/333333/ffffff?text=Digital+Odisha",
+    website: "https://example.com/digitalodisha"
+  },
+  {
+    id: 11,
+    name: "Creative Commons",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/000000/ffffff?text=Creative+Commons",
+    website: "https://example.com/creativecommons"
+  },
+  {
+    id: 12,
+    name: "Tech Hub",
+    tier: "silver",
+    logo: "https://via.placeholder.com/200x100/663399/ffffff?text=Tech+Hub",
+    website: "https://example.com/techhub"
+  }
+];
+
+export default sponsors;
