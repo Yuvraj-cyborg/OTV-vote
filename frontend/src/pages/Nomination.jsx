@@ -52,10 +52,11 @@ const NominationPage = () => {
       
       // Get the user profile to get their email
       fetchUserProfile()
-        .then(profileData => {
+        .then(response => {
+          const profileData = response.data;
           console.log("User profile loaded:", profileData);
           setUserProfile(profileData);
-          setNomineeEmail(profileData.email);
+          setNomineeEmail(profileData.userId);
         })
         .catch(error => {
           console.error("Error fetching user profile:", error);
@@ -252,7 +253,7 @@ const NominationPage = () => {
                     disabled
                     value={nomineeEmail}
                     className="w-full px-12 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700] opacity-70"
-                    placeholder="Loading your email..."
+                    placeholder={nomineeEmail || "Loading your email address..."}
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
                     <Mail className="h-5 w-5 text-gray-400" />
