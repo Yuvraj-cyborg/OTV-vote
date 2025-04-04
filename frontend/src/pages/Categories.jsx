@@ -189,13 +189,13 @@ const [phaseState, setPhaseState] = useState({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}>
           {categories.map((category, index) => (
             <div 
               key={index}
               className="bg-gray-900 rounded-xl p-6 border border-gray-800 hover:border-[#ffb700] transition-all duration-300 group"
             >
-              <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4" >
                 <div className="p-3 bg-gray-800 rounded-lg text-[#ffb700] group-hover:bg-[#ffb700] group-hover:text-black transition-colors">
                   <category.icon className="h-6 w-6" />
                 </div>
