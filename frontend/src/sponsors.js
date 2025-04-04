@@ -2,7 +2,7 @@
 import klLogo from './assets/kl-logo.png';
 import panasonic from './assets/panasonic.jpg';
 import lalchand from './assets/lalchand.png';
-import dion from './assets/dion.jpg';
+import dion from './assets/Dion.jpg';
 
 const sponsors = [
   // Platinum Sponsors
