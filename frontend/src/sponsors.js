@@ -54,7 +54,7 @@ const sponsors = [
   // Silver Sponsors
   {
     id: 7,
-    name: "Lalchand Jwellers",
+    name: "Lalchnd Jewellers",
     tier: "silver",
     logo: lalchand,
     website: "https://lalchnd.com/"
