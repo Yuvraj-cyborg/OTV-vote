@@ -90,7 +90,7 @@ export default function PrivacyPolicy() {
                 <a href="mailto:odishatvotv@gmail.com" className="hover:underline">odishatvotv@gmail.com</a>
               </p>
               <p className="mt-4 text-sm text-gray-400">
-                <em>Last updated: June 2024</em>
+                <em>Last updated: June 2025</em>
               </p>
             </div>
           </div>

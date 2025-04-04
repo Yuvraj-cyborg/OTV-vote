@@ -452,7 +452,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-            <p className="text-gray-400">&copy; {new Date().getFullYear()} INSIGHT 2025. All rights reserved. Powered by OTV.</p>
+            <p className="text-gray-400">&copy; {new Date().getFullYear()} INSIGHT 2025. All rights reserved. Powered by ODISHA TELEVISION LIMITED.</p>
           </div>
         </div>
       </footer>
