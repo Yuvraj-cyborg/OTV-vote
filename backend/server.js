@@ -6,17 +6,17 @@ const authRoutes = require("./routes/auth");
 const pollRoutes = require("./routes/polls");
 const voteRoutes = require("./routes/votes");
 const nominationRoutes = require("./routes/nomination");
-const categoryRoutes = require("./routes/category"); // Import category routes
+const categoryRoutes = require("./routes/category");
 const adminRoutes = require('./routes/admin');
-
 
 const app = express();
 
-// Middleware
-app.use(cors({ 
-  origin: ['http://localhost:5173','https://otv-vote.vercel.app','https://otvinsight.com','https://admin.otvinsight.com','https://www.otvinsight.com'],
+// Allow all origins
+app.use(cors({
+  origin: '*',
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
