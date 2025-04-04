@@ -1,7 +1,8 @@
 {
-    "rewrites": [
-      { "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
-        "destination": "/index.html" 
-      }
-    ]
-  }
+  "rewrites": [
+    { 
+      "source": "(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
+      "destination": "/index.html"
+    }
+  ]
+}
