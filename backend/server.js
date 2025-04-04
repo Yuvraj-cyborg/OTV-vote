@@ -1,8 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const { PrismaClient } = require('@prisma/client');
 
+// Create Express app
 const app = express();
+const prisma = new PrismaClient();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ✅ Allow all origins
 app.use(cors({ origin: "*", credentials: true }));
@@ -18,6 +25,21 @@ app.use(cors({
   ],
   credentials: true
 }));
+
+// Import routes
+const authRoutes = require('./routes/auth');
+const nominationRoutes = require('./routes/nomination');
+const adminRoutes = require('./routes/admin');
+const categoryRoutes = require('./routes/category');
+const voteRoutes = require('./routes/votes');
+
+// Register routes
+app.use('/api/auth', authRoutes);
+app.use('/api/nominations', nominationRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/votes', voteRoutes);
+app.use('/api', adminRoutes);
 
 // ✅ Set CORS headers manually (important for static files)
 app.use((req, res, next) => {

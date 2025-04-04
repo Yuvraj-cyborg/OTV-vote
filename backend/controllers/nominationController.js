@@ -330,7 +330,7 @@ const createRazorpayOrder = async (req, res) => {
 const handlePayment = async (nominationData) => {
   try {
     // Hardcode the amount to ₹1 (100 paise)
-    const amount = 100; // ₹1 in paise (100 paise = ₹1)
+    const amount = 29900; // ₹1 in paise (100 paise = ₹1)
 
     // Create a Razorpay order
     const order = await createRazorpayOrder({

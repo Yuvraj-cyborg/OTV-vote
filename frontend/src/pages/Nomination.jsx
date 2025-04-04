@@ -446,7 +446,7 @@ const NominationPage = () => {
 
               {/* Payment Amount */}
               <div className="text-center py-4">
-                <p className="text-lg font-medium text-white">Payment Amount: <span className="text-[#ffb700]">₹1</span></p>
+                <p className="text-lg font-medium text-white">Payment Amount: <span className="text-[#ffb700]">₹299</span></p>
                 <p className="text-sm text-gray-400 mt-1">Nomination fee to verify your submission</p>
               </div>
 
