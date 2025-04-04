@@ -1,35 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/((?!admin).*)",
+      "source": "/:path*",
       "destination": "/index.html"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/admin(.*)",
-      "dest": "/index.html",
-      "headers": {
-        "WWW-Authenticate": "Basic"
-      },
-      "continue": true
-    },
-    {
-      "src": "/admin(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "Authorization",
-          "value": "Basic YWRtaW5Ab2Rpc2hhdHYuaW46T2Rpc2hhdHZAcGFzc3dvcmQ="
-        }
-      ],
-      "dest": "/index.html",
-      "continue": true
-    },
-    {
-      "src": "/admin(.*)",
-      "status": 401,
-      "dest": "/login"
     }
   ]
 }
