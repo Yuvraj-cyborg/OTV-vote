@@ -15,6 +15,7 @@ import AboutUs from "./pages/AboutUs"; // Import the new AboutUs component
 import ContactUs from "./pages/ContactUs"; // Import the ContactUs component
 import Terms from "./pages/Terms"; // Import the Terms component
 import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail component
+import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/contact-us" element={<ContactUs />} /> 
         <Route path="/terms" element={<Terms />} />
         <Route path="/price-detail" element={<PriceDetail />} /> 
+        <Route path="/refund-policy" element={<RefundPolicy />} />
       </Routes>
     </Router>
   );

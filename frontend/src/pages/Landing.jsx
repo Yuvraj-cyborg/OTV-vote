@@ -408,6 +408,11 @@ export default function Landing() {
                     Price Details
                   </a>
                 </li>
+                <li>
+                  <a href="/refund-policy" className="text-gray-400 hover:text-[#ffb700] transition duration-300">
+                    Refund Policy
+                  </a>
+                </li>
               </ul>
             </div>
             <div>

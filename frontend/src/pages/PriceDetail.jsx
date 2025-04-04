@@ -18,7 +18,7 @@ export default function PriceDetail() {
             </h2>
             
             <div className="text-center mb-8">
-              <p className="text-5xl font-bold text-white mb-2">₹300</p>
+              <p className="text-5xl font-bold text-white mb-2">299</p>
               <p className="text-gray-400">per nomination</p>
             </div>
             
@@ -35,7 +35,7 @@ export default function PriceDetail() {
               </div>
               
               <p>
-                Participants may enter multiple categories, but each category nomination requires a separate payment of ₹300.
+                Participants may enter multiple categories, but each category nomination requires a separate payment of ₹299.
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function PriceDetail() {
               <div className="border-b border-gray-800 pb-4">
                 <h3 className="font-bold text-white mb-2 text-lg">When will I be charged?</h3>
                 <p className="text-gray-300">
-                  Your payment of ₹300 will be processed immediately upon submission of your nomination. You will receive an email receipt for confirmation.
+                  Your payment of ₹299 will be processed immediately upon submission of your nomination. You will receive an email receipt for confirmation.
                 </p>
               </div>
               
@@ -68,7 +68,7 @@ export default function PriceDetail() {
               <div className="border-b border-gray-800 pb-4">
                 <h3 className="font-bold text-white mb-2 text-lg">Can I nominate in multiple categories?</h3>
                 <p className="text-gray-300">
-                  Yes, you can submit nominations for multiple categories, but each nomination requires a separate payment of ₹300.
+                  Yes, you can submit nominations for multiple categories, but each nomination requires a separate payment of ₹299.
                 </p>
               </div>
               
