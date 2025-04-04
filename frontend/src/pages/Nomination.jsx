@@ -463,7 +463,7 @@ const NominationPage = () => {
                       Processing...
                     </span>
                   ) : (
-                    "Proceed to Payment (₹1)"
+                    "Proceed to Payment (₹299)"
                   )}
                 </button>
               </div>
