@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware
 app.use(cors({ 
-  origin: ['http://localhost:5173','https://otv-vote.vercel.app'],
+  origin: ['http://localhost:5173','https://otv-vote.vercel.app','https://otvinsight.com','https://admin.otvinsight.com','https://www.otvinsight.com'],
   credentials: true
 }));
 app.use(express.json());
