@@ -17,6 +17,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Check if user is trying to log in with admin credentials
+    if (userId === "admin@odishatv.in") {
+      toast.info("Please use the admin login page");
+      navigate("/admin-login");
+      return;
+    }
+    
     const loginToast = toast.loading("Signing in...");
     
     try {

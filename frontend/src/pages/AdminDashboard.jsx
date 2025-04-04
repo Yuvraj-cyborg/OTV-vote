@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   fetchCategories,
   fetchNominationsWithVotes,
@@ -16,9 +17,12 @@ import {
   ToggleRight,
   List,
   Grid,
+  LogOut
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
@@ -29,6 +33,23 @@ export default function AdminDashboard() {
   const [sortBy, setSortBy] = useState("name");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Check if admin is logged in
+  useEffect(() => {
+    const adminToken = localStorage.getItem("adminToken");
+    const isValidAdmin = adminToken === btoa("admin@odishatv.in:Odishatv@password");
+    
+    if (!isValidAdmin) {
+      toast.error("Admin authentication required");
+      navigate("/admin-login");
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    toast.success("Logged out successfully");
+    navigate("/admin-login");
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -189,12 +210,19 @@ export default function AdminDashboard() {
   
         <div className="flex-1 p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+            <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">Admin Dashboard</h1>
                 <p className="text-gray-400 text-sm md:text-base">Manage nominations and track voting progress</p>
               </div>
               <div className="flex items-center gap-3">
+                <button 
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm"
+                >
+                  <LogOut size={16} />
+                  Logout
+                </button>
                 <span className={`text-xs md:text-sm font-medium ${isVotingPhase ? "text-gray-500" : "text-[#ffb700]"}`}>
                   Nomination
                 </span>

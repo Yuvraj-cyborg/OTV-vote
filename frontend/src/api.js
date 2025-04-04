@@ -278,19 +278,30 @@ export const fetchProfileDetails = async () => {
 export const fetchPhaseState = async () => {
   try {
     const response = await axios.get(`${API_URL}/phase`);
-    return response.data.phase; // Returns "nomination" or "voting"
+    console.log('Phase state:', response.data);
+    return response.data.phase;
   } catch (error) {
-    console.error("Error fetching phase state:", error.response?.data || error.message);
-    return 'nomination'; // Default to nomination phase if request fails
+    console.error('Error fetching phase state:', error.response?.data || error.message);
+    return 'nomination'; // Default to nomination phase if there's an error
   }
 };
 
 export const togglePhaseState = async () => {
   try {
-    const response = await axios.post(`${API_URL}/phase/toggle`);
-    return response.data.phase; // Returns the updated phase
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      throw new Error("Admin authentication required");
+    }
+
+    const response = await axios.post(`${API_URL}/phase/toggle`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log('Phase toggled:', response.data);
+    return response.data.phase;
   } catch (error) {
-    console.error("Error toggling phase:", error.response?.data || error.message);
+    console.error('Error toggling phase state:', error.response?.data || error.message);
     throw error;
   }
 };

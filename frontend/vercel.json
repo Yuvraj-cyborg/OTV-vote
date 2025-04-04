@@ -1,39 +1,35 @@
 {
-  "redirects": [],
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.otvinsight.com"
-        }
-      ]
-    },
-    {
-      "source": "/:path*",
-      "destination": "/index.html",
-      "has": [
-        {
-          "type": "host",
-          "value": "otvinsight.com"
-        }
-      ]
-    },
-    {
-      "source": "/admin/:path*",
-      "destination": "/admin/index.html",
-      "has": [
-        {
-          "type": "host",
-          "value": "admin.otvinsight.com"
-        }
-      ]
-    },
-    {
-      "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy|privacy-policy)",
+      "source": "/((?!admin).*)",
       "destination": "/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/admin(.*)",
+      "dest": "/index.html",
+      "headers": {
+        "WWW-Authenticate": "Basic"
+      },
+      "continue": true
+    },
+    {
+      "src": "/admin(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "Authorization",
+          "value": "Basic YWRtaW5Ab2Rpc2hhdHYuaW46T2Rpc2hhdHZAcGFzc3dvcmQ="
+        }
+      ],
+      "dest": "/index.html",
+      "continue": true
+    },
+    {
+      "src": "/admin(.*)",
+      "status": 401,
+      "dest": "/login"
     }
   ]
 }

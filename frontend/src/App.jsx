@@ -1,9 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminLogin from "./pages/AdminLogin";
 import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import NominationPage from "./pages/Nomination";
@@ -18,6 +20,21 @@ import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail compone
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
 
+// Protected Route component
+const ProtectedAdminRoute = ({ children }) => {
+  const adminToken = localStorage.getItem("adminToken");
+  
+  // Check if the token is valid (matches our specific admin credentials)
+  const isValidAdmin = adminToken === btoa("admin@odishatv.in:Odishatv@password");
+  
+  if (!isValidAdmin) {
+    // Redirect to admin login if not authenticated
+    return <Navigate to="/admin-login" replace />;
+  }
+  
+  return children;
+};
+
 export default function App() {
   // No longer need subdomain checking - we're redirecting at the Vercel level
   return (
@@ -27,7 +44,15 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          } 
+        />
         <Route path="/vote" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/nominate" element={<NominationPage />} />
