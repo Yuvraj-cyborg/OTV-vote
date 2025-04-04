@@ -2,6 +2,7 @@
 import klLogo from './assets/kl-logo.png';
 import panasonic from './assets/panasonic.jpg';
 import lalchand from './assets/lalchand.png';
+import dion from './assets/dion.jpg';
 
 const sponsors = [
   // Platinum Sponsors
@@ -12,13 +13,13 @@ const sponsors = [
     logo: klLogo, 
     website: "https://www.kluniversity.in/"
   },
-  // {
-  //   id: 2,
-  //   name: "Odisha Tourism",
-  //   tier: "platinum",
-  //   logo: "https://via.placeholder.com/400x200/00ccff/ffffff?text=Odisha+Tourism",
-  //   website: "https://example.com/odishatourism"
-  // },
+  {
+    id: 2,
+    name: "Dion",
+    tier: "platinum",
+    logo: dion,
+    website: "https://diongroup.in/"
+  },
   
   // // Gold Sponsors
   // {

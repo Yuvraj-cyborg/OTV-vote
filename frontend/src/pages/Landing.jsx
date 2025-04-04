@@ -241,80 +241,57 @@ export default function Landing() {
             </span>
           </h2>
 
+          {/* Platinum Sponsors */}
           <div className="mb-16">
-  <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
-  <div className="flex justify-center">
-    <div className="grid grid-cols-1 gap-8 max-w-4xl">
-      {sponsors
-        .filter((sponsor) => sponsor.tier === "platinum")
-        .map((sponsor) => (
-          <a
-            key={sponsor.id}
-            href={sponsor.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
-          >
-            <div className="relative w-full h-32 mb-4">
-              <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
-            </div>
-            <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
-            <div className="flex items-center text-[#ffb700] text-sm">
-              Visit Website <ExternalLink className="ml-1 h-3 w-3" />
-            </div>
-          </a>
-        ))}
-    </div>
-  </div>
-</div>
-          {/* <div className="mb-16">
-            <h3 className="text-2xl font-bold text-white text-center mb-8">Gold Sponsors</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
               {sponsors
-                .filter((sponsor) => sponsor.tier === "gold")
+                .filter((sponsor) => sponsor.tier === "platinum")
                 .map((sponsor) => (
                   <a
                     key={sponsor.id}
                     href={sponsor.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gray-900 p-4 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
                   >
-                    <div className="relative w-full h-24 mb-3">
+                    <div className="relative w-full h-32 mb-4">
                       <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
                     </div>
-                    <h4 className="text-white font-bold text-base">{sponsor.name}</h4>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
                   </a>
                 ))}
             </div>
-          </div> */}
+          </div>
 
-<div>
-  <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
-  <div className="flex justify-center">
-    <div className="grid grid-cols-2 gap-8 max-w-4xl">
-      {sponsors
-        .filter((sponsor) => sponsor.tier === "silver")
-        .map((sponsor) => (
-          <a
-            key={sponsor.id}
-            href={sponsor.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105"
-          >
-            <div className="relative w-full h-32 mb-4">
-              <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+          {/* Silver Sponsors */}
+          <div>
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "silver")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
             </div>
-            <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
-            <div className="flex items-center text-[#ffb700] text-sm">
-              Visit Website <ExternalLink className="ml-1 h-3 w-3" />
-            </div>
-          </a>
-        ))}
-    </div>
-  </div>
-</div>
+          </div>
         </div>
       </section>
 
