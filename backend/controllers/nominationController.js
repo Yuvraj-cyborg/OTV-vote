@@ -147,12 +147,13 @@ const createNomination = async (req, res) => {
         data: {
           paymentId,
           orderId,
-          amount: 100, // ₹1 in paise
-          status: "completed",
-          currency: "INR",
-          nomination: { connect: { id: nomination.id } }
-        }
+          nominationId: nomination.id,
+          amount: 29900, // ₹299 in paise
+          currency: "INR", // Required field
+          status: "completed"
+        },
       });
+      console.log(`Payment record created for nomination ${nomination.id}`);
     }
 
     // Return the created nomination with categories
@@ -293,20 +294,33 @@ const fetchUserDetails = async (req, res) => {
 
 const createRazorpayOrder = async (req, res) => {
   try {
-    // Hardcode the amount to ₹1 (100 paise)
-    const amount = 100; // ₹1 in paise (100 paise = ₹1)
+    console.log("Creating Razorpay order, authenticated user:", req.user?.userId);
+    
+    // Get the authenticated user
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    // Set nomination fee amount (299 rupees in paise)
+    const amount = 29900; // ₹299 in paise (100 paise = ₹1)
 
     // Create an order using Razorpay API
     const order = await razorpayInstance.orders.create({
       amount: amount,
       currency: "INR",
       receipt: `nomination_${Date.now()}`,
+      notes: {
+        userId: req.user.userId
+      }
     });
 
+    console.log("Razorpay order created:", order.id);
+
     // Return the order details
-    res.status(200).json(order);
+    return res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({
+    console.error("Error creating Razorpay order:", error);
+    return res.status(500).json({
       error: "Failed to create order",
       message: error.message,
     });

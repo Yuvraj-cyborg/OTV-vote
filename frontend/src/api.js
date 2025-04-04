@@ -124,19 +124,23 @@ export const fetchCategories = async () => {
   }
 };
 
-export const createRazorpayOrder = async (data) => {
+export const createRazorpayOrder = async () => {
   try {
+    // Get the authentication token
     const token = localStorage.getItem("token");
     if (!token) {
       throw new Error("You must be logged in to create an order");
     }
 
     console.log("Creating Razorpay order with token");
-    const response = await axios.post(`${API_URL}/nominations/create-order`, data, {
+    const response = await axios.post(`${API_URL}/nominations/create-order`, {}, {
       headers: {
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       }
     });
+    
+    console.log("Razorpay order created:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error creating Razorpay order:", error);

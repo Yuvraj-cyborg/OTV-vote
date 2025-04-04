@@ -1,18 +1,36 @@
 {
-  "redirects": [
+  "redirects": [],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/index.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.otvinsight.com"
+        }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html",
+      "has": [
+        {
+          "type": "host",
+          "value": "otvinsight.com"
+        }
+      ]
+    },
     {
       "source": "/admin/:path*",
-      "destination": "https://otvinsight.com/admin/:path*",
-      "permanent": false,
+      "destination": "/admin/index.html",
       "has": [
         {
           "type": "host",
           "value": "admin.otvinsight.com"
         }
       ]
-    }
-  ],
-  "rewrites": [
+    },
     {
       "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy|privacy-policy)",
       "destination": "/index.html"

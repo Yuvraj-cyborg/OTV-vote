@@ -118,46 +118,81 @@ const NominationPage = () => {
     setIsProcessingPayment(true);
     try {
       console.log("Creating order...");
+      
+      // Create a Razorpay order - this should include the token in the request headers
       const order = await createRazorpayOrder();
       console.log("Order created:", order);
   
+      // Configure Razorpay options
       const options = {
         key: razorpayKey, 
         amount: order.amount,
         currency: order.currency,
         order_id: order.id,
-        name: "Nomination Payment",
-        description: "Payment for nomination submission",
+        name: "OTV Vote Nomination",
+        description: "Payment for influencer nomination (₹299)",
+        image: "https://otv-vote.onrender.com/logo.png", // Optional: Add your logo
         handler: async (response) => {
           try {
+            console.log("Payment successful. Submitting nomination...");
+            toast.success("Payment successful!");
+            
+            // Now submit the nomination with payment details
             await submitNomination({
               ...nominationData,
               paymentId: response.razorpay_payment_id,
               orderId: response.razorpay_order_id,
             });
+            
+            toast.success("Nomination submitted successfully!");
             navigate("/nomination-success");
           } catch (error) {
             console.error("Error submitting nomination:", error);
-            toast.error("Submission failed. Please contact support.");
+            toast.error("Payment was successful, but submission failed. Please contact support with your payment ID: " + response.razorpay_payment_id);
           } finally {
             setIsProcessingPayment(false);
           }
         },
         prefill: {
           name: nominationData.nomineeName,
-          email: nominationData.nomineeEmail,
+          email: userProfile?.userId || "",
+          contact: "" // Optional: Add phone number if available
         },
         theme: {
-          color: "#3399cc",
+          color: "#ffb700",
         },
+        modal: {
+          ondismiss: function() {
+            setIsProcessingPayment(false);
+            toast.error("Payment cancelled. Please try again.");
+          }
+        }
       };
   
+      // Initialize Razorpay
       const rzp = new window.Razorpay(options);
+      
+      // Handle Razorpay internal errors
+      rzp.on('payment.failed', function(response) {
+        setIsProcessingPayment(false);
+        console.error("Payment failed:", response.error);
+        toast.error(`Payment failed: ${response.error.description}`);
+      });
+      
+      // Open Razorpay payment dialog
       rzp.open();
     } catch (error) {
       console.error("Error in payment process:", error);
-      toast.error("Payment failed. Please try again.");
       setIsProcessingPayment(false);
+      
+      // Show appropriate error message
+      if (error.response?.status === 401) {
+        toast.error("Authentication error. Please log in again.");
+        localStorage.removeItem("token");
+        navigate("/login", { state: { returnUrl: "/nominate" } });
+      } else {
+        toast.error("Payment initialization failed. Please try again.");
+      }
     }
   };
 
