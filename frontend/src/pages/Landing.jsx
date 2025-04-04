@@ -193,7 +193,7 @@ export default function Landing() {
       </section>
       
       {/* Guests Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      {/* <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
             <span className="text-white">DISTINGUISHED</span>
@@ -228,7 +228,7 @@ export default function Landing() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Sponsors Section */}
       <section className="py-20 bg-black">
