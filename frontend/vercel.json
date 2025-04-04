@@ -1,22 +1,18 @@
 {
   "rewrites": [
     {
-      "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
+      "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy|admin)", 
       "destination": "/index.html" 
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
-          "value": "admin.*"
+          "value": "admin.otvinsight.com"
         }
       ],
-      "destination": "/index.html"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
+      "destination": "/admin"
     }
   ]
 }
