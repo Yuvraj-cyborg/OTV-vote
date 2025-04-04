@@ -14,7 +14,7 @@
   ],
   "rewrites": [
     { 
-      "source": "/(admin|nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
+      "source": "/(admin|nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy|privacy-policy)", 
       "destination": "/index.html" 
     }
   ]

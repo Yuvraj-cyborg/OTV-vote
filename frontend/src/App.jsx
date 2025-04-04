@@ -16,6 +16,7 @@ import ContactUs from "./pages/ContactUs"; // Import the ContactUs component
 import Terms from "./pages/Terms"; // Import the Terms component
 import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail component
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
+import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
 
 export default function App() {
   // No longer need subdomain checking - we're redirecting at the Vercel level
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/price-detail" element={<PriceDetail />} /> 
         <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       </Routes>
     </Router>
   );
