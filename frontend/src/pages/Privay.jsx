@@ -87,7 +87,7 @@ export default function PrivacyPolicy() {
               </p>
               <p className="flex items-center text-[#ffb700]">
                 <Mail className="h-5 w-5 mr-2" />
-                <a href="mailto:privacy@insightodisha.com" className="hover:underline">privacy@insightodisha.com</a>
+                <a href="mailto:odishatvotv@gmail.com" className="hover:underline">odishatvotv@gmail.com</a>
               </p>
               <p className="mt-4 text-sm text-gray-400">
                 <em>Last updated: June 2024</em>
