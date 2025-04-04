@@ -97,11 +97,20 @@ export default function Landing() {
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white mb-8">
         <div className="flex items-center">
           <Calendar className="h-5 w-5 text-[#ffb700]" />
-          <span className="text-xl font-bold ml-2">COMING SOON</span>
+          <span className="text-xl ml-2">3rd MAY 2025</span>
         </div>
+        <div className="hidden sm:block">•</div>
         <div className="flex items-center">
           <MapPin className="h-5 w-5 text-[#ffb700]" />
-          <span className="ml-2">BHUBANESHWAR, ODISHA</span>
+          <span className="ml-2">SWOSTI PREMIUM, BHUBANESWAR</span>
+        </div>
+        <div className="hidden sm:block">•</div>
+        <div className="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#ffb700]" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span className="ml-2">17:30 ONWARDS</span>
         </div>
       </div>
 
