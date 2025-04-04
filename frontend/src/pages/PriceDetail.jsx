@@ -12,7 +12,6 @@ export default function PriceDetail() {
         </h1>
 
         <div className="max-w-3xl mx-auto">
-          {/* Simple Pricing Information */}
           <div className="bg-gray-900 rounded-xl p-8 mb-12">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">
               Nomination Fee
@@ -41,7 +40,6 @@ export default function PriceDetail() {
             </div>
           </div>
 
-          {/* FAQ Section */}
           <div className="bg-gray-900 rounded-xl p-8">
             <h2 className="text-2xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
             

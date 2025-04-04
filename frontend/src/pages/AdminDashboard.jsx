@@ -39,7 +39,6 @@ export default function AdminDashboard() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Fetch categories and phase state on component mount
   useEffect(() => {
     const getPhase = async () => {
       try {
@@ -86,17 +85,14 @@ export default function AdminDashboard() {
     }
   };
 
-  // Helper function to get category name by ID
   const getCategoryNameById = (categoryId) => {
     const category = categories.find((cat) => cat.id === categoryId);
     return category ? category.name : "Unknown Category";
   };
 
-  // Handle approve/reject actions
   const handleApprove = async (id) => {
     try {
       await approveNominee(id);
-      // Update UI optimistically
       setNominations(nominations.map(n => 
         n.id === id ? { ...n, status: "approved" } : n
       ));
@@ -108,14 +104,10 @@ export default function AdminDashboard() {
       });
   
       if (error.response?.status === 401) {
-        // Show a more user-friendly message
         alert("Your session has expired. Please log in again.");
-        // Optionally redirect to login
         navigate('/login', { state: { from: location.pathname } });
       } else {
-        // Show generic error for other cases
         alert(`Failed to approve nominee: ${error.message}`);
-        // Revert UI change if needed
         setNominations([...nominations]);
       }
     }
@@ -130,7 +122,6 @@ export default function AdminDashboard() {
     }
   };
 
-  // Sort nominations by name or votes
   const sortedNominations = [...nominations].sort((a, b) => {
     if (sortBy === "name") {
       return a.nomineeName.localeCompare(b.nomineeName);
@@ -142,7 +133,6 @@ export default function AdminDashboard() {
 
     return (
       <div className="min-h-screen bg-black/90 backdrop-blur-md flex flex-col md:flex-row mt-16">
-        {/* Mobile Menu Button */}
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden fixed top-4 right-4 z-50 p-2 bg-black/80 rounded-lg border border-gray-700"
@@ -150,7 +140,6 @@ export default function AdminDashboard() {
           {mobileMenuOpen ? <X className="text-white" /> : <Menu className="text-white" />}
         </button>
   
-        {/* Side Panel for Categories - Mobile */}
         {mobileMenuOpen && (
           <div className="md:hidden fixed inset-0 z-40 bg-black/90 p-4 pt-20 overflow-y-auto">
             <h2 className="text-lg font-semibold text-white mb-4">Categories</h2>
@@ -176,7 +165,6 @@ export default function AdminDashboard() {
           </div>
         )}
   
-        {/* Side Panel for Categories - Desktop */}
         <div className="hidden md:block w-64 bg-black/80 border-r border-gray-800 p-4">
           <h2 className="text-lg font-semibold text-white mb-4">Categories</h2>
           <div className="space-y-2">
@@ -199,10 +187,8 @@ export default function AdminDashboard() {
           </div>
         </div>
   
-        {/* Main Content */}
         <div className="flex-1 p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
-            {/* Header */}
             <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">Admin Dashboard</h1>
@@ -228,7 +214,6 @@ export default function AdminDashboard() {
               </div>
             </div>
   
-            {/* View Toggle and Sort Options */}
             <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <button
@@ -261,7 +246,6 @@ export default function AdminDashboard() {
               </div>
             </div>
   
-            {/* Nominations List */}
             {loading ? (
               <p className="text-center text-gray-400">Loading nominations...</p>
             ) : (

@@ -194,24 +194,29 @@ export default function Landing() {
             </span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {guests.map((guest) => (
-              <div key={guest.id} className="bg-gray-900 rounded-xl overflow-hidden group">
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={guest.image}
-                    alt={guest.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-5xl">
+              {guests.map((guest) => (
+                <div 
+                  key={guest.id} 
+                  className="bg-gray-900 rounded-xl overflow-hidden group shadow-lg shadow-black/30 transform transition-transform hover:scale-105 duration-300 flex flex-col items-center mx-auto"
+                >
+                  <div className="relative w-80 h-80 overflow-hidden">
+                    <img
+                      src={guest.image}
+                      alt={guest.name}
+                      className="w-full h-full object-contain object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  </div>
+                  <div className="p-6 text-center w-full">
+                    <h3 className="text-2xl font-bold text-white mb-2">{guest.name}</h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#ffb700] to-[#e50914] mx-auto mb-3"></div>
+                    <p className="text-[#ffb700] font-medium mb-2">{guest.designation}</p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-1">{guest.name}</h3>
-                  <p className="text-[#ffb700] text-sm mb-4">{guest.designation}</p>
-                  <p className="text-gray-300 text-sm line-clamp-3">{guest.bio}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -304,7 +309,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Why Nominate Section */}
       <section className="py-20 bg-black">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-16">WHY PARTICIPATE IN INSIGHT 2025?</h2>
@@ -341,7 +345,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-[#e50914] to-[#ffb700]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Ready to be recognized?</h2>
@@ -372,6 +375,31 @@ export default function Landing() {
               <p className="text-gray-400">
                 Odisha's 1st Creators Award Show celebrating digital voices shaping the state's evolving landscape.
               </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a href="/about-us" className="text-gray-400 hover:text-[#ffb700] transition duration-300">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact-us" className="text-gray-400 hover:text-[#ffb700] transition duration-300">
+                    Contact Us
+                  </a>
+                </li>
+                <li>
+                  <a href="/terms" className="text-gray-400 hover:text-[#ffb700] transition duration-300">
+                    Terms & Conditions
+                  </a>
+                </li>
+                <li>
+                  <a href="/price-detail" className="text-gray-400 hover:text-[#ffb700] transition duration-300">
+                    Price Details
+                  </a>
+                </li>
+              </ul>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>

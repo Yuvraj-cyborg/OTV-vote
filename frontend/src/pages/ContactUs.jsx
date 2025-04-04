@@ -20,7 +20,6 @@ export default function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Create email body with form data
     const emailBody = `
 Name: ${formData.name}
 Email: ${formData.email}
@@ -30,11 +29,9 @@ Message:
 ${formData.message}
     `;
     
-    // Encode for URL
     const encodedSubject = encodeURIComponent(formData.subject || 'Contact from OTV Vote Website');
     const encodedBody = encodeURIComponent(emailBody);
     
-    // Redirect to Gmail compose
     window.location.href = `https://mail.google.com/mail/?view=cm&fs=1&to=insight@odishatv.com&su=${encodedSubject}&body=${encodedBody}`;
   };
 
