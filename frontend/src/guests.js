@@ -1,6 +1,6 @@
 // Guests data for the Landing page
-import adah from "./assets/Adah.jpg";
-import Ranvijay from "./assets/Ranvijay.jpg";
+import adah from "./assets/Adah.png";
+import Ranvijay from "./assets/Rannvijay.png";
 import Saurabh from "./assets/Saurabh.jpg";
 
 
