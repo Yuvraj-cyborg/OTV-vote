@@ -1,7 +1,15 @@
 {
     "rewrites": [
-      { "source": "/(admin|nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
+      { "source": "/(nominate|profile|vote|signup|login|categories|about|nomination-success|nomination-card/.*|about-us|contact-us|terms|price-detail|refund-policy)", 
         "destination": "/index.html" 
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.html",
+        "headers": { "x-subdomain-handled": "true" },
+        "continue": true
       }
     ]
   }

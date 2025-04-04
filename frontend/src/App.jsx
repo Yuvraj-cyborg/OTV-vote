@@ -18,6 +18,18 @@ import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail compone
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 
 export default function App() {
+  // Check if we're on the admin subdomain
+  const hostname = window.location.hostname;
+  const isAdminSubdomain = hostname.startsWith('admin.');
+
+  if (isAdminSubdomain) {
+    return (
+      <Router>
+        <AdminDashboard />
+      </Router>
+    );
+  }
+
   return (
     <Router>
       <Navbar />
@@ -25,7 +37,6 @@ export default function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/vote" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/nominate" element={<NominationPage />} />
