@@ -148,7 +148,7 @@ const createNomination = async (req, res) => {
           paymentId,
           orderId,
           nominationId: nomination.id,
-          amount: 100, // ₹1 in paise for testing
+          amount: 29900, // ₹299 in paise
           currency: "INR", // Required field
           status: "completed"
         },
@@ -301,8 +301,8 @@ const createRazorpayOrder = async (req, res) => {
       return res.status(401).json({ error: "User not authenticated" });
     }
 
-    // Set test amount to ₹1 for testing
-    const amount = 100; // ₹1 in paise (100 paise = ₹1)
+    // Set nomination fee amount (299 rupees in paise)
+    const amount = 29900; // ₹299 in paise (100 paise = ₹1)
 
     // Create an order using Razorpay API
     const order = await razorpayInstance.orders.create({
@@ -329,8 +329,8 @@ const createRazorpayOrder = async (req, res) => {
 
 const handlePayment = async (nominationData) => {
   try {
-    // Set test amount to ₹1 for testing
-    const amount = 100; // ₹1 in paise (100 paise = ₹1)
+    // Set nomination fee amount (299 rupees in paise)
+    const amount = 29900; // ₹299 in paise (100 paise = ₹1)
 
     // Create a Razorpay order
     const order = await createRazorpayOrder({
