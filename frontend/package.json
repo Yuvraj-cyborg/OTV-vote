@@ -13,6 +13,7 @@
     "@react-oauth/google": "^0.12.1",
     "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/vite": "^4.0.1",
+    "@vercel/analytics": "^1.5.0",
     "axios": "^1.7.9",
     "canvg": "^4.0.2",
     "dom-to-image-more": "^3.5.0",

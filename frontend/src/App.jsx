@@ -19,7 +19,6 @@ import Terms from "./pages/Terms"; // Import the Terms component
 import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail component
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
-
 // Protected Route component
 const ProtectedAdminRoute = ({ children }) => {
   const adminToken = localStorage.getItem("adminToken");
