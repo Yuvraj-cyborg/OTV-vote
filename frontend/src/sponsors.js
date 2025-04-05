@@ -3,6 +3,7 @@ import klLogo from './assets/kl-logo.png';
 import panasonic from './assets/panasonic.jpg';
 import lalchand from './assets/lalchand.png';
 import dion from './assets/Dion.jpg';
+import okaya from './assets/okaya.jpg';
 
 const sponsors = [
   // Platinum Sponsors
@@ -64,15 +65,15 @@ const sponsors = [
     name: "Panasonic",
     tier: "silver",
     logo: panasonic,
-    website: "https://www.panasonic.com/in/"
+    website: "https://store.in.panasonic.com/"
   },
-  // {
-  //   id: 9,
-  //   name: "City 360",
-  //   tier: "silver",
-  //   logo: "https://via.placeholder.com/200x100/666666/ffffff?text=City+360",
-  //   website: "https://example.com/city360"
-  // },
+  {
+    id: 9,
+    name: "Okaya",
+    tier: "silver",
+    logo: okaya,
+    website: "https://www.okaya.in/"
+  },
   // {
   //   id: 10,
   //   name: "Digital Odisha",
