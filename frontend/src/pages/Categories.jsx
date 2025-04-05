@@ -19,10 +19,12 @@ import {
   Newspaper,
   Users,
   Feather,
-  Loader
+  Loader,
+  ExternalLink
 } from 'lucide-react';
 import { fetchPhaseState } from "../api";
 import { useState, useEffect } from 'react';
+import sponsors from '../sponsors';
 
 export default function Categories() {
   const navigate = useNavigate();
@@ -220,6 +222,71 @@ const [phaseState, setPhaseState] = useState({
           ))}
         </div>
 
+         {/* Sponsors Section */}
+       <section className="py-20 bg-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">OUR</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              SPONSORS
+            </span>
+          </h2>
+
+          {/* Platinum Sponsors */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "platinum")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          {/* Silver Sponsors */}
+          <div>
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "silver")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
         <div className="mt-16 text-center">
           {phaseState.loading ? (
             <LoadingState />
@@ -235,6 +302,8 @@ const [phaseState, setPhaseState] = useState({
           )}
         </div>
       </div>
+      
+
     </div>
   );
 }
