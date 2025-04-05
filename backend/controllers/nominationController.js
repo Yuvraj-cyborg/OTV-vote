@@ -70,6 +70,22 @@ const createNomination = async (req, res) => {
       });
     }
 
+    // Validate file size (512KB = 524288 bytes)
+    if (req.file.size > 524288) {
+      return res.status(400).json({
+        error: "File too large",
+        message: "Image size exceeds 512KB limit. Please select a smaller image."
+      });
+    }
+
+    // Validate file type
+    if (!req.file.mimetype.startsWith('image/')) {
+      return res.status(400).json({
+        error: "Invalid file type",
+        message: "Please upload a valid image file (PNG, JPG)."
+      });
+    }
+
     // Use authenticated user's email from token
     const userEmail = req.user.userId;
 

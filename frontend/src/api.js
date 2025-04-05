@@ -160,8 +160,20 @@ export const submitNomination = async (nominationData) => {
   formData.append("orderId", nominationData.orderId || "");
 
   if (nominationData.photo) {
-    console.log("Including photo in nomination:", nominationData.photo.name);
+    // Validate file size (512KB = 524288 bytes)
+    if (nominationData.photo.size > 524288) {
+      throw new Error("Image size exceeds 512KB limit. Please select a smaller image.");
+    }
+    
+    // Validate file type
+    if (!nominationData.photo.type.startsWith('image/')) {
+      throw new Error("Please upload a valid image file (PNG, JPG).");
+    }
+    
+    console.log(`Including photo in nomination: ${nominationData.photo.name} (${(nominationData.photo.size / 1024).toFixed(2)}KB)`);
     formData.append("nomineePhoto", nominationData.photo);
+  } else {
+    throw new Error("A photo is required for nomination");
   }
 
   const token = localStorage.getItem("token");

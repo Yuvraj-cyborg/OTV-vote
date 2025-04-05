@@ -94,6 +94,21 @@ const NominationPage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Check file size - 512KB = 524288 bytes
+      if (file.size > 524288) {
+        toast.error("Image size exceeds 512KB limit. Please select a smaller image.");
+        e.target.value = null; // Reset input
+        return;
+      }
+      
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        toast.error("Please select a valid image file (PNG, JPG)");
+        e.target.value = null; // Reset input
+        return;
+      }
+      
+      console.log(`Selected file: ${file.name}, Size: ${(file.size / 1024).toFixed(2)}KB`);
       setPhoto(file);
       setPreviewUrl(URL.createObjectURL(file));
     }
@@ -202,6 +217,12 @@ const NominationPage = () => {
 
     if (!photo) {
       toast.error("Please upload a photo for your nomination");
+      return;
+    }
+    
+    // Double-check file size before submission
+    if (photo.size > 524288) {
+      toast.error("Image size exceeds 512KB limit. Please select a smaller image.");
       return;
     }
 
@@ -415,6 +436,12 @@ const NominationPage = () => {
                           <span className="sr-only">Remove image</span>
                           ×
                         </button>
+                        <div className="mt-2 text-xs text-gray-400">
+                          Size: {(photo.size / 1024).toFixed(2)}KB 
+                          {photo.size > 450000 && 
+                            <span className="text-yellow-500 ml-1">(Approaching limit)</span>
+                          }
+                        </div>
                       </div>
                     ) : (
                       <>
@@ -431,13 +458,14 @@ const NominationPage = () => {
                               id="image-upload"
                               name="image-upload"
                               type="file"
-                              accept="image/*"
+                              accept="image/jpeg,image/png,image/jpg"
                               className="sr-only"
                               onChange={handleFileChange}
                             />
                           </label>
                         </div>
-                        <p className="text-xs text-gray-500">PNG, JPG up to 512KB</p>
+                        <p className="text-xs text-gray-500">PNG, JPG up to 512KB (0.5MB)</p>
+                        <p className="text-xs text-yellow-500 mt-1">Larger images will be rejected</p>
                       </>
                     )}
                   </div>
