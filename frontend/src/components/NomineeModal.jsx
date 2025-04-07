@@ -1,57 +1,102 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { X } from "lucide-react";
 
 const NomineeModal = ({ nominee, onClose }) => {
   if (!nominee) return null;
 
+  useEffect(() => {
+    // Prevent scrolling when modal is open
+    document.body.style.overflow = "hidden";
+    
+    // Re-enable scrolling when modal is closed
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-lg p-6 max-w-md w-full">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900">{nominee.nomineeName}</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            &times;
+    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-gray-900 rounded-xl shadow-xl border border-gray-700 w-full max-w-md">
+        <div className="flex justify-between items-center p-4 border-b border-gray-800">
+          <h2 className="text-xl font-bold text-white">{nominee.nomineeName}</h2>
+          <button 
+            onClick={onClose}
+            className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-gray-800 transition-colors"
+          >
+            <X size={20} />
           </button>
         </div>
-        <div className="space-y-4">
-          <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-300 mx-auto">
-            <img
-              src={nominee.nomineePhoto}
-              alt={nominee.nomineeName}
-              className="w-full h-full object-cover"
-            />
+        
+        <div className="p-6 space-y-6">
+          <div className="flex justify-center">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-[#ffb700]">
+              <img
+                src={nominee.nomineePhoto || "https://via.placeholder.com/150"}
+                alt={nominee.nomineeName}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-          <p className="text-sm text-gray-500 text-center">{nominee.nomineeEmail}</p>
-          <div className="flex space-x-4 justify-center">
+
+          {nominee.nomineeEmail && (
+            <p className="text-sm text-gray-400 text-center">{nominee.nomineeEmail}</p>
+          )}
+
+          <div className="flex flex-col items-center gap-2">
             {nominee.instagramUrl && (
-              <a href={nominee.instagramUrl} target="_blank" rel="noopener noreferrer">
-                Instagram
-              </a>
+              <p className="text-sm text-gray-300">
+                <span className="font-medium text-[#ffb700]">Instagram:</span> {nominee.instagramUrl.split('/').pop()}
+              </p>
             )}
             {nominee.facebookId && (
-              <a href={`https://facebook.com/${nominee.facebookId}`} target="_blank" rel="noopener noreferrer">
-                Facebook
-              </a>
+              <p className="text-sm text-gray-300">
+                <span className="font-medium text-[#ffb700]">Facebook:</span> {nominee.facebookId}
+              </p>
             )}
             {nominee.xId && (
-              <a href={`https://twitter.com/${nominee.xId}`} target="_blank" rel="noopener noreferrer">
-                Twitter
-              </a>
+              <p className="text-sm text-gray-300">
+                <span className="font-medium text-[#ffb700]">Twitter:</span> {nominee.xId}
+              </p>
             )}
             {nominee.youtubeId && (
-              <a href={`https://youtube.com/${nominee.youtubeId}`} target="_blank" rel="noopener noreferrer">
-                YouTube
-              </a>
+              <p className="text-sm text-gray-300">
+                <span className="font-medium text-[#ffb700]">YouTube:</span> {nominee.youtubeId}
+              </p>
             )}
           </div>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            {nominee.categories.map((category, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800"
-              >
-                {category}
+
+          <div>
+            <h3 className="text-sm font-medium text-[#ffb700] mb-2 text-center">Categories</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              {nominee.categories?.map((category, i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 text-xs font-medium rounded-full bg-[#ffb700]/10 text-[#ffb700] border border-[#ffb700]/20"
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {nominee.votes !== undefined && (
+            <div className="text-center">
+              <span className="inline-block px-4 py-2 bg-gray-800 rounded-md font-bold text-lg text-[#ffb700]">
+                {nominee.votes || 0} Votes
               </span>
-            ))}
+            </div>
+          )}
+
+          <div className="text-center">
+            <span className={`inline-block px-3 py-1 rounded-full text-sm ${
+              nominee.status === "approved"
+                ? "bg-green-500/20 text-green-500"
+                : nominee.status === "rejected"
+                ? "bg-red-500/20 text-red-500"
+                : "bg-yellow-500/20 text-yellow-500"
+            }`}>
+              Status: {nominee.status?.charAt(0).toUpperCase() + nominee.status?.slice(1)}
+            </span>
           </div>
         </div>
       </div>

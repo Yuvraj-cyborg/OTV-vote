@@ -50,10 +50,6 @@ export async function fetchNominationsWithVotes(categoryId) {
       axios.get(`${API_URL}/votes/${categoryId}`)
     ]);
 
-    // Debugging API responses
-    console.log("✅ Nominations:", nominationsRes.data);
-    console.log("✅ Votes:", votesRes.data);
-
     const nominations = nominationsRes.data;
     const votes = votesRes.data;
 
