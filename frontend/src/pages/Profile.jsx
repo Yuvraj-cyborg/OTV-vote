@@ -185,7 +185,7 @@ export default function Profile() {
                       <SocialLink platform="twitter" username={nomination.xId} url={`https://twitter.com/${nomination.xId}`} />
                     )}
                     {nomination.youtubeId && (
-                      <SocialLink platform="youtube" username={nomination.youtubeId} url={`https://youtube.com/channel/${nomination.youtubeId}`} />
+                      <SocialLink platform="youtube" username={nomination.youtubeId} url={`https://youtube.com/${nomination.youtubeId}`} />
                     )}
                   </div>
                 </div>
