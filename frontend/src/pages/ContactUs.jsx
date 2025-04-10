@@ -52,40 +52,57 @@ ${formData.message}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <div className="flex items-center">
-                  <Mail className="h-6 w-6 text-[#ffb700] mr-4" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">Email</h3>
-                    <p>insight@odishatv.com</p>
+                <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Award Nomination</h2>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <Mail className="h-6 w-6 text-[#ffb700]" />
                   </div>
-                </div>
-                
-                <div className="flex items-center">
-                  <Phone className="h-6 w-6 text-[#ffb700] mr-4" />
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Phone</h3>
-                    <p>+91 70633 90994</p>
+                    <p className="font-semibold">Sameer Ranjan Rana</p>
+                    <p className="text-gray-400">sameer@odishatv.com</p>
+                    <p className="text-gray-400">+918249928025</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-6">
-                <div className="flex items-center">
-                  <MapPin className="h-6 w-6 text-[#ffb700] mr-4" />
+                <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Sponsorship</h2>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <Mail className="h-6 w-6 text-[#ffb700]" />
+                  </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Address</h3>
-                    <p>OTV Headquarters</p>
-                    <p>Plot No. 123, Bhubaneswar</p>
-                    <p>Odisha, 751001, India</p>
+                    <p className="font-semibold">Biswa Prakash Jena</p>
+                    <p className="text-gray-400">Biswa@odishatv.com</p>
+                    <p className="text-gray-400">+916370282430</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <MessageSquare className="h-6 w-6 text-[#ffb700] mr-4" />
+              </div>
+
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Payment Support</h2>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <Mail className="h-6 w-6 text-[#ffb700]" />
+                  </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Social Media</h3>
-                    <p>Facebook: @insightbyotv</p>
-                    <p>Instagram: @insightbyotv</p>
+                    <p className="font-semibold">Payment Support Team</p>
+                    <p className="text-gray-400">insight@odishatv.com</p>
+                    <p className="text-gray-400">+918249928025</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Event Collaboration</h2>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <Mail className="h-6 w-6 text-[#ffb700]" />
+                  </div>
+                  <div>
+                    <p className="font-semibold">Binit Kumar</p>
+                    <p className="text-gray-400">Aloha@oliveridleymedia.in</p>
+                    <p className="text-gray-400">+919078976157</p>
                   </div>
                 </div>
               </div>

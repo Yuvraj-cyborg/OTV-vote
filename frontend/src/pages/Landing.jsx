@@ -399,8 +399,31 @@ export default function Landing() {
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Contact</h3>
-              <p className="text-gray-400">Email: insight@odishatv.com</p>
-              <p className="text-gray-400">Phone: +91 70633 90994</p>
+              <div className="space-y-2">
+                <div>
+                  <p className="text-gray-400 font-semibold">Award Nomination:</p>
+                  <p className="text-gray-400">Sameer Ranjan Rana</p>
+                  <p className="text-gray-400">sameer@odishatv.com</p>
+                  <p className="text-gray-400">+918249928025</p>
+                </div>
+                <div className="mt-4">
+                  <p className="text-gray-400 font-semibold">Sponsorship:</p>
+                  <p className="text-gray-400">Biswa Prakash Jena</p>
+                  <p className="text-gray-400">Biswa@odishatv.com</p>
+                  <p className="text-gray-400">+916370282430</p>
+                </div>
+                <div className="mt-4">
+                  <p className="text-gray-400 font-semibold">Payment Support:</p>
+                  <p className="text-gray-400">insight@odishatv.com</p>
+                  <p className="text-gray-400">+918249928025</p>
+                </div>
+                <div className="mt-4">
+                  <p className="text-gray-400 font-semibold">Event Collaboration:</p>
+                  <p className="text-gray-400">Binit Kumar</p>
+                  <p className="text-gray-400">Aloha@oliveridleymedia.in</p>
+                  <p className="text-gray-400">+919078976157</p>
+                </div>
+              </div>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Follow Us</h3>
