@@ -6,18 +6,18 @@ import Saurabh from "./assets/Saurabh.jpg";
 
 
 const guests = [
-  {
-    id: 1,
-    name: "Adah Sharma",
-    designation: "Indian actress",
-    image: adah
-  },
-  {
-    id: 2,
-    name: "Rannvijay Singha",
-    designation: "Indian film actor and television host",
-    image: Ranvijay
-  },
+  // {
+  //   id: 1,
+  //   name: "Adah Sharma",
+  //   designation: "Indian actress",
+  //   image: adah
+  // },
+  // {
+  //   id: 2,
+  //   name: "Rannvijay Singha",
+  //   designation: "Indian film actor and television host",
+  //   image: Ranvijay
+  // },
   {
     id: 3,
     name: "Saurabh Dwivedi",
