@@ -2,7 +2,7 @@
 import adah from "./assets/Adah.png";
 import Ranvijay from "./assets/Rannvijay.png";
 import Saurabh from "./assets/Saurabh.jpg";
-
+import Gaurav from "./assets/gaurav.jpg";
 
 
 const guests = [
@@ -12,12 +12,12 @@ const guests = [
   //   designation: "Indian actress",
   //   image: adah
   // },
-  // {
-  //   id: 2,
-  //   name: "Rannvijay Singha",
-  //   designation: "Indian film actor and television host",
-  //   image: Ranvijay
-  // },
+  {
+    id: 2,
+    name: "Gaurav Taneja",
+    designation: "Indian YouTuber",
+    image: Gaurav
+  },
   {
     id: 3,
     name: "Saurabh Dwivedi",
