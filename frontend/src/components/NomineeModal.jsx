@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { X } from "lucide-react";
+import { X, Download } from "lucide-react";
 
 const NomineeModal = ({ nominee, onClose }) => {
   if (!nominee) return null;
@@ -13,6 +13,23 @@ const NomineeModal = ({ nominee, onClose }) => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const handleDownloadImage = () => {
+    if (!nominee.nomineePhoto) return;
+    
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = nominee.nomineePhoto;
+    
+    // Extract filename from URL or use nominee name
+    const fileName = nominee.nomineePhoto.split('/').pop() || `${nominee.nomineeName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+    link.download = fileName;
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -28,14 +45,32 @@ const NomineeModal = ({ nominee, onClose }) => {
         </div>
         
         <div className="p-6 space-y-6">
-          <div className="flex justify-center">
-            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-[#ffb700]">
+          <div className="flex flex-col items-center">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-[#ffb700] group">
               <img
                 src={nominee.nomineePhoto || "https://via.placeholder.com/150"}
                 alt={nominee.nomineeName}
                 className="w-full h-full object-cover"
               />
+              {nominee.nomineePhoto && (
+                <button
+                  onClick={handleDownloadImage}
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"
+                  title="Download Image"
+                >
+                  <Download className="h-8 w-8 text-white" />
+                </button>
+              )}
             </div>
+            {nominee.nomineePhoto && (
+              <button
+                onClick={handleDownloadImage}
+                className="mt-2 text-sm text-[#ffb700] hover:text-[#ffd700] flex items-center gap-1"
+              >
+                <Download className="h-4 w-4" />
+                Download Image
+              </button>
+            )}
           </div>
 
           {nominee.nomineeEmail && (
