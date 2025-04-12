@@ -21,7 +21,7 @@ const guests = [
   {
     id: 3,
     name: "Saurabh Dwivedi",
-    designation: "Internet personality",
+    designation: "Indian Journalist",
     image: Saurabh
   },
 
