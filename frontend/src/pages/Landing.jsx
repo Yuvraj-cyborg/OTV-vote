@@ -210,11 +210,11 @@ export default function Landing() {
                   key={guest.id} 
                   className="bg-gray-900 rounded-xl overflow-hidden group shadow-lg shadow-black/30 transform transition-transform hover:scale-105 duration-300 flex flex-col items-center w-full max-w-sm"
                 >
-                  <div className="relative w-full aspect-square overflow-hidden">
+                  <div className="relative w-full h-auto min-h-[320px] overflow-hidden">
                     <img
                       src={guest.image}
                       alt={guest.name}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain object-center"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   </div>
