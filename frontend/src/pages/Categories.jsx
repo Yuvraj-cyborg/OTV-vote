@@ -33,109 +33,127 @@ export default function Categories() {
     { 
       icon: Star, 
       name: "Storyteller of the Year", 
-      desc: "Weaving magic with words, visuals, and emotions",
+      desc: "For creators who craft compelling narratives that highlight Odisha's culture, traditions, or contemporary life.",
+      example: "A YouTube series exploring lesser-known Odia festivals or an Instagram account sharing daily life stories from rural Odisha.",
       subcategories: ["Short Stories", "Visual Storytelling", "Poetry"]
     },
     { 
       icon: Mic, 
       name: "Best Travel Influencer", 
-      desc: "Explorers taking us on unforgettable journeys",
+      desc: "For digital nomads and explorers showcasing Odisha's landscapes, heritage sites, and hidden gems.",
+      example: "A travel blog detailing road trips across Odisha's tribal regions or a vlog series on coastal destinations.",
       subcategories: ["Local Guides", "International Travel", "Adventure"]
     },
     { 
       icon: Camera, 
       name: "Best Food Creator", 
-      desc: "Redefining the art of food storytelling",
+      desc: "For culinary enthusiasts presenting Odia cuisine through recipes, food reviews, or cultural insights.",
+      example: "A cooking channel demonstrating traditional Odia dishes or a food critic reviewing local eateries.",
       subcategories: ["Street Food", "Fine Dining", "Home Cooking"]
     },
     { 
       icon: Brush, 
       name: "Best Art Influencer", 
-      desc: "Turning imagination into reality through art",
+      desc: "For artists and curators promoting Odia art forms, crafts, and visual storytelling.",
+      example: "An Instagram gallery featuring Pattachitra artworks or a blog discussing contemporary Odia artists.",
       subcategories: ["Digital Art", "Traditional Art", "Sculpture"]
     },
     { 
       icon: Code, 
-      name: "Best Lifestyle Influencer", 
-      desc: "Trendsetters inspiring with style and elegance",
+      name: "Best Lifestyle/Fashion Influencer", 
+      desc: "For influencers blending Odia fashion and lifestyle with modern trends, promoting sustainable and cultural aesthetics.",
+      example: "A fashion influencer styling Sambalpuri sarees in contemporary ways or a lifestyle blogger highlighting Odia home decor.",
       subcategories: ["Fashion", "Home Decor", "Wellness"]
     },
     { 
       icon: Music, 
       name: "Impact Creator of the Year", 
-      desc: "Using platforms for awareness and transformation",
+      desc: "For individuals using digital platforms to drive social change, awareness, and community engagement in Odisha.",
+      example: "A content creator advocating for environmental conservation in Odisha or a campaign promoting Odia language preservation.",
       subcategories: ["Social Change", "Education", "Community Building"]
     },
     { 
       icon: Film, 
       name: "Guardian of Heritage Award", 
-      desc: "Preserving cultural and historical treasures",
+      desc: "For creators preserving and promoting Odisha's rich cultural heritage through digital mediums.",
+      example: "A documentary series on traditional Odia crafts or a blog dedicated to Odia folklore.",
       subcategories: ["Folk Arts", "Traditional Crafts", "Cultural Preservation"]
     },
     { 
       icon: Book, 
       name: "Regional Influencer of the Year", 
-      desc: "Amplifying regional stories and communities",
+      desc: "For content creators amplifying regional stories, languages, and communities within Odisha.",
+      example: "A podcast discussing regional dialects or a video series on local festivals.",
       subcategories: ["Language Content", "Local Traditions", "Regional Development"]
     },
     { 
       icon: Globe, 
       name: "Cultural Ambassador of the Year", 
-      desc: "Champions of our traditions, art, and heritage",
+      desc: "For champions of Odisha's traditions, arts, and heritage, bringing them to a broader audience.",
+      example: "An influencer promoting classical Odissi dance or organizing virtual tours of heritage sites.",
       subcategories: ["Cultural Events", "Traditional Arts", "Heritage Promotion"]
     },
     { 
       icon: Award, 
       name: "Sambalpuri Icon of the Year", 
-      desc: "Bringing Sambalpuri culture into the limelight",
+      desc: "For promoters of Sambalpuri culture, including music, dance, and textiles.",
+      example: "A fashion blogger showcasing Sambalpuri attire or a musician integrating Sambalpuri rhythms.",
       subcategories: ["Sambalpuri Music", "Sambalpuri Dance", "Sambalpuri Textiles"]
     },
     { 
       icon: TrendingUp, 
       name: "Rising Star of the Year", 
-      desc: "Breakout creators making waves and capturing hearts",
+      desc: "For emerging creators making significant impacts with fresh perspectives and innovative content.",
+      example: "A newcomer gaining rapid popularity through unique storytelling or creative visuals.",
       subcategories: ["New Creators", "Emerging Talent", "Fresh Perspectives"]
     },
     { 
       icon: Laugh, 
       name: "Best Comedy Creator", 
-      desc: "Masters of humor delivering laughter and pure joy",
+      desc: "For humorists delivering laughter through skits, stand-up, or satirical content.",
+      example: "A comedian producing viral Odia sketches or a satirical news show.",
       subcategories: ["Skits", "Stand-up", "Impressions"]
     },
     { 
       icon: Music, 
       name: "Best Music Creator", 
-      desc: "Artists redefining how we experience music online",
+      desc: "For musicians and composers innovating in covers, original compositions, and music production.",
+      example: "An artist blending traditional Odia music with contemporary genres or producing original tracks.",
       subcategories: ["Covers", "Original Music", "Music Production"]
     },
     { 
       icon: Podcast, 
       name: "Podcast of the Year", 
-      desc: "Celebrating the best in podcasting with inspiring conversations",
+      desc: "For podcasters delivering engaging content through interviews, storytelling, or educational series.",
+      example: "A podcast exploring Odia history or discussing current social issues.",
       subcategories: ["Interviews", "Storytelling", "Educational"]
     },
     { 
       icon: Newspaper, 
       name: "Excellence in Digital Journalism", 
-      desc: "Fearless, innovative storytelling in digital news",
+      desc: "For journalists and reporters showcasing fearless, innovative storytelling in digital news.",
+      example: "An investigative series uncovering local issues or a digital platform providing in-depth news analysis.",
       subcategories: ["Investigative", "Feature Stories", "News Analysis"]
     },
     { 
       icon: Users, 
       name: "Digital News Leader", 
-      desc: "Pioneers setting benchmarks for credible digital reporting",
+      desc: "For pioneers setting benchmarks for credible digital reporting and mobile journalism.",
+      example: "A news outlet utilizing mobile platforms for real-time reporting or community-driven news initiatives.",
       subcategories: ["Breaking News", "Community Reporting", "Mobile Journalism"]
     },
     { 
       icon: Star, 
       name: "Creator of the Year", 
-      desc: "The ultimate content powerhouse inspiring millions",
+      desc: "For the ultimate content powerhouse inspiring audiences with quality, engagement, and innovation.",
+      example: "A creator consistently producing high-impact content across multiple platforms.",
       subcategories: ["Content Quality", "Engagement", "Innovation"]
     },
     { 
       icon: Feather, 
       name: "Global Odia Creator Award", 
-      desc: "Honoring Odia creators making a mark beyond borders",
+      desc: "For Odia creators making a significant impact beyond borders, bridging cultures worldwide.",
+      example: "An Odia expatriate sharing cultural content internationally or collaborating with global influencers.",
       subcategories: ["International Reach", "Cross-cultural Content", "Diaspora Engagement"]
     }
   ];
@@ -207,16 +225,8 @@ const [phaseState, setPhaseState] = useState({
                 </div>
               </div>
               
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold text-[#ffb700] mb-2">Featured</h3>
-                <ul className="space-y-2">
-                  {category.subcategories.map((subcat, i) => (
-                    <li key={i} className="flex items-center text-gray-300 hover:text-white">
-                      <ChevronRight className="h-4 w-4 mr-2 text-[#ffb700]" />
-                      {subcat}
-                    </li>
-                  ))}
-                </ul>
+              <div className="mt-4">
+                <p className="text-sm text-gray-300 italic">{category.example}</p>
               </div>
             </div>
           ))}

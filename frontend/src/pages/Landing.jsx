@@ -19,10 +19,11 @@ import {
   Calendar,
   MapPin,
   Loader,
-  ExternalLink
+  ExternalLink,
+  ChevronRight
 } from "lucide-react";
 import Navbar from "../components/Navbar";
-import SponsorCarousel from "../components/SponsorCaraousel";
+import NomineeCarousel from "../components/NomineeCarousel";
 import { fetchPhaseState } from "../api";
 import guests from "../guests";
 import sponsors from "../sponsors";
@@ -93,6 +94,8 @@ export default function Landing() {
         <span className="text-white">2025</span>
       </h1>
       <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">Odisha's 1st Creators Awards</h2>
+      <p className="text-xl text-white mb-6">The First-Ever Digital Creator Awards of Odisha</p>
+      <p className="text-lg text-white mb-8">Celebrating Odia Asmita in the Digital Age</p>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white mb-8">
         <div className="flex items-center">
@@ -141,57 +144,149 @@ export default function Landing() {
   </div>
 </section>
 
-    
-      {/* Categories Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      {/* Introduction Section */}
+      <section className="py-16 bg-black">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-xl text-white mb-10">
+              Are you the voice making Odisha trend online?
+              From reels to vlogs, food pages to folklore, art to activism—if your content puts Odisha on the map, this is your moment.
+            </p>
+            <p className="text-xl text-white">
+              For the first time ever, we're honouring the creators shaping Odisha's identity in the digital world.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Who Can Nominate Section */}
+      <section className="py-16 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+              <span className="text-white">Who Can</span>
+              <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent ml-2">
+                Nominate?
+              </span>
+            </h2>
+            <p className="text-lg text-white text-center mb-10">
+              Creators, influencers, artists, activists, and storytellers across Instagram, YouTube, Twitter/X, and beyond. Whether you're a cultural curator, meme-maker, or music creator—if Odisha is in your content's DNA, Insight-2025 is for you.
+            </p>
+            
+            <div className="border-t border-gray-800 w-24 mx-auto my-12"></div>
+            
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+              <span className="text-white">Why Should You</span>
+              <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent ml-2">
+                Nominate Yourself?
+              </span>
+            </h2>
+            <ul className="list-disc pl-5 text-white text-lg space-y-3 max-w-2xl mx-auto">
+              <li>Get recognized as a voice of Odia pride and digital creativity.</li>
+              <li>Join the first-ever league of winners shaping a new tradition.</li>
+              <li>Be seen, celebrated, and amplified by Odisha's largest media platform.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Award Categories Section */}
+      <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-            <span className="text-white">AWARD CATEGORIES</span>
+            <span className="text-white">AWARD</span>
             <br />
             <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-              FOR INSIGHT 2025
+              CATEGORIES
             </span>
           </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { name: "Storyteller of the Year", desc: "For those who weave magic with words, visuals, and emotions" },
-              { name: "Best Travel Influencer", desc: "Explorers who take us on unforgettable journeys around Odisha and India" },
-              { name: "Best Food Creator", desc: "From street food gems to gourmet delicacies, these creators redefine food storytelling" },
-              { name: "Best Art Influencer", desc: "Visionaries who turn imagination into reality through art" },
-              { name: "Best Lifestyle/Fashion Influencer", desc: "Trendsetters who inspire us with their style and everyday elegance" },
-              { name: "Impact Creator of the Year", desc: "Changemakers using platforms for awareness and positive transformation" },
-              { name: "Guardian of Heritage Award", desc: "Honoring those who preserve and celebrate our cultural treasures" },
-              { name: "Regional Influencer of the Year", desc: "Voices that amplify regional stories and communities" },
-              { name: "Cultural Ambassador of the Year", desc: "Champions of our traditions, art, and heritage" },
-              { name: "Sambalpuri Icon of the Year", desc: "Recognizing work that brings Sambalpuri culture into the limelight" },
-              { name: "Rising Star of the Year", desc: "Breakout creators making waves and capturing hearts" },
-              { name: "Best Comedy Creator", desc: "Masters of humor delivering laughter and pure joy" },
-              { name: "Best Music Creator", desc: "Artists redefining how we experience music online" },
-              { name: "Podcast of the Year", desc: "Celebrating the best in podcasting with inspiring conversations" },
-              { name: "Excellence in Digital Journalism", desc: "Fearless, innovative storytelling in digital news" },
-              { name: "Digital News Leader", desc: "Pioneers setting benchmarks for credible digital reporting" },
-              { name: "Creator of the Year", desc: "The ultimate content powerhouse inspiring millions" },
-              { name: "Global Odia Creator Award", desc: "Honoring Odia creators making a mark beyond borders" },
-            ].map((category, index) => (
-              <div
-                key={index}
-                className="bg-gray-900 rounded-xl p-6 text-white transition-all duration-300 hover:bg-gray-800 hover:shadow-md"
-              >
-                <h3 className="text-xl font-bold mb-2 text-[#ffb700]">{category.name}</h3>
-                <p className="text-gray-300 mb-4">{category.desc}</p>
-                <button
-                  onClick={() => navigate(`/categories`)}
-                  className="text-white hover:text-[#ff5e00] p-0"
-                >
-                  Learn More <ChevronDown className="ml-1 h-4 w-4 inline" />
-                </button>
+          
+          <div className="max-w-3xl mx-auto mb-10">
+            <p className="text-xl text-center text-white mb-8">Choose from 18 dynamic categories including:</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-lg max-w-4xl mx-auto">
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Storyteller of the Year</h3>
+                <p className="text-sm">For creators who craft compelling narratives that highlight Odisha's culture, traditions, or contemporary life.</p>
               </div>
-            ))}
+              
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Best Travel Influencer</h3>
+                <p className="text-sm">For digital nomads and explorers showcasing Odisha's landscapes, heritage sites, and hidden gems.</p>
+              </div>
+              
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Best Food Creator</h3>
+                <p className="text-sm">For culinary enthusiasts presenting Odia cuisine through recipes, food reviews, or cultural insights.</p>
+              </div>
+              
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Impact Creator of the Year</h3>
+                <p className="text-sm">For individuals using digital platforms to drive social change, awareness, and community engagement in Odisha.</p>
+              </div>
+              
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Guardian of Heritage Award</h3>
+                <p className="text-sm">For creators preserving and promoting Odisha's rich cultural heritage through digital mediums.</p>
+              </div>
+              
+              <div className="bg-gray-900/50 p-4 rounded-lg">
+                <h3 className="text-[#ffb700] font-bold mb-2">Creator of the Year</h3>
+                <p className="text-sm">For the ultimate content powerhouse inspiring audiences with quality, engagement, and innovation.</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => navigate("/categories")}
+                className="px-6 py-2 bg-transparent border border-[#ffb700] text-[#ffb700] rounded-full cursor-pointer font-semibold hover:bg-[#ffb700]/10 transition-colors flex items-center"
+              >
+                View All Categories 
+                <ChevronRight className="ml-1 h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
       
+      {/* Nomination Details Section */}
+      <section className="py-16 bg-gradient-to-b from-gray-900 to-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+            <span className="text-white">Nomination</span>
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent ml-2">
+              Details
+            </span>
+          </h2>
+          
+          <div className="max-w-2xl mx-auto">
+            <ul className="list-disc pl-5 text-white text-lg space-y-3">
+              <li><strong className="text-[#ffb700]">Entry Fee:</strong> ₹299 per category</li>
+              <li><strong className="text-[#ffb700]">Deadline:</strong> 31st March 2025</li>
+              <li><strong className="text-[#ffb700]">Inclusions:</strong> Voting platform access, full creator profile visibility, and event eligibility.</li>
+              <li><strong className="text-[#ffb700]">Refund Policy:</strong> Entry fees are non-refundable.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Nominations Section
+      <section className="py-20 bg-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">FEATURED</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              CREATORS
+            </span>
+          </h2>
+          <div className="flex justify-center px-4 md:px-0">
+            <NomineeCarousel />
+          </div>
+        </div>
+      </section>
+       */}
+
       {/* Guests Section */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">
@@ -295,60 +390,25 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="py-20 bg-black">
+       {/* Make History Section */}
+       <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-16">WHY PARTICIPATE IN INSIGHT 2025?</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Credibility & Recognition</h3>
-              <p className="text-gray-300">
-                Establish yourself as a pioneer in Odisha's digital space with recognition from OTV, Odisha's largest media network.
-              </p>
-            </div>
-
-            <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Amplify Your Influence</h3>
-              <p className="text-gray-300">
-                With television, live-streaming, and digital amplification, your work will be showcased to millions, expanding your reach beyond social media.
-              </p>
-            </div>
-
-            <div className="bg-gray-900 rounded-xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Community-Driven & Transparent</h3>
-              <p className="text-gray-300">
-                Unlike closed-door jury selections, INSIGHT 2025 puts power in audience hands with public nomination and voting for authentic recognition.
-              </p>
-            </div>
-
-            <div className="bg-gray-900 rounded-xl p-8 md:col-span-3">
-              <h3 className="text-xl font-bold text-white mb-4">Connect, Learn & Grow</h3>
-              <p className="text-gray-300">
-                Beyond awards, it's a hub for creators, brands, and experts. Attend exclusive panels and networking sessions to fuel your next breakthrough. Gain insights from industry leaders shaping the digital world.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-r from-[#e50914] to-[#ffb700]">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">Ready to be recognized?</h2>
-          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
-            Join Odisha's most prestigious digital creators award show and showcase your talent to the world.
-          </p>
-          {phaseState.loading ? (
-            <LoadingState />
-          ) : phaseState.error ? (
-            <div className="text-red-500">{phaseState.error}</div>
-          ) : (
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent mb-8 ">
+              Make History with Us
+            </h2>
+            <p className="text-lg text-white mb-10">
+              This isn't just another award. It's the first chapter of a movement to spotlight Odisha's digital trailblazers.
+              Don't miss your chance to be remembered as part of the founding winners.
+            </p>
+            
             <button
               onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
-              className="px-8 py-3 bg-black hover:bg-gray-800 text-white rounded-full cursor-pointer font-semibold"
+              className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
             >
-              {phaseState.isVotingPhase ? "Cast Your Vote Now" : "Submit Your Nomination"}
+              Nominate Now
             </button>
-          )}
+          </div>
         </div>
       </section>
 
