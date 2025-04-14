@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchCategories, fetchNominations, submitVote } from "../api";
-import { ChevronDown, Search, Trophy, Instagram, Facebook, Twitter, Youtube, Loader } from "lucide-react";
+import { ChevronDown, Search, Trophy, Instagram, Facebook, Twitter, Youtube, Loader, ExternalLink } from "lucide-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import sponsors from "../sponsors";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -132,7 +133,6 @@ export default function Home() {
             Cast your vote for the best influencers, agencies, and campaigns in each category. You can vote once per
             category.
           </p>
-
           <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4 mb-12">
             <div className="relative">
               <button
@@ -263,6 +263,91 @@ export default function Home() {
               </div>
             ))}
           </div>
+          {/* --- Sponsors Section (Conditional) --- */}
+          {!selectedCategory && (
+            <section className="my-16">
+              <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-12">Our Sponsors</h2>
+              
+              {/* Platinum Sponsors */}
+              <div className="mb-12">
+                <h3 className="text-xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
+                <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+                  {sponsors
+                    .filter((sponsor) => sponsor.tier === "platinum")
+                    .map((sponsor) => (
+                      <a
+                        key={sponsor.id}
+                        href={sponsor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-xs border border-yellow-500 shadow-lg shadow-yellow-500/10"
+                      >
+                        <div className="relative w-full h-36 mb-4">
+                          <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                        </div>
+                        <h4 className="text-white font-bold text-lg mb-2 text-center">{sponsor.name}</h4>
+                        <div className="flex items-center text-[#ffb700] text-sm">
+                          Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                        </div>
+                      </a>
+                    ))}
+                </div>
+              </div>
+
+              {/* Silver Sponsors */}
+              <div className="mb-12">
+                <h3 className="text-xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
+                <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+                  {sponsors
+                    .filter((sponsor) => sponsor.tier === "silver")
+                    .map((sponsor) => (
+                      <a
+                        key={sponsor.id}
+                        href={sponsor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-xs border border-gray-600 shadow-lg shadow-gray-500/10"
+                      >
+                        <div className="relative w-full h-32 mb-4">
+                          <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                        </div>
+                        <h4 className="text-white font-bold text-lg mb-2 text-center">{sponsor.name}</h4>
+                        <div className="flex items-center text-[#ffb700] text-sm">
+                          Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                        </div>
+                      </a>
+                    ))}
+                </div>
+              </div>
+
+              {/* Event Partners */}
+              <div>
+                <h3 className="text-xl font-bold text-white text-center mb-8">Event Partners</h3>
+                <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+                  {sponsors
+                    .filter((sponsor) => sponsor.tier === "eventPartner")
+                    .map((sponsor) => (
+                      <a
+                        key={sponsor.id}
+                        href={sponsor.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.333%-1.5rem)] lg:w-[calc(25%-1.5rem)] max-w-xs border border-blue-500 shadow-lg shadow-blue-500/10"
+                      >
+                        <div className="relative w-full h-32 mb-4">
+                          <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                        </div>
+                        <h4 className="text-white font-bold text-lg mb-2 text-center">{sponsor.name}</h4>
+                        <div className="flex items-center text-[#ffb700] text-sm">
+                          Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                        </div>
+                      </a>
+                    ))}
+                </div>
+              </div>
+            </section>
+          )}
+          {/* --- End Sponsors Section --- */}
         </div>
       </div>
     </div>);
