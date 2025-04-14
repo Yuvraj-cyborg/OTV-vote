@@ -53,7 +53,8 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Categories", href: "/categories" },
-    { name: currentPhase === "nomination" ? "Nominate" : "Vote", href: currentPhase === "nomination" ? "/nominate" : "/vote" },
+    { name: "Nominate", href: "/nominate" },
+    { name: "Vote", href: "/vote" },
   ];
 
   return (

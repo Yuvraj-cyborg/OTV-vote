@@ -290,27 +290,7 @@ export const fetchPhaseState = async () => {
     return response.data.phase;
   } catch (error) {
     console.error('Error fetching phase state:', error.response?.data || error.message);
-    return 'nomination'; // Default to nomination phase if there's an error
-  }
-};
-
-export const togglePhaseState = async () => {
-  try {
-    const token = localStorage.getItem("adminToken");
-    if (!token) {
-      throw new Error("Admin authentication required");
-    }
-
-    const response = await axios.post(`${API_URL}/phase/toggle`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log('Phase toggled:', response.data);
-    return response.data.phase;
-  } catch (error) {
-    console.error('Error toggling phase state:', error.response?.data || error.message);
-    throw error;
+    return 'always'; // Default to 'always' phase if there's an error
   }
 };
 

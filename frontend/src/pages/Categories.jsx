@@ -20,7 +20,8 @@ import {
   Users,
   Feather,
   Loader,
-  ExternalLink
+  ExternalLink,
+  Dumbbell
 } from 'lucide-react';
 import { fetchPhaseState } from "../api";
 import { useState, useEffect } from 'react';
@@ -155,6 +156,27 @@ export default function Categories() {
       desc: "For Odia creators making a significant impact beyond borders, bridging cultures worldwide.",
       example: "An Odia expatriate sharing cultural content internationally or collaborating with global influencers.",
       subcategories: ["International Reach", "Cross-cultural Content", "Diaspora Engagement"]
+    },
+    { 
+      icon: Dumbbell, 
+      name: "Best Sports/Fitness Influencer", 
+      desc: "For creators who inspire strength, discipline, and wellness through fitness routines, sports achievements, or active lifestyle content.",
+      example: "A fitness reel series on bodyweight workouts at home, a YouTube vlog documenting marathon prep, or motivational content on overcoming physical limitations.",
+      subcategories: ["Fitness Training", "Sports Coverage", "Wellness Content"]
+    },
+    { 
+      icon: Film, 
+      name: "Best Digital Actor Creator", 
+      desc: "For performers who breathe life into characters, sketches, and cinematic reels across digital platforms with charm and versatility.",
+      example: "An Instagram series of monologues, short film-style skits exploring emotions, or humorous reels blending acting with trending audio clips.",
+      subcategories: ["Character Acting", "Short Films", "Digital Skits"]
+    },
+    { 
+      icon: Camera, 
+      name: "Best Photographer of the Year", 
+      desc: "For storytellers who freeze time through their lens, capturing Odisha's people, places, and moments with visual poetry.",
+      example: "A photo essay on tribal life in Koraput, a candid street photography series from Cuttack, or surreal landscape captures from Satkosia gorge.",
+      subcategories: ["Portrait Photography", "Landscape Photography", "Documentary Photography"]
     }
   ];
   const LoadingState = () => (
@@ -303,12 +325,20 @@ const [phaseState, setPhaseState] = useState({
           ) : phaseState.error ? (
             <div className="text-red-500">{phaseState.error}</div>
           ) : (
-            <button
-              onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
-              className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
-            >
-              {phaseState.isVotingPhase ? "Cast Your Vote Now" : "Submit Your Nomination"}
-            </button>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <button
+                onClick={() => navigate("/nominate")}
+                className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
+              >
+                Submit Your Nomination
+              </button>
+              <button
+                onClick={() => navigate("/vote")}
+                className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold"
+              >
+                Cast Your Vote Now
+              </button>
+            </div>
           )}
         </div>
       </div>

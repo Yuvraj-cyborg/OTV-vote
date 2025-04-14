@@ -6,15 +6,12 @@ import {
   approveNominee,
   rejectNominee,
   fetchPhaseState,
-  togglePhaseState,
 } from "../api";
 import {
   ChevronDown,
   Menu,
   X,
   Trophy,
-  ToggleLeft,
-  ToggleRight,
   List,
   Grid,
   LogOut,
@@ -32,7 +29,6 @@ export default function AdminDashboard() {
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [nominations, setNominations] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isVotingPhase, setIsVotingPhase] = useState(false);
   const [isListView, setIsListView] = useState(false);
   const [sortBy, setSortBy] = useState("name");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,16 +73,6 @@ export default function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    const getPhase = async () => {
-      try {
-        const phase = await fetchPhaseState();
-        setIsVotingPhase(phase === "voting");
-      } catch (error) {
-        console.error("Error fetching phase:", error);
-      }
-    };
-    getPhase();
-
     fetchCategories()
       .then((response) => {
         setCategories(response);
@@ -95,15 +81,6 @@ export default function AdminDashboard() {
         console.error("❌ Error fetching categories:", error);
       });
   }, []);
-
-  const handlePhaseToggle = async () => {
-    try {
-      const phase = await togglePhaseState();
-      setIsVotingPhase(phase === "voting");
-    } catch (error) {
-      console.error("Error toggling phase:", error);
-    }
-  };
 
   const getCategoryNameById = (categoryId) => {
     const category = categories.find((cat) => cat.id === categoryId);
@@ -323,22 +300,6 @@ export default function AdminDashboard() {
                   <LogOut size={16} />
                   Logout
                 </button>
-                <span className={`text-xs md:text-sm font-medium ${isVotingPhase ? "text-gray-500" : "text-[#ffb700]"}`}>
-                  Nomination
-                </span>
-                <button
-                  onClick={handlePhaseToggle}
-                  className="relative inline-flex h-5 w-10 items-center flex-shrink-0 cursor-pointer"
-                >
-                  {isVotingPhase ? (
-                    <ToggleRight className="h-7 w-9 md:h-8 md:w-11 text-[#ffb700]" />
-                  ) : (
-                    <ToggleLeft className="h-7 w-9 md:h-8 md:w-11 text-gray-400" />
-                  )}
-                </button>
-                <span className={`text-xs md:text-sm font-medium ${isVotingPhase ? "text-[#ffb700]" : "text-gray-500"}`}>
-                  Voting
-                </span>
               </div>
             </div>
 
@@ -488,9 +449,7 @@ export default function AdminDashboard() {
                                   {nominee.categories?.slice(0, 2).join(", ")}
                                   {nominee.categories?.length > 2 && "..."}
                                 </p>
-                                {isVotingPhase && (
-                                  <p className="text-xs md:text-sm text-white/90 mt-1">Votes: {nominee.votes || 0}</p>
-                                )}
+                                <p className="text-xs md:text-sm text-white/90 mt-1">Votes: {nominee.votes || 0}</p>
                               </div>
                             </>
                           )}

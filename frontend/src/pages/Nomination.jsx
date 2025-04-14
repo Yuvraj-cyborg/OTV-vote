@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { submitNomination, fetchCategories, createRazorpayOrder, fetchRazorpayKey, fetchUserProfile } from "../api";
 import { Camera, Instagram, Facebook, Twitter, Youtube, User, Mail, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 const LoadingPage = ({ message = "Processing..." }) => {
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center">
-      <div className="text-center">
+    <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center">
+      <div className="text-center bg-transparent">
         <div className="flex justify-center mb-4">
           <Loader2 className="h-12 w-12 text-[#ffb700] animate-spin" />
         </div>
@@ -25,6 +25,8 @@ const LoadingPage = ({ message = "Processing..." }) => {
 
 const NominationPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const authCheckPerformed = useRef(false);
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeEmail, setNomineeEmail] = useState("");
   const [instagramUrl, setInstagramUrl] = useState("");
@@ -41,14 +43,22 @@ const NominationPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
 
-  // Check if user is logged in and get profile
+  // Check if user is logged in and get profile - with useRef to prevent duplicate checks
   useEffect(() => {
+    // Prevent duplicate login redirects and infinite loops when using back button
+    if (authCheckPerformed.current) return;
+    
     const token = localStorage.getItem("token");
     if (!token) {
+      authCheckPerformed.current = true;
       toast.error("Please login to submit a nomination");
-      navigate("/login", { state: { returnUrl: "/nominate" } });
+      navigate("/login", { 
+        state: { returnUrl: "/nominate" },
+        replace: true // Use replace instead of push to avoid navigation stack issues
+      });
     } else {
       setIsAuthenticated(true);
+      authCheckPerformed.current = true;
       
       // Get the user profile to get their email
       fetchUserProfile()
@@ -64,6 +74,16 @@ const NominationPage = () => {
         });
     }
   }, [navigate]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      // Clean up resources when component unmounts
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   useEffect(() => {
     async function loadCategories() {
@@ -160,7 +180,7 @@ const NominationPage = () => {
             });
             
             toast.success("Nomination submitted successfully!");
-            navigate("/nomination-success");
+            navigate("/nomination-success", { replace: true });
           } catch (error) {
             console.error("Error submitting nomination:", error);
             toast.error("Payment was successful, but submission failed. Please contact support with your payment ID: " + response.razorpay_payment_id);
@@ -204,7 +224,7 @@ const NominationPage = () => {
       if (error.response?.status === 401) {
         toast.error("Authentication error. Please log in again.");
         localStorage.removeItem("token");
-        navigate("/login", { state: { returnUrl: "/nominate" } });
+        navigate("/login", { state: { returnUrl: "/nominate" }, replace: true });
       } else {
         toast.error("Payment initialization failed. Please try again.");
       }

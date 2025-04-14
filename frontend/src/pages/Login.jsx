@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser, loginWithGoogle } from "../api";
 import { Mail, Lock, ArrowRight } from "lucide-react";
@@ -13,7 +13,16 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const returnUrl = location.state?.returnUrl || "/";
+  const [returnUrl, setReturnUrl] = useState("/");
+  
+  // Extract return URL from location state once on mount
+  useEffect(() => {
+    if (location.state?.returnUrl) {
+      setReturnUrl(location.state.returnUrl);
+      // Clear location state to prevent issues with back button
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +30,7 @@ export default function Login() {
     // Check if user is trying to log in with admin credentials
     if (userId === "admin@odishatv.in") {
       toast.info("Please use the admin login page");
-      navigate("/admin-login");
+      navigate("/admin-login", { replace: true });
       return;
     }
     
@@ -31,7 +40,8 @@ export default function Login() {
       const response = await loginUser({ userId, password });
       localStorage.setItem("token", response.data.token);
       toast.success("Login successful!", { id: loginToast });
-      navigate(returnUrl);
+      // Use replace to prevent navigation stack issues
+      navigate(returnUrl, { replace: true });
     } catch (error) {
       toast.error(
         `Login failed: ${error.response?.data?.error || "Invalid credentials"}`,
@@ -53,7 +63,8 @@ export default function Login() {
       });
       localStorage.setItem("token", response.data.token);
       toast.success("Google login successful!", { id: googleToast });
-      navigate(returnUrl);
+      // Use replace to prevent navigation stack issues
+      navigate(returnUrl, { replace: true });
     } catch (error) {
       toast.error(
         `Google login failed: ${error.response?.data?.error || "Try again later"}`,

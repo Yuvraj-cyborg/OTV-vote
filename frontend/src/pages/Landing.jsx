@@ -125,10 +125,17 @@ export default function Landing() {
         ) : (
           <>
             <button
-              onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
+              onClick={() => navigate("/nominate")}
               className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold flex items-center justify-center"
             >
-              {phaseState.isVotingPhase ? "Vote Now" : "Nominate Now"}
+              Nominate Now
+              <ChevronDown className="ml-2 h-5 w-5" />
+            </button>
+            <button
+              onClick={() => navigate("/vote")}
+              className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold flex items-center justify-center"
+            >
+              Vote Now
               <ChevronDown className="ml-2 h-5 w-5" />
             </button>
             <button
@@ -402,12 +409,20 @@ export default function Landing() {
               Don't miss your chance to be remembered as part of the founding winners.
             </p>
             
-            <button
-              onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
-              className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
-            >
-              Nominate Now
-            </button>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <button
+                onClick={() => navigate("/nominate")}
+                className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
+              >
+                Nominate Now
+              </button>
+              <button
+                onClick={() => navigate("/vote")}
+                className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold"
+              >
+                Vote Now
+              </button>
+            </div>
           </div>
         </div>
       </section>

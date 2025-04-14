@@ -39,10 +39,10 @@ export default function About() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-              ABOUT INSIGHT 2025
-            </span>
-          </h1>
+          <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+            ABOUT INSIGHT 2025
+          </span>
+        </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Celebrating Influence. Honoring Identity.
           </p>
@@ -61,7 +61,7 @@ export default function About() {
             <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Our Vision</h2>
             <p className="text-lg text-white leading-relaxed">
               A first-of-its-kind, multi-platform award show, Insight – 2025 celebrates Odisha's most influential and impactful digital voices. Designed to honor, amplify, and elevate the creators shaping the state's evolving digital landscape.
-            </p>
+          </p>
             <p className="text-lg text-white leading-relaxed mt-4">
               Anchored in the spirit of Odia Asmita, this landmark edition honors social media influencers who've become the digital ambassadors of our heritage — whether through language, art, fashion, food, music, or activism.
             </p>
@@ -85,7 +85,7 @@ export default function About() {
             <h2 className="text-2xl font-bold text-[#ffb700] mb-4">Powered by OTV</h2>
             <p className="text-lg text-white leading-relaxed">
               Hosted by OTV, the largest media network in Odisha, Insight – 2025 is a high-energy, community-driven celebration of creativity, influence, and digital pride. With a transparent self/public nomination and voting process, it gives every creator — no matter where they come from — the opportunity to be recognized as a Digital Odia Icon.
-            </p>
+          </p>
           </div>
 
           {/* Why It Matters */}
@@ -123,7 +123,7 @@ export default function About() {
             </ul>
             <p className="text-lg text-white mt-4">
               Whether you're a travel vlogger capturing hidden Odisha, a comic sharing culturally rooted satire, a craftsperson teaching ancient techniques online, or a fashion creator reviving traditional weaves — this is your stage.
-            </p>
+          </p>
           </div>
 
           {/* Experience */}
@@ -145,7 +145,7 @@ export default function About() {
                 <span className="text-[#ffb700] mr-2">•</span>
                 Live performances, stand-up comedy, and world-class entertainment
               </li>
-            </ul>
+          </ul>
           </div>
 
           {/* Final Message */}
@@ -160,80 +160,86 @@ export default function About() {
           </div>
 
           {/* Action Button */}
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-12 gap-4">
             <button
-              onClick={() => navigate(phaseState.isVotingPhase ? "/vote" : "/nominate")}
+              onClick={() => navigate("/nominate")}
               className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
             >
-              {phaseState.isVotingPhase ? "Cast Your Vote Now" : "Submit Your Nomination"}
+              Submit Your Nomination
+            </button>
+            <button
+              onClick={() => navigate("/vote")}
+              className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold"
+            >
+              Cast Your Vote Now
             </button>
           </div>
         </div>
 
-        {/* Sponsors Section */}
-        <section className="py-20 bg-black">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-              <span className="text-white">OUR</span>
-              <br />
-              <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-                SPONSORS
-              </span>
-            </h2>
+         {/* Sponsors Section */}
+      <section className="py-20 bg-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">OUR</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              SPONSORS
+            </span>
+          </h2>
 
-            {/* Platinum Sponsors */}
-            <div className="mb-16">
-              <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
-              <div className="flex flex-wrap justify-center">
-                {sponsors
-                  .filter((sponsor) => sponsor.tier === "platinum")
-                  .map((sponsor) => (
-                    <a
-                      key={sponsor.id}
-                      href={sponsor.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
-                    >
-                      <div className="relative w-full h-32 mb-4">
-                        <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
-                      </div>
-                      <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
-                      <div className="flex items-center text-[#ffb700] text-sm">
-                        Visit Website <ExternalLink className="ml-1 h-3 w-3" />
-                      </div>
-                    </a>
-                  ))}
-              </div>
-            </div>
-
-            {/* Silver Sponsors */}
-            <div>
-              <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
-              <div className="flex flex-wrap justify-center">
-                {sponsors
-                  .filter((sponsor) => sponsor.tier === "silver")
-                  .map((sponsor) => (
-                    <a
-                      key={sponsor.id}
-                      href={sponsor.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
-                    >
-                      <div className="relative w-full h-32 mb-4">
-                        <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
-                      </div>
-                      <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
-                      <div className="flex items-center text-[#ffb700] text-sm">
-                        Visit Website <ExternalLink className="ml-1 h-3 w-3" />
-                      </div>
-                    </a>
-                  ))}
-              </div>
+          {/* Platinum Sponsors */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Platinum Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "platinum")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
             </div>
           </div>
-        </section>
+
+          {/* Silver Sponsors */}
+          <div>
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Silver Sponsors</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "silver")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
           {[

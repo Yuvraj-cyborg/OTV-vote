@@ -2,8 +2,8 @@ import { Loader2 } from "lucide-react";
 
 const LoadingPage = ({ message = "Processing..." }) => {
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center">
-      <div className="text-center">
+    <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center">
+      <div className="text-center bg-transparent">
         <div className="flex justify-center mb-4">
           <Loader2 className="h-12 w-12 text-[#ffb700] animate-spin" />
         </div>
