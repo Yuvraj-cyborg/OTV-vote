@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -39,6 +38,8 @@ model Nomination {
   votes         Int      @default(0) // New field to track votes
   payments      Payment[] // Link to payment records
   Vote          Vote[]
+
+  @@index([status]) // Added index for status field
 }
 
 model Vote {

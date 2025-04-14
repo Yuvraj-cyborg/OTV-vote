@@ -23,7 +23,6 @@ import {
   ChevronRight
 } from "lucide-react";
 import Navbar from "../components/Navbar";
-import NomineeCarousel from "../components/NomineeCarousel";
 import { fetchPhaseState } from "../api";
 import guests from "../guests";
 import sponsors from "../sponsors";
@@ -276,23 +275,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
-      {/* Featured Nominations Section
-      <section className="py-20 bg-black">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
-            <span className="text-white">FEATURED</span>
-            <br />
-            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-              CREATORS
-            </span>
-          </h2>
-          <div className="flex justify-center px-4 md:px-0">
-            <NomineeCarousel />
-          </div>
-        </div>
-      </section>
-       */}
 
       {/* Guests Section */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900">
