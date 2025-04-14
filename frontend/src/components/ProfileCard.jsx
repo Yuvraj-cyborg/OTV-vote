@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Download, Share2, Instagram, Facebook, Twitter, Youtube, Loader2 } from 'lucide-react';
-import domtoimage from 'dom-to-image';
+import html2canvas from 'html2canvas-pro';
 
 const ProfileCard = ({ nomination }) => {
   const cardRef = useRef(null);
@@ -15,28 +15,39 @@ const ProfileCard = ({ nomination }) => {
     
     try {
       // Simple delay to ensure everything is rendered
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 300));
       
-      // Convert DOM to image with dom-to-image
-      const dataUrl = await domtoimage.toPng(cardRef.current, {
-        quality: 1.0,
-        bgcolor: '#111827',
-        style: {
-          'border-radius': '24px'
-        },
-        width: cardRef.current.offsetWidth,
-        height: cardRef.current.offsetHeight
+      const canvas = await html2canvas(cardRef.current, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#111827',
+        scale: 2,
+        logging: false,
+        removeContainer: true,
+        letterRendering: true
       });
       
       // Create download link
-      const link = document.createElement('a');
-      link.download = `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-insight-nomination.png`;
-      link.href = dataUrl;
-      link.click();
-      
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.download = `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-insight-nomination.png`;
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+        } else {
+          // Fallback if blob creation fails
+          const url = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.download = `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-insight-nomination.png`;
+          link.href = url;
+          link.click();
+        }
+      }, 'image/png', 1.0);
     } catch (error) {
       console.error('Error downloading card:', error);
-      alert(`Unable to download card: ${error.message || 'Unknown error'}`);
+      alert(`Unable to download card. Please try again later.`);
     } finally {
       setLoading(false);
     }
@@ -49,47 +60,58 @@ const ProfileCard = ({ nomination }) => {
     
     try {
       // Simple delay to ensure everything is rendered
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 300));
       
-      // Convert DOM to image with dom-to-image
-      const dataUrl = await domtoimage.toPng(cardRef.current, {
-        quality: 1.0,
-        bgcolor: '#111827',
-        style: {
-          'border-radius': '24px'
-        },
-        width: cardRef.current.offsetWidth,
-        height: cardRef.current.offsetHeight
+      const canvas = await html2canvas(cardRef.current, {
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#111827',
+        scale: 2,
+        logging: false,
+        removeContainer: true,
+        letterRendering: true
       });
       
-      // Convert data URL to blob
-      const response = await fetch(dataUrl);
-      const blob = await response.blob();
-      
-      // Use Web Share API if available
-      if (navigator.share) {
-        try {
-          const file = new File([blob], `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-nomination.png`, {
-            type: 'image/png'
-          });
-          
-          await navigator.share({
-            title: 'My INSIGHT 2025 Nomination',
-            text: `Check out ${nomination.nomineeName}'s nomination for Insight 2025 - Odisha's 1st Creators Awards!`,
-            files: [file]
-          });
-        } catch (error) {
-          console.error('Error sharing:', error);
-          // Try direct download as fallback
-          handleDownload();
+      // Try to share with Web Share API
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          throw new Error("Could not create image blob");
         }
-      } else {
-        // Fallback for browsers that don't support sharing
-        handleDownload();
-      }
+        
+        if (navigator.share) {
+          try {
+            const file = new File([blob], `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-nomination.png`, {
+              type: 'image/png'
+            });
+            
+            await navigator.share({
+              title: 'My INSIGHT 2025 Nomination',
+              text: `Check out ${nomination.nomineeName}'s nomination for Insight 2025 - Odisha's 1st Creators Awards!`,
+              files: [file]
+            });
+          } catch (error) {
+            console.error('Error sharing:', error);
+            // Try direct download as fallback
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-insight-nomination.png`;
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+          }
+        } else {
+          // Fallback for browsers that don't support sharing
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.download = `${nomination.nomineeName.replace(/\s+/g, '-').toLowerCase()}-insight-nomination.png`;
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+        }
+      }, 'image/png', 1.0);
     } catch (error) {
       console.error('Error preparing share:', error);
-      alert(`Unable to share card: ${error.message || 'Unknown error'}`);
+      alert(`Unable to share card. Please try again later.`);
     } finally {
       setLoading(false);
     }
@@ -145,7 +167,7 @@ const ProfileCard = ({ nomination }) => {
         className="relative overflow-hidden bg-gradient-to-br from-gray-900 to-black border border-gray-700"
         style={{ 
           borderRadius: '24px',
-          width: '380px',
+          width: '350px',
           padding: '24px',
           maxWidth: '100%',
           minHeight: categories.length > 4 ? '580px' : '520px'
@@ -184,7 +206,7 @@ const ProfileCard = ({ nomination }) => {
                 }}
               >
                 <img
-                  src={nomination.nomineePhoto || "https://via.placeholder.com/150"}
+                  src={nomination.nomineePhoto || "https://via.placeholder.com/300"}
                   alt={nomination.nomineeName}
                   style={{
                     width: '100%',
@@ -194,7 +216,7 @@ const ProfileCard = ({ nomination }) => {
                   crossOrigin="anonymous"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = 'https://via.placeholder.com/150';
+                    e.target.src = 'https://via.placeholder.com/300';
                   }}
                 />
               </div>
@@ -213,7 +235,7 @@ const ProfileCard = ({ nomination }) => {
             >
               {nomination.nomineeName}
             </h2>
-            <div className="flex justify-center space-x-2">
+            <div className="flex justify-center space-x-2" style={{ marginBottom: '16px' }}>
               {getSocialIcons()}
             </div>
           </div>
