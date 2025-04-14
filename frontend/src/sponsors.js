@@ -1,9 +1,9 @@
-
 import klLogo from './assets/kl-logo.png';
 import panasonic from './assets/panasonic.jpg';
 import lalchand from './assets/lalchand.png';
 import dion from './assets/Dion.jpg';
 import okaya from './assets/okaya.jpg';
+import oliveRidley from './assets/ormlogo.png';
 
 const sponsors = [
   // Platinum Sponsors
@@ -95,6 +95,15 @@ const sponsors = [
   //   logo: "https://via.placeholder.com/200x100/663399/ffffff?text=Tech+Hub",
   //   website: "https://example.com/techhub"
   // }
+  
+  // Event Partners
+  {
+    id: 13,
+    name: "Olive Ridley Media",
+    tier: "eventPartner",
+    logo: oliveRidley,
+    website: "https://oliveridleymedia.in/"
+  }
 ];
 
 export default sponsors;

@@ -31,6 +31,35 @@ const NomineeModal = ({ nominee, onClose }) => {
     document.body.removeChild(link);
   };
 
+  // Extract categories properly, handling both formats (direct array or object array with nested category)
+  const extractCategories = () => {
+    if (!nominee.categories) return [];
+    
+    // If categories is already a simple array of strings
+    if (typeof nominee.categories[0] === 'string') {
+      return nominee.categories;
+    }
+    
+    // If categories is an array of objects with category property
+    if (nominee.categories[0]?.category?.name) {
+      return nominee.categories.map(cat => cat.category.name);
+    }
+    
+    // If categories is just an array of objects with name property
+    if (nominee.categories[0]?.name) {
+      return nominee.categories.map(cat => cat.name);
+    }
+    
+    // Fallback - try to extract something meaningful
+    return nominee.categories.map(cat => {
+      if (typeof cat === 'string') return cat;
+      if (cat.category) return cat.category.name || cat.category;
+      return cat.name || 'Unknown Category';
+    });
+  };
+
+  const categories = extractCategories();
+
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-gray-900 rounded-xl shadow-xl border border-gray-700 w-full max-w-md">
@@ -103,14 +132,18 @@ const NomineeModal = ({ nominee, onClose }) => {
           <div>
             <h3 className="text-sm font-medium text-[#ffb700] mb-2 text-center">Categories</h3>
             <div className="flex flex-wrap justify-center gap-2">
-              {nominee.categories?.map((category, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1 text-xs font-medium rounded-full bg-[#ffb700]/10 text-[#ffb700] border border-[#ffb700]/20"
-                >
-                  {category}
-                </span>
-              ))}
+              {categories.length > 0 ? (
+                categories.map((category, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-[#ffb700]/10 text-[#ffb700] border border-[#ffb700]/20"
+                  >
+                    {category}
+                  </span>
+                ))
+              ) : (
+                <span className="text-gray-400 text-xs">No categories assigned</span>
+              )}
             </div>
           </div>
 

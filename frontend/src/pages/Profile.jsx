@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUserProfile, fetchUserNominations } from "../api";
-import { Instagram, Facebook, Twitter, Youtube, LogOut, Award, Loader2, User } from "lucide-react";
+import { Instagram, Facebook, Twitter, Youtube, LogOut, Award, Loader2, User, Share2 } from "lucide-react";
 import toast from "react-hot-toast";
+import axios from 'axios';
+import ProfileModal from '../components/ProfileModal';
 
 
 const LoadingPage = ({ message = "Loading your profile..." }) => {
@@ -65,6 +67,8 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [nominations, setNominations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedNomination, setSelectedNomination] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -116,6 +120,35 @@ export default function Profile() {
     localStorage.removeItem("token");
     toast.success("Logged out successfully");
     navigate("/");
+  };
+
+  // Handle modal opening
+  const handleShowModal = (nomination) => {
+    // Make sure nomination has proper structure before passing to modal
+    const processedNomination = {
+      ...nomination,
+      // Ensure categories are in the expected format
+      categories: nomination.categories?.map(cat => {
+        if (typeof cat === 'object') {
+          // If it's already in the right format, return it
+          if (cat.name) return cat;
+          // If it has category.name structure, transform it
+          if (cat.category && cat.category.name) {
+            return { name: cat.category.name, id: cat.category.id };
+          }
+        }
+        // If it's a string, convert to object format
+        return { name: cat, id: typeof cat === 'string' ? cat : undefined };
+      }) || []
+    };
+    
+    setSelectedNomination(processedNomination);
+    setModalOpen(true);
+  };
+
+  // Handle modal closing
+  const closeShareModal = () => {
+    setModalOpen(false);
   };
 
   if (loading) return <LoadingPage />;
@@ -188,12 +221,28 @@ export default function Profile() {
                       <SocialLink platform="youtube" username={nomination.youtubeId} url={`https://youtube.com/${nomination.youtubeId}`} />
                     )}
                   </div>
+                  <div className="mt-4 text-right">
+                    <button 
+                      onClick={() => handleShowModal(nomination)}
+                      className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors"
+                      aria-label="Share nomination"
+                    >
+                      <Share2 className="h-5 w-5 text-amber-500" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           )}
         </div>
       </div>
+      
+      {/* Profile Modal */}
+      <ProfileModal 
+        isOpen={modalOpen}
+        onClose={closeShareModal}
+        nomination={selectedNomination}
+      />
     </div>
   );
 }

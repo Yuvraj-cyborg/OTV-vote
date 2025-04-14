@@ -394,6 +394,32 @@ export default function Landing() {
                 ))}
             </div>
           </div>
+
+          {/* Event Partners */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">Event Partners</h3>
+            <div className="flex flex-wrap justify-center">
+              {sponsors
+                .filter((sponsor) => sponsor.tier === "eventPartner")
+                .map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-900 p-6 rounded-xl flex flex-col items-center transition-transform hover:scale-105 m-4 w-full sm:w-[calc(50%-2rem)] md:w-[calc(33.333%-2rem)] lg:w-[calc(25%-2rem)] max-w-xs"
+                  >
+                    <div className="relative w-full h-32 mb-4">
+                      <img src={sponsor.logo} alt={sponsor.name} className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="text-white font-bold text-lg mb-2">{sponsor.name}</h4>
+                    <div className="flex items-center text-[#ffb700] text-sm">
+                      Visit Website <ExternalLink className="ml-1 h-3 w-3" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
         </div>
       </section>
 

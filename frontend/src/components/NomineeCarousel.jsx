@@ -14,7 +14,9 @@ const NomineeCarousel = () => {
     const fetchNominees = async () => {
       try {
         const response = await fetchApprovedNominees();
-        if (Array.isArray(response)) {
+        console.log('Fetched nominees response:', response);
+        
+        if (Array.isArray(response) && response.length > 0) {
           setNominees(response);
         } else {
           setNominees([]);
@@ -29,6 +31,33 @@ const NomineeCarousel = () => {
 
     fetchNominees();
   }, []);
+
+  // Extract categories properly, handling both formats (direct array or object array with nested category)
+  const extractCategories = (nominee) => {
+    if (!nominee.categories) return [];
+    
+    // If categories is already a simple array of strings
+    if (typeof nominee.categories[0] === 'string') {
+      return nominee.categories;
+    }
+    
+    // If categories is an array of objects with category property
+    if (nominee.categories[0]?.category?.name) {
+      return nominee.categories.map(cat => cat.category.name);
+    }
+    
+    // If categories is just an array of objects with name property
+    if (nominee.categories[0]?.name) {
+      return nominee.categories.map(cat => cat.name);
+    }
+    
+    // Fallback - try to extract something meaningful
+    return nominee.categories.map(cat => {
+      if (typeof cat === 'string') return cat;
+      if (cat.category) return cat.category.name || cat.category;
+      return cat.name || 'Unknown Category';
+    });
+  };
 
   const nextSlide = () => {
     if (nominees.length > 0) {
@@ -70,34 +99,44 @@ const NomineeCarousel = () => {
     );
   }
 
-  const NomineeCard = ({ nominee }) => (
-    <div className="bg-black/50 rounded-lg border border-gray-700 overflow-hidden w-full mx-auto" style={{ maxWidth: '280px' }}>
-      <div className="aspect-square relative">
-        <img
-          src={nominee.nomineePhoto || "https://via.placeholder.com/150"}
-          alt={nominee.nomineeName}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = '/placeholder-nominee.jpg';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <button 
-          onClick={() => {
-            setSelectedNominee(nominee);
-            window.scrollTo(0, 0);
-          }}
-          className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-[#ffb700]/20"
-        >
-          <Info className="w-4 h-4 text-white" />
-        </button>
-        <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
-          <h3 className="font-bold text-white text-sm md:text-base">{nominee.nomineeName}</h3>
+  const NomineeCard = ({ nominee }) => {
+    const categories = extractCategories(nominee);
+    const primaryCategory = categories.length > 0 ? categories[0] : null;
+    
+    return (
+      <div className="bg-black/50 rounded-lg border border-gray-700 overflow-hidden w-full mx-auto" style={{ maxWidth: '280px' }}>
+        <div className="aspect-square relative">
+          <img
+            src={nominee.nomineePhoto || "https://via.placeholder.com/150"}
+            alt={nominee.nomineeName}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '/placeholder-nominee.jpg';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <button 
+            onClick={() => {
+              setSelectedNominee(nominee);
+              window.scrollTo(0, 0);
+            }}
+            className="absolute top-2 right-2 p-1 bg-black/50 rounded-full hover:bg-[#ffb700]/20"
+          >
+            <Info className="w-4 h-4 text-white" />
+          </button>
+          <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+            <h3 className="font-bold text-white text-sm md:text-base">{nominee.nomineeName}</h3>
+            {primaryCategory && (
+              <span className="inline-block mt-1 px-2 py-0.5 text-xs rounded-full bg-[#ffb700]/20 text-[#ffb700] border border-[#ffb700]/20">
+                {primaryCategory}
+              </span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>
