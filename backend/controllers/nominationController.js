@@ -129,8 +129,10 @@ const createNomination = async (req, res) => {
       });
     }
 
-    // Create the nomination
-    // First create the nomination without categories
+    // Convert all category IDs to integers
+    parsedCategoryIds = parsedCategoryIds.map(id => parseInt(id)).filter(id => !isNaN(id));
+
+    // Create the nomination record first
     const nomination = await prisma.nomination.create({
       data: {
         nomineeName,
@@ -143,18 +145,41 @@ const createNomination = async (req, res) => {
       },
     });
     
-    // Then create category connections
-    try {
-      await prisma.nominationCategory.createMany({
-        data: parsedCategoryIds.map(categoryId => ({
-          nominationId: nomination.id,
-          categoryId: parseInt(categoryId)
-        }))
-      });
-    } catch (error) {
-      // Delete the nomination if category connections fail
-      await prisma.nomination.delete({ where: { id: nomination.id } });
-      throw error;
+    // Find which categories actually exist in the database
+    const validCategories = await prisma.category.findMany({
+      where: {
+        id: {
+          in: parsedCategoryIds
+        }
+      },
+      select: {
+        id: true
+      }
+    });
+    
+    const validCategoryIds = validCategories.map(cat => cat.id);
+    
+    // Log if there are invalid categories, but don't fail the nomination
+    if (validCategoryIds.length < parsedCategoryIds.length) {
+      console.warn(`User ${userEmail} submitted some invalid category IDs. Original: ${JSON.stringify(parsedCategoryIds)}, Valid: ${JSON.stringify(validCategoryIds)}`);
+    }
+    
+    // Only attempt to create connections for valid categories
+    if (validCategoryIds.length > 0) {
+      try {
+        await prisma.nominationCategory.createMany({
+          data: validCategoryIds.map(categoryId => ({
+            nominationId: nomination.id,
+            categoryId: categoryId
+          }))
+        });
+      } catch (error) {
+        // Log the error but DO NOT delete the nomination
+        console.error(`Error linking categories for nomination ${nomination.id}: ${error.message}`);
+        // Continue with the nomination anyway
+      }
+    } else {
+      console.warn(`No valid categories found for nomination ${nomination.id}. Proceeding without categories.`);
     }
 
     // Create payment record if payment details are provided

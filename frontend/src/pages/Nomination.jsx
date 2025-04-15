@@ -180,7 +180,7 @@ const NominationPage = () => {
             });
             
             toast.success("Nomination submitted successfully!");
-            navigate("/nomination-success", { replace: true });
+            navigate("/profile", { replace: true });
           } catch (error) {
             console.error("Error submitting nomination:", error);
             toast.error("Payment was successful, but submission failed. Please contact support with your payment ID: " + response.razorpay_payment_id);
