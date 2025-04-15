@@ -24,7 +24,7 @@ model User {
 model Nomination {
   id            Int      @id @default(autoincrement())
   nomineeName   String
-  nomineeEmail  String   // Allows multiple nominations per email
+  nomineeEmail  String   @unique  // Add this @unique constraint
   nomineePhoto  String
   instagramUrl  String?
   facebookId    String?  // Optional

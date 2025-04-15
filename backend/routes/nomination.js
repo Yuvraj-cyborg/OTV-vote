@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require("multer");
-const { createNomination,fetchNominations,approveNominee,getApprovedNominations,fetchUserDetails,createRazorpayOrder,getRazorpayKey,rejectNominee,getUserNominations, fetchNominationsWithEmails } = require('../controllers/nominationController.js');
+const { createNomination,fetchNominations,approveNominee,getApprovedNominations,fetchUserDetails,createRazorpayOrder,getRazorpayKey,rejectNominee,getUserNominations, fetchNominationsWithEmails, fetchNominationsWithTotalVotes, recordPayment, verifyPayment, reconcilePayments } = require('../controllers/nominationController.js');
 const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
@@ -33,5 +33,28 @@ router.post("/:id/reject", authenticateToken, rejectNominee);
 
 // Add route to fetch user's nominations (requires authentication)
 router.get('/user', authenticateToken, getUserNominations);
+
+// Add route to fetch all nominations with total vote counts (for admin panel)
+router.get('/with-total-votes', (req, res, next) => {
+  // Check for adminToken in headers
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  
+  const adminCredential = Buffer.from("admin@odishatv.in:Odishatv@password").toString('base64');
+  
+  if (token && token === adminCredential) {
+    // If adminToken is valid, set req.user to bypass authentication
+    req.user = { userId: "admin@odishatv.in" };
+    return next();
+  }
+  
+  // Otherwise, proceed with regular authentication
+  authenticateToken(req, res, next);
+}, fetchNominationsWithTotalVotes);
+
+// New payment-related routes
+router.post('/record-payment', authenticateToken, recordPayment);
+router.get('/verify-payment/:paymentId', authenticateToken, verifyPayment);
+router.get('/reconcile-payments', reconcilePayments); // Admin-only route with internal auth check
 
 module.exports = router;
