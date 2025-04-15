@@ -120,7 +120,8 @@ export default function AdminDashboard() {
                 ? response.map(nom => ({
                     ...nom,
                     categoryName: category.name,
-                    categories: [category.name]
+                    categories: [category.name],
+                    categoryVotes: { [category.id]: nom.votes || 0 } // Store votes by category ID
                   }))
                 : []
             )
@@ -131,13 +132,29 @@ export default function AdminDashboard() {
       const uniqueNominations = allNominations.reduce((acc, current) => {
         const existing = acc.find(item => item.id === current.id);
         if (!existing) {
-          return [...acc, current];
+          return [...acc, {
+            ...current,
+            totalVotes: current.votes || 0, // Initialize totalVotes
+            categoryVotes: current.categoryVotes || {} // Initialize categoryVotes
+          }];
         } else {
+          // Sum up votes from all categories for this nominee
+          const updatedCategoryVotes = {
+            ...existing.categoryVotes,
+            ...current.categoryVotes
+          };
+          
+          // Calculate total votes across all categories
+          const totalVotes = Object.values(updatedCategoryVotes).reduce((sum, votes) => sum + votes, 0);
+          
           return acc.map(item => 
             item.id === current.id 
               ? { 
                   ...item, 
-                  categories: [...new Set([...item.categories, ...current.categories])] 
+                  categories: [...new Set([...item.categories, ...current.categories])],
+                  categoryVotes: updatedCategoryVotes,
+                  totalVotes: totalVotes, // Store the cumulative votes
+                  votes: totalVotes // Also update the votes property for compatibility
                 } 
               : item
           );
@@ -391,7 +408,7 @@ export default function AdminDashboard() {
                                 )}
                                 <div className="text-center">
                                   <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-gray-800 rounded-md font-bold text-sm md:text-lg text-[#ffb700]">
-                                    {nominee.votes || 0}
+                                    {viewAll && nominee.totalVotes !== undefined ? nominee.totalVotes : nominee.votes || 0}
                                   </span>
                                 </div>
                                 <div className="text-right">
@@ -449,7 +466,7 @@ export default function AdminDashboard() {
                                   {nominee.categories?.slice(0, 2).join(", ")}
                                   {nominee.categories?.length > 2 && "..."}
                                 </p>
-                                <p className="text-xs md:text-sm text-white/90 mt-1">Votes: {nominee.votes || 0}</p>
+                                <p className="text-xs md:text-sm text-white/90 mt-1">Votes: {viewAll && nominee.totalVotes !== undefined ? nominee.totalVotes : nominee.votes || 0}</p>
                               </div>
                             </>
                           )}
@@ -533,7 +550,8 @@ export default function AdminDashboard() {
       {selectedNominee && (
         <NomineeModal 
           nominee={selectedNominee} 
-          onClose={() => setSelectedNominee(null)} 
+          onClose={() => setSelectedNominee(null)}
+          viewAll={viewAll}
         />
       )}
     </>

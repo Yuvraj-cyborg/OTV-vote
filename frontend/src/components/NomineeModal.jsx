@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { X, Download } from "lucide-react";
 
-const NomineeModal = ({ nominee, onClose }) => {
+const NomineeModal = ({ nominee, onClose, viewAll }) => {
   if (!nominee) return null;
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const NomineeModal = ({ nominee, onClose }) => {
     document.body.removeChild(link);
   };
 
-  // Extract categories properly, handling both formats (direct array or object array with nested category)
+  // Extract categories and get a mapping of category names to IDs
   const extractCategories = () => {
     if (!nominee.categories) return [];
     
@@ -59,6 +59,36 @@ const NomineeModal = ({ nominee, onClose }) => {
   };
 
   const categories = extractCategories();
+
+  // Get the array of category vote data from categoryVotes object
+  const getCategoryVotesArray = () => {
+    if (!viewAll || !nominee.categoryVotes) return [];
+    
+    // Convert category votes object to array of { id, name, votes } objects
+    return Object.entries(nominee.categoryVotes).map(([categoryId, votes]) => {
+      // Find the corresponding category name - there isn't a direct way to map ID to name 
+      // We'll use the categoryName field if available, or look for a match in categories array
+      let categoryName = "Unknown Category";
+      
+      // Try to find category name from categories array
+      if (nominee.categories && nominee.categories.length > 0) {
+        // We're going to assume the order of categories matches the order of keys in categoryVotes
+        const index = Object.keys(nominee.categoryVotes).indexOf(categoryId);
+        if (index >= 0 && index < nominee.categories.length) {
+          categoryName = nominee.categories[index];
+        }
+      }
+      
+      return {
+        id: categoryId,
+        name: categoryName,
+        votes: votes || 0
+      };
+    }).sort((a, b) => b.votes - a.votes); // Sort by votes (highest first)
+  };
+
+  const categoryVotes = getCategoryVotesArray();
+  const totalVotes = viewAll && nominee.totalVotes !== undefined ? nominee.totalVotes : nominee.votes || 0;
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
@@ -147,11 +177,26 @@ const NomineeModal = ({ nominee, onClose }) => {
             </div>
           </div>
 
-          {nominee.votes !== undefined && (
+          {(nominee.votes !== undefined || nominee.totalVotes !== undefined) && (
             <div className="text-center">
               <span className="inline-block px-4 py-2 bg-gray-800 rounded-md font-bold text-lg text-[#ffb700]">
-                {nominee.votes || 0} Votes
+                {totalVotes} {totalVotes === 1 ? "Vote" : "Votes"}
               </span>
+              
+              {/* Display votes by category when in viewAll mode and there's categoryVotes data */}
+              {viewAll && categoryVotes.length > 0 && (
+                <div className="mt-3">
+                  <h4 className="text-sm font-medium text-[#ffb700] mb-2">Votes by Category</h4>
+                  <div className="space-y-2">
+                    {categoryVotes.map((cat, i) => (
+                      <div key={i} className="flex justify-between text-sm">
+                        <span className="text-gray-300">{cat.name}</span>
+                        <span className="font-semibold text-white">{cat.votes} {cat.votes === 1 ? "vote" : "votes"}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
