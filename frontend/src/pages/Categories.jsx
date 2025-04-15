@@ -21,7 +21,8 @@ import {
   Feather,
   Loader,
   ExternalLink,
-  Dumbbell
+  Dumbbell,
+  Gamepad2
 } from 'lucide-react';
 import { fetchPhaseState } from "../api";
 import { useState, useEffect } from 'react';
@@ -177,6 +178,13 @@ export default function Categories() {
       desc: "For storytellers who freeze time through their lens, capturing Odisha's people, places, and moments with visual poetry.",
       example: "A photo essay on tribal life in Koraput, a candid street photography series from Cuttack, or surreal landscape captures from Satkosia gorge.",
       subcategories: ["Portrait Photography", "Landscape Photography", "Documentary Photography"]
+    },
+    { 
+      icon: Gamepad2, 
+      name: "Best Online Gamer", 
+      desc: "For digital warriors and streamers who turn every game into a thrilling experience, blending skill, entertainment, and community engagement.",
+      example: "A live-streamed PUBG battle royale, a YouTube series decoding Free Fire hacks, or hilarious reaction reels from intense BGMI showdowns.",
+      subcategories: ["Live Streaming", "Game Commentary", "Gaming Tutorials"]
     }
   ];
   const LoadingState = () => (
