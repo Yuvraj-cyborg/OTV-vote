@@ -174,7 +174,7 @@ export default function Categories() {
     },
     { 
       icon: Camera, 
-      name: "Best Photographer of the Year", 
+      name: "Photographer of the Year", 
       desc: "For storytellers who freeze time through their lens, capturing Odisha's people, places, and moments with visual poetry.",
       example: "A photo essay on tribal life in Koraput, a candid street photography series from Cuttack, or surreal landscape captures from Satkosia gorge.",
       subcategories: ["Portrait Photography", "Landscape Photography", "Documentary Photography"]
