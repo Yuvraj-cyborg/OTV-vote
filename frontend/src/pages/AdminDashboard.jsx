@@ -17,7 +17,8 @@ import {
   LogOut,
   Info,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Search
 } from "lucide-react";
 import toast from "react-hot-toast";
 import NomineeModal from "../components/NomineeModal";
@@ -36,6 +37,8 @@ export default function AdminDashboard() {
   const [viewAll, setViewAll] = useState(false);
   const [selectedNominee, setSelectedNominee] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredNominations, setFilteredNominations] = useState([]);
   
   // Items per page based on view type
   const ITEMS_PER_PAGE_LIST = 8;
@@ -56,6 +59,19 @@ export default function AdminDashboard() {
   useEffect(() => {
     setCurrentPage(1);
   }, [isListView]);
+
+  // Filter nominations when search term changes
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setFilteredNominations(nominations);
+    } else {
+      const filtered = nominations.filter(nominee => 
+        nominee.nomineeName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredNominations(filtered);
+      setCurrentPage(1); // Reset to first page when searching
+    }
+  }, [searchTerm, nominations]);
 
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
@@ -91,18 +107,22 @@ export default function AdminDashboard() {
     if (!categoryId) return;
     setLoading(true);
     setCurrentPage(1); // Reset to first page
+    setSearchTerm(""); // Clear search term when changing category
     try {
       const response = await fetchNominationsWithVotes(categoryId);
-      setNominations(Array.isArray(response) ? response.map(nom => ({
+      const processedNominations = Array.isArray(response) ? response.map(nom => ({
         ...nom,
         categoryName: getCategoryNameById(categoryId),
         categories: [getCategoryNameById(categoryId)]
-      })) : []);
+      })) : [];
+      setNominations(processedNominations);
+      setFilteredNominations(processedNominations);
       setSelectedCategoryName(getCategoryNameById(categoryId));
       setViewAll(false);
     } catch (error) {
       console.error("❌ Error fetching nominations:", error);
       setNominations([]);
+      setFilteredNominations([]);
     } finally {
       setLoading(false);
     }
@@ -111,6 +131,7 @@ export default function AdminDashboard() {
   const handleViewAll = async () => {
     setLoading(true);
     setCurrentPage(1); // Reset to first page
+    setSearchTerm(""); // Clear search term when viewing all
     try {
       const allResponses = await Promise.all(
         categories.map(category => 
@@ -162,12 +183,14 @@ export default function AdminDashboard() {
       }, []);
 
       setNominations(uniqueNominations);
+      setFilteredNominations(uniqueNominations);
       setSelectedCategory("");
       setSelectedCategoryName("All Categories");
       setViewAll(true);
     } catch (error) {
       console.error("❌ Error fetching all nominations:", error);
       setNominations([]);
+      setFilteredNominations([]);
     } finally {
       setLoading(false);
     }
@@ -177,6 +200,9 @@ export default function AdminDashboard() {
     try {
       await approveNominee(id);
       setNominations(nominations.map(n => 
+        n.id === id ? { ...n, status: "approved" } : n
+      ));
+      setFilteredNominations(filteredNominations.map(n => 
         n.id === id ? { ...n, status: "approved" } : n
       ));
     } catch (error) {
@@ -191,13 +217,26 @@ export default function AdminDashboard() {
       setNominations(nominations.map(n => 
         n.id === id ? { ...n, status: "rejected" } : n
       ));
+      setFilteredNominations(filteredNominations.map(n => 
+        n.id === id ? { ...n, status: "rejected" } : n
+      ));
     } catch (error) {
       console.error("Rejection failed:", error);
       toast.error(`Failed to reject nominee: ${error.message}`);
     }
   };
 
-  const sortedNominations = [...nominations].sort((a, b) => {
+  // Handle search input change
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Clear search
+  const handleClearSearch = () => {
+    setSearchTerm("");
+  };
+
+  const sortedNominations = [...filteredNominations].sort((a, b) => {
     if (sortBy === "name") {
       return a.nomineeName.localeCompare(b.nomineeName);
     } else if (sortBy === "votes") {
@@ -318,6 +357,35 @@ export default function AdminDashboard() {
                   Logout
                 </button>
               </div>
+            </div>
+
+            {/* Search Input */}
+            <div className="mb-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchInputChange}
+                  placeholder="Search nominees by name..."
+                  className="w-full px-4 py-2 pl-10 bg-gray-800/70 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb700]"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-gray-400" />
+                </div>
+                {searchTerm && (
+                  <button 
+                    onClick={handleClearSearch}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    <X className="h-4 w-4 text-gray-400 hover:text-white" />
+                  </button>
+                )}
+              </div>
+              {searchTerm && (
+                <p className="text-sm text-gray-400 mt-2">
+                  Found {filteredNominations.length} nominees matching "{searchTerm}"
+                </p>
+              )}
             </div>
 
             <div className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -503,6 +571,10 @@ export default function AdminDashboard() {
                         )}
                       </div>
                     ))
+                  ) : searchTerm ? (
+                    <p className="text-gray-400 text-center col-span-full py-8">
+                      No nominations found matching "{searchTerm}"
+                    </p>
                   ) : (
                     <p className="text-gray-400 text-center col-span-full py-8">
                       {viewAll ? "No nominations found across all categories" : "No nominations found for this category"}
@@ -510,7 +582,7 @@ export default function AdminDashboard() {
                   )}
                 </div>
 
-                {/* Pagination controls */}
+                {/* Pagination controls - only show if not searching or search has multiple pages */}
                 {sortedNominations.length > 0 && totalPages > 1 && (
                   <div className="flex justify-center items-center gap-2 mt-8">
                     <button
