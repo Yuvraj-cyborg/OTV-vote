@@ -159,7 +159,7 @@ export default function Landing() {
             <h3 className="text-xl md:text-2xl font-bold text-white mb-6">
               Nomination Period Ends In:
             </h3>
-            <CountdownTimer targetDate="2025-04-16T23:59:59" />
+            <CountdownTimer targetDate="2025-04-18T23:59:59" />
           </div>
         </section>
       )}
