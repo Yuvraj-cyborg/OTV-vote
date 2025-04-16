@@ -53,6 +53,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Categories", href: "/categories" },
+    { name: "Rules", href: "/rules" },
     { name: "Nominate", href: "/nominate" },
     { name: "Vote", href: "/vote" },
   ];

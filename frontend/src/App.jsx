@@ -19,6 +19,7 @@ import Terms from "./pages/Terms"; // Import the Terms component
 import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail component
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
+import Rules from "./pages/Rules"; // Import the Rules component
 // Protected Route component
 const ProtectedAdminRoute = ({ children }) => {
   const adminToken = localStorage.getItem("adminToken");
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/about-us" element={<AboutUs />} /> 
         <Route path="/contact-us" element={<ContactUs />} /> 
         <Route path="/terms" element={<Terms />} />
+        <Route path="/rules" element={<Rules />} />
         <Route path="/price-detail" element={<PriceDetail />} /> 
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
