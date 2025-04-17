@@ -41,7 +41,7 @@ export default function AdminDashboard() {
   const [filteredNominations, setFilteredNominations] = useState([]);
   
   // Items per page based on view type
-  const ITEMS_PER_PAGE_LIST = 8;
+  const ITEMS_PER_PAGE_LIST = 10;
   const ITEMS_PER_PAGE_GRID = 6;
 
   // Check if admin is logged in
@@ -242,6 +242,9 @@ export default function AdminDashboard() {
     } else if (sortBy === "votes") {
       return (b.votes || 0) - (a.votes || 0);
     }
+    else if (sortBy === "pending") { 
+      return a.status === "pending" ? -1 : b.status === "pending" ? 1 : 0;
+    }
     return 0;
   });
 
@@ -416,6 +419,7 @@ export default function AdminDashboard() {
                 >
                   <option value="name">Name</option>
                   <option value="votes">Votes</option>
+                  <option value="pending">pending</option>
                 </select>
               </div>
             </div>
