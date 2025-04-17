@@ -283,7 +283,7 @@ export default function Landing() {
           <div className="max-w-2xl mx-auto">
             <ul className="list-disc pl-5 text-white text-lg space-y-3">
               <li><strong className="text-[#ffb700]">Entry Fee:</strong> ₹299 per category</li>
-              <li><strong className="text-[#ffb700]">Deadline:</strong> 20th April 2025</li>
+              <li><strong className="text-[#ffb700]">Deadline:</strong> 18th April 2025</li>
               <li><strong className="text-[#ffb700]">Inclusions:</strong> Voting platform access, full creator profile visibility, and event eligibility.</li>
               <li><strong className="text-[#ffb700]">Refund Policy:</strong> Entry fees are non-refundable.</li>
             </ul>
