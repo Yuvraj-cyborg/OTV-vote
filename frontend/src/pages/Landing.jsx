@@ -113,7 +113,7 @@ export default function Landing() {
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span className="ml-2">17:30 ONWARDS</span>
+                <span className="ml-2">17:00 ONWARDS</span>
               </div>
             </div>
 
