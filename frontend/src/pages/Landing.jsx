@@ -95,7 +95,7 @@ export default function Landing() {
             </h1>
             <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">Odisha's 1st Creators Awards</h2>
             <p className="text-xl text-white mb-6">The First-Ever Digital Creator Awards of Odisha</p>
-            <p className="text-lg text-white mb-8">Celebrating Odia Asmita in the Digital Age</p>
+            <p className="text-lg text-white mb-8">Celebrating being Odia in the Digital Age</p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white mb-8">
               <div className="flex items-center">
