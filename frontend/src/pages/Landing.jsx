@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Trophy,
@@ -18,53 +18,15 @@ import {
   Heart,
   Calendar,
   MapPin,
-  Loader,
-  ExternalLink,
-  ChevronRight
+  ChevronRight,
+  ExternalLink
 } from "lucide-react";
 import Navbar from "../components/Navbar";
-import CountdownTimer from "../components/CountdownTimer";
-import { fetchPhaseState } from "../api";
 import guests from "../guests";
 import sponsors from "../sponsors";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const [phaseState, setPhaseState] = useState({
-    loading: true,
-    isVotingPhase: false,
-    error: null
-  });
-
-  // Fetch the current phase on component mount
-  useEffect(() => {
-    const getPhase = async () => {
-      try {
-        const phase = await fetchPhaseState();
-        setPhaseState({
-          loading: false,
-          isVotingPhase: phase === "voting",
-          error: null
-        });
-      } catch (error) {
-        console.error("Error fetching phase:", error);
-        setPhaseState({
-          loading: false,
-          isVotingPhase: false,
-          error: "Failed to load phase information"
-        });
-      }
-    };
-    getPhase();
-  }, []);
-
-  // Loading state component
-  const LoadingState = () => (
-    <div className="flex items-center justify-center space-x-2">
-      <Loader className="h-5 w-5 animate-spin text-[#ffb700]" />
-      <span className="text-white">Loading...</span>
-    </div>
-  );
 
   return (
     <div className="bg-black min-h-screen">
@@ -119,51 +81,48 @@ export default function Landing() {
 
             {/* --- Action Buttons --- */}
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              {phaseState.loading ? (
-                <LoadingState />
-              ) : phaseState.error ? (
-                <div className="text-red-500">{phaseState.error}</div>
-              ) : (
-                <>
-                  <button
-                    onClick={() => navigate("/nominate")}
-                    className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold flex items-center justify-center"
-                  >
-                    Nominate Now
-                    <ChevronRight className="ml-2 h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={() => navigate("/vote")}
-                    className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold flex items-center justify-center"
-                  >
-                    Vote Now
-                    <ChevronRight className="ml-2 h-5 w-5" />
-                  </button>
-                  <button
-                    onClick={() => navigate("/categories")}
-                    className="px-8 py-3 bg-transparent border border-white text-white rounded-full cursor-pointer font-semibold hover:bg-white hover:text-black transition-colors"
-                  >
-                    View Categories
-                  </button>
-                </>
-              )}
+              <button
+                onClick={() => navigate("/vote")}
+                className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold flex items-center justify-center text-lg"
+              >
+                Vote Now
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </button>
+              <button
+                onClick={() => navigate("/categories")}
+                className="px-8 py-3 bg-transparent border border-white text-white rounded-full cursor-pointer font-semibold hover:bg-white hover:text-black transition-colors"
+              >
+                View Categories
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- Countdown Timer Section --- */}
-      {!phaseState.isVotingPhase && !phaseState.loading && !phaseState.error && (
-        <section className="flex items-center justify-center bg-gradient-to-b from-black to-gray-900 h-[60vh]">
-          <div className="container mx-auto px-4 text-center">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-6">
-              Nomination Period Ends In:
-            </h3>
-            <CountdownTimer targetDate="2025-04-18T23:59:59" />
+      {/* Voting Banner Section */}
+      <section className="py-12 bg-gradient-to-b from-black to-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#ffb700]/20 to-[#e50914]/20 rounded-xl p-8 border border-[#ffb700]/30">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="w-20 h-20 bg-[#ffb700]/20 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
+                <Vote className="h-10 w-10 text-[#ffb700]" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-2xl font-bold text-white mb-2">Voting Now Live!</h2>
+                <p className="text-gray-300 mb-4">
+                  Nominations are closed, but the excitement continues! Cast your vote for your favorite content creators and help them win at Odisha's premier digital creator awards.
+                </p>
+                <button
+                  onClick={() => navigate("/vote")}
+                  className="px-6 py-2 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-lg font-semibold transition-colors"
+                >
+                  Vote Now
+                </button>
+              </div>
+            </div>
           </div>
-        </section>
-      )}
-      {/* --- End Countdown Timer Section --- */}
+        </div>
+      </section>
 
       {/* Introduction Section */}
       <section className="py-16 bg-black">
@@ -187,11 +146,11 @@ export default function Landing() {
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
               <span className="text-white">Who Can</span>
               <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent ml-2">
-                Nominate?
+                Vote?
               </span>
             </h2>
             <p className="text-lg text-white text-center mb-10">
-              Creators, influencers, artists, activists, and storytellers across Instagram, YouTube, Twitter/X, and beyond. Whether you're a cultural curator, meme-maker, or music creator—if Odisha is in your content's DNA, Insight-2025 is for you.
+              Everyone! Whether you're a creator, a fan, or just love great content, your vote matters. Support the creators who've made a difference in Odisha's digital landscape.
             </p>
             
             <div className="border-t border-gray-800 w-24 mx-auto my-12"></div>
@@ -199,13 +158,13 @@ export default function Landing() {
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
               <span className="text-white">Why Should You</span>
               <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent ml-2">
-                Nominate Yourself?
+                Vote?
               </span>
             </h2>
             <ul className="list-disc pl-5 text-white text-lg space-y-3 max-w-2xl mx-auto">
-              <li>Get recognized as a voice of Odia pride and digital creativity.</li>
-              <li>Join the first-ever league of winners shaping a new tradition.</li>
-              <li>Be seen, celebrated, and amplified by Odisha's largest media platform.</li>
+              <li>Support the creators you love and believe in.</li>
+              <li>Have your say in shaping the future of Odisha's digital culture.</li>
+              <li>Join a community of passionate content lovers.</li>
             </ul>
           </div>
         </div>
@@ -437,7 +396,7 @@ export default function Landing() {
                 onClick={() => navigate("/nominate")}
                 className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
               >
-                Nominate Now
+                Nominate Now ??
               </button>
               <button
                 onClick={() => navigate("/vote")}
