@@ -80,7 +80,8 @@ export default function Signup() {
   };
 
   const handleGoogleError = () => {
-    toast.error("Google login failed. Please try again.");
+    toast.error("Google login failed. Please try again in your regular browser.");
+    window.open(`https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${window.location.origin}&response_type=code&scope=email profile`, '_blank');
   };
 
   return (
@@ -104,6 +105,7 @@ export default function Signup() {
               shape="pill"
               size="large"
               theme="filled_blue"
+              ux_mode="redirect" 
             />
           </GoogleOAuthProvider>
         </div>

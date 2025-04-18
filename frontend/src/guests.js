@@ -27,7 +27,7 @@ const guests = [
   },
   {
     id: 4,
-    name: "Rekha Pandey",
+    name: "Rekha Panday",
     designation: "Femina Miss India 2024-1st Runner Up",
     image: rekha
   }
