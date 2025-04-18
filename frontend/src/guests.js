@@ -4,7 +4,7 @@ import Ranvijay from "./assets/Rannvijay.png";
 import Saurabh from "./assets/Saurabh.jpg";
 import Gaurav from "./assets/gaurav.jpg";
 import tejaswi from "./assets/tejaswi.png"
-
+import rekha from "./assets/missindi.jpg";
 
 const guests = [
   {
@@ -25,6 +25,12 @@ const guests = [
     designation: "Indian Journalist",
     image: Saurabh
   },
+  {
+    id: 4,
+    name: "Rekha Pandey",
+    designation: "Femina Miss India 2024-1st Runner Up",
+    image: rekha
+  }
 
 ];
 
