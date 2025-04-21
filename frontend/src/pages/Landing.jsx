@@ -30,70 +30,70 @@ export default function Landing() {
 
   return (
     <div className="bg-black min-h-screen">
-      {/* Hero Section */}
+            {/* Hero Section */}
       {/* Hero Section - Full Screen with Centered Content */}
-      <section className="relative h-screen w-full bg-black overflow-hidden">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 z-0">
-          <div className="w-full h-full bg-gradient-to-br from-black via-gray-900 to-[#e50914]">
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#ffb700] blur-3xl"></div>
-              <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[#e50914] blur-3xl"></div>
-              <div className="absolute bottom-1/4 left-1/3 w-80 h-80 rounded-full bg-[#ff5e00] blur-3xl"></div>
-            </div>
-          </div>
-          <div className="absolute inset-0 bg-black/40"></div>
-        </div>
+<section className="relative h-screen w-full bg-black overflow-hidden">
+  {/* Background Gradient */}
+  <div className="absolute inset-0 z-0">
+    <div className="w-full h-full bg-gradient-to-br from-black via-gray-900 to-[#e50914]">
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#ffb700] blur-3xl"></div>
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 rounded-full bg-[#e50914] blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-80 h-80 rounded-full bg-[#ff5e00] blur-3xl"></div>
+      </div>
+    </div>
+    <div className="absolute inset-0 bg-black/40"></div>
+  </div>
 
-        {/* Centered Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
-          <div className="max-w-3xl w-full">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
-                INSIGHT
-              </span>
-              <br />
-              <span className="text-white">2025</span>
-            </h1>
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">Odisha's 1st Creators Awards</h2>
+  {/* Centered Content */}
+  <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
+    <div className="max-w-3xl w-full">
+      <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+        <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+          INSIGHT
+        </span>
+        <br />
+        <span className="text-white">2025</span>
+      </h1>
+      <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">Odisha's 1st Creators Awards</h2>
             <p className="text-xl text-white mb-6">The First-Ever Digital Creator Awards of Odisha</p>
             <p className="text-lg text-white mb-8">Celebrating being Odia in the Digital Age</p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white mb-8">
-              <div className="flex items-center">
-                <Calendar className="h-5 w-5 text-[#ffb700]" />
-                <span className="text-xl ml-2">3rd MAY 2025</span>
-              </div>
-              <div className="hidden sm:block">•</div>
-              <div className="flex items-center">
-                <MapPin className="h-5 w-5 text-[#ffb700]" />
-                <span className="ml-2">SWOSTI PREMIUM, BHUBANESWAR</span>
-              </div>
-              <div className="hidden sm:block">•</div>
-              <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#ffb700]" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white mb-8">
+        <div className="flex items-center">
+          <Calendar className="h-5 w-5 text-[#ffb700]" />
+          <span className="text-xl ml-2">3rd MAY 2025</span>
+        </div>
+        <div className="hidden sm:block">•</div>
+        <div className="flex items-center">
+          <MapPin className="h-5 w-5 text-[#ffb700]" />
+          <span className="ml-2">SWOSTI PREMIUM, BHUBANESWAR</span>
+        </div>
+        <div className="hidden sm:block">•</div>
+        <div className="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#ffb700]" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
                 <span className="ml-2">17:00 ONWARDS</span>
-              </div>
-            </div>
+        </div>
+      </div>
 
             {/* --- Action Buttons --- */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button
                 onClick={() => navigate("/vote")}
                 className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold flex items-center justify-center text-lg"
-              >
+            >
                 Vote Now
                 <ChevronRight className="ml-2 h-5 w-5" />
-              </button>
-              <button
-                onClick={() => navigate("/categories")}
-                className="px-8 py-3 bg-transparent border border-white text-white rounded-full cursor-pointer font-semibold hover:bg-white hover:text-black transition-colors"
-              >
-                View Categories
-              </button>
+            </button>
+            <button
+              onClick={() => navigate("/categories")}
+              className="px-8 py-3 bg-transparent border border-white text-white rounded-full cursor-pointer font-semibold hover:bg-white hover:text-black transition-colors"
+            >
+              View Categories
+            </button>
             </div>
           </div>
         </div>
@@ -119,10 +119,10 @@ export default function Landing() {
                   Vote Now
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Introduction Section */}
       <section className="py-16 bg-black">
@@ -180,7 +180,7 @@ export default function Landing() {
               CATEGORIES
             </span>
           </h2>
-          
+
           <div className="max-w-3xl mx-auto mb-10">
             <p className="text-xl text-center text-white mb-8">Choose from 18 dynamic categories including:</p>
             
@@ -223,8 +223,8 @@ export default function Landing() {
               >
                 View All Categories 
                 <ChevronRight className="ml-1 h-5 w-5" />
-              </button>
-            </div>
+                </button>
+              </div>
           </div>
         </div>
       </section>
@@ -249,7 +249,7 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
+      
       {/* Guests Section */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">

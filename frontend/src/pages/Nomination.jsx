@@ -16,7 +16,7 @@ const NominationPage = () => {
               <p className="text-gray-300 text-lg mb-8">
                 The nomination period has officially ended. While entries are now closed, you can still support your favourite content creators.
               </p>
-            </div>
+              </div>
 
             <div className="bg-gray-900/50 rounded-lg border border-gray-700 p-6 mb-8">
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
@@ -34,7 +34,7 @@ const NominationPage = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+                    </div>
 
             <div className="bg-gradient-to-r from-[#ffb700]/10 to-[#ff5e00]/10 rounded-lg border border-[#ffb700]/20 p-6">
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
@@ -49,7 +49,7 @@ const NominationPage = () => {
                   </p>
                 </div>
               </div>
-            </div>
+              </div>
           </div>
         </div>
       </div>
