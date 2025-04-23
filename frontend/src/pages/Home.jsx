@@ -197,9 +197,9 @@ export default function Home() {
                 </div>
                 <div className="p-4">
                   <div className="flex space-x-3 mb-3">
-                    {nominee.instagram && (
+                    {nominee.instagramUrl && (
                       <a
-                        href={`https://instagram.com/${nominee.instagram}`}
+                        href={`https://instagram.com/${nominee.instagramUrl}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-[#ffb700]"
@@ -207,9 +207,9 @@ export default function Home() {
                         <Instagram size={18} />
                       </a>
                     )}
-                    {nominee.facebook && (
+                    {nominee.facebookId && (
                       <a
-                        href={`https://facebook.com/${nominee.facebook}`}
+                        href={`https://facebook.com/${nominee.facebookId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-[#ffb700]"
@@ -217,9 +217,9 @@ export default function Home() {
                         <Facebook size={18} />
                       </a>
                     )}
-                    {nominee.twitter && (
+                    {nominee.xId && (
                       <a
-                        href={`https://twitter.com/${nominee.twitter}`}
+                        href={`https://twitter.com/${nominee.xId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-[#ffb700]"
@@ -227,9 +227,9 @@ export default function Home() {
                         <Twitter size={18} />
                       </a>
                     )}
-                    {nominee.youtube && (
+                    {nominee.youtubeId && (
                       <a
-                        href={`https://youtube.com/${nominee.youtube}`}
+                        href={`https://youtube.com/${nominee.youtubeId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-[#ffb700]"
