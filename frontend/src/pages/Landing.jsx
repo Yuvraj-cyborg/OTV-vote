@@ -24,6 +24,7 @@ import {
 import Navbar from "../components/Navbar";
 import guests from "../guests";
 import sponsors from "../sponsors";
+import jury from "../jury";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -280,6 +281,44 @@ export default function Landing() {
                     <h3 className="text-2xl font-bold text-white mb-2">{guest.name}</h3>
                     <div className="w-16 h-1 bg-gradient-to-r from-[#ffb700] to-[#e50914] mx-auto mb-3"></div>
                     <p className="text-[#ffb700] font-medium mb-2">{guest.designation}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Jury Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-white">ESTEEMED</span>
+            <br />
+            <span className="bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent">
+              JURY PANEL
+            </span>
+          </h2>
+
+          <div className="flex justify-center">
+            <div className={`grid ${jury.length === 1 ? 'grid-cols-1 max-w-md' : jury.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-3xl' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8'} gap-10 w-full justify-items-center`}>
+              {jury.map((member) => (
+                <div 
+                  key={member.id} 
+                  className="bg-gray-900 rounded-xl overflow-hidden group shadow-lg shadow-black/30 transform transition-transform hover:scale-105 duration-300 flex flex-col items-center w-full max-w-sm"
+                >
+                  <div className="relative w-full h-auto min-h-[320px] overflow-hidden">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-contain object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  </div>
+                  <div className="p-6 text-center w-full">
+                    <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#ffb700] to-[#e50914] mx-auto mb-3"></div>
+                    <p className="text-[#ffb700] font-medium mb-2">{member.designation}</p>
                   </div>
                 </div>
               ))}
