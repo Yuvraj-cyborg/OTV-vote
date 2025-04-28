@@ -499,18 +499,22 @@ export default function AdminDashboard() {
                                         {isMobile ? '✕' : 'Reject'}
                                       </button>
                                     </div>
-                                  ) : (
-                                    <span
-                                      className={`inline-block px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm ${
-                                        nominee.status === "approved"
-                                          ? "bg-green-500/20 text-green-500"
-                                          : "bg-red-500/20 text-red-500"
-                                      }`}
+                                  ) : nominee.status === "approved" ? (
+                                    <button
+                                      onClick={() => handleReject(nominee.id)}
+                                      className="px-2 py-0.5 md:px-3 md:py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-xs md:text-sm"
+                                      title="Reject this approved nominee"
                                     >
-                                      {isMobile 
-                                        ? nominee.status.charAt(0).toUpperCase() 
-                                        : nominee.status.charAt(0).toUpperCase() + nominee.status.slice(1)}
-                                    </span>
+                                      {isMobile ? '✕' : 'Reject'}
+                                    </button>
+                                  ) : ( // nominee.status === "rejected"
+                                    <button
+                                      onClick={() => handleApprove(nominee.id)}
+                                      className="px-2 py-0.5 md:px-3 md:py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 text-xs md:text-sm"
+                                      title="Approve this rejected nominee"
+                                    >
+                                      {isMobile ? '✓' : 'Approve'}
+                                    </button>
                                   )}
                                 </div>
                               </div>
@@ -560,16 +564,22 @@ export default function AdminDashboard() {
                                   Reject
                                 </button>
                               </div>
-                            ) : (
-                              <div
-                                className={`px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm ${
-                                  nominee.status === "approved"
-                                    ? "bg-green-500/20 text-green-500"
-                                    : "bg-red-500/20 text-red-500"
-                                }`}
+                            ) : nominee.status === "approved" ? (
+                              <button
+                                onClick={() => handleReject(nominee.id)}
+                                className="px-3 py-1 md:px-4 md:py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-xs md:text-sm"
+                                title="Reject this approved nominee"
                               >
-                                {nominee.status.charAt(0).toUpperCase() + nominee.status.slice(1)}
-                              </div>
+                                Reject
+                              </button>
+                            ) : ( // nominee.status === "rejected"
+                              <button
+                                onClick={() => handleApprove(nominee.id)}
+                                className="px-3 py-1 md:px-4 md:py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 text-xs md:text-sm"
+                                title="Approve this rejected nominee"
+                              >
+                                Approve
+                              </button>
                             )}
                           </div>
                         )}
