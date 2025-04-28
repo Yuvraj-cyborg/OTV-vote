@@ -54,7 +54,7 @@ export default function Navbar() {
     { name: "About", href: "/about" },
     { name: "Categories", href: "/categories" },
     { name: "Rules", href: "/rules" },
-    { name: "Vote", href: "/vote" },
+    { name: "Vote", href: "/voting-over" },
     // { name: "Attend", href: "https://otvinsight.zohobackstage.in/2025"}
   ];
 

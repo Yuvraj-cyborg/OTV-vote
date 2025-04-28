@@ -20,6 +20,8 @@ import PriceDetail from "./pages/PriceDetail"; // Import the PriceDetail compone
 import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy component
 import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
 import Rules from "./pages/Rules"; // Import the Rules component
+import VotingOver from "./pages/VotingOver"; // Import the VotingOver component
+
 // Protected Route component
 const ProtectedAdminRoute = ({ children }) => {
   const adminToken = localStorage.getItem("adminToken");
@@ -53,9 +55,10 @@ export default function App() {
             </ProtectedAdminRoute>
           } 
         />
-        <Route path="/vote" element={<Home />} />
+        <Route path="/vote" element={<VotingOver />} /> {/* Redirect vote to voting-over */}
+        <Route path="/voting-over" element={<VotingOver />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/nominate" element={<NominationPage />} />
+        <Route path="/nominate" element={<VotingOver />} /> {/* Redirect nominate to voting-over */}
         <Route path="/nomination-card/:id" element={<NominationCard />} />
         <Route path="/about" element={<About />} /> 
         <Route path="/categories" element={<Categories />} />

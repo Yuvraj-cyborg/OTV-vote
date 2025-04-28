@@ -83,10 +83,10 @@ export default function Landing() {
             {/* --- Action Buttons --- */}
       <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
-                onClick={() => navigate("/vote")}
-                className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold flex items-center justify-center text-lg"
+                onClick={() => navigate("/voting-over")}
+                className="px-8 py-3 bg-gray-700/50 hover:bg-gray-700/70 text-white rounded-full cursor-pointer font-semibold flex items-center justify-center text-lg border border-gray-600"
             >
-                Vote Now
+                Results Coming Soon
                 <ChevronRight className="ml-2 h-5 w-5" />
             </button>
             <button
@@ -100,24 +100,27 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Voting Banner Section */}
+      {/* Voting Banner Section - Replaced with "Voting Closed" */}
       <section className="py-12 bg-gradient-to-b from-black to-gray-900">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#ffb700]/20 to-[#e50914]/20 rounded-xl p-8 border border-[#ffb700]/30">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-800/80 to-gray-900/80 rounded-xl p-8 border border-gray-700">
             <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="w-20 h-20 bg-[#ffb700]/20 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
-                <Vote className="h-10 w-10 text-[#ffb700]" />
+              <div className="w-20 h-20 bg-gray-800/80 rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-2xl font-bold text-white mb-2">Voting Now Live!</h2>
+                <h2 className="text-2xl font-bold text-white mb-2">Voting Phase is Over!</h2>
                 <p className="text-gray-300 mb-4">
-                  Nominations are closed, but the excitement continues! Cast your vote for your favorite content creators and help them win at Odisha's premier digital creator awards.
+                  Thank you to everyone who participated in the voting process. The voting phase for INSIGHT 2025 Awards has concluded. Stay tuned for the exciting announcement of winners!
                 </p>
                 <button
-                  onClick={() => navigate("/vote")}
-                  className="px-6 py-2 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-lg font-semibold transition-colors"
+                  onClick={() => navigate("/voting-over")}
+                  className="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
                 >
-                  Vote Now
+                  More Info
                 </button>
               </div>
       </div>
