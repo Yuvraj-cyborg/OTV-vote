@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, MapPin, Award, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function VotingOver() {
@@ -24,8 +24,23 @@ export default function VotingOver() {
             Thank you for your interest in INSIGHT 2025 Awards! 
           </p>
           
-          <p className="text-lg text-gray-400 mb-6">
-            The voting phase has concluded. Stay tuned for the results announcement.
+          <p className="text-lg text-gray-400 mb-4">
+            The voting phase has concluded. The finalists will now be evaluated by our esteemed jury panel.
+          </p>
+          
+          <div className="flex justify-center gap-4 mb-6">
+            <div className="flex items-center text-[#ffb700]">
+              <Users className="h-5 w-5 mr-2" />
+              <span className="font-medium">Jury Evaluation</span>
+            </div>
+            <div className="flex items-center text-[#ffb700]">
+              <Award className="h-5 w-5 mr-2" />
+              <span className="font-medium">Final Selection</span>
+            </div>
+          </div>
+          
+          <p className="text-lg text-white bg-[#ffb700]/10 py-3 px-4 rounded-lg inline-block font-semibold">
+            Stay tuned for the results announcement!
           </p>
         </div>
         

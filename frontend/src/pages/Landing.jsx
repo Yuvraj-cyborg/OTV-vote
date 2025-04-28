@@ -426,25 +426,24 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#ffb700] via-[#e50914] to-[#ffb700] bg-clip-text text-transparent mb-8 ">
-              Make History with Us
+              The Journey Continues
             </h2>
-            <p className="text-lg text-white mb-10">
+            <p className="text-lg text-white mb-6">
               This isn't just another award. It's the first chapter of a movement to spotlight Odisha's digital trailblazers.
-              Don't miss your chance to be remembered as part of the founding winners.
+              The voting phase has ended, and now our distinguished jury panel will evaluate the finalists.
             </p>
             
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="bg-gray-900/70 rounded-lg p-6 border border-gray-800">
+              <h3 className="text-xl font-bold text-[#ffb700] mb-4">What's Next?</h3>
+              <p className="text-gray-300 mb-4">
+                Our esteemed jury will now evaluate all finalists to select the winners across categories.
+                The results will be announced at our grand event on May 3rd, 2025.
+              </p>
               <button
-                onClick={() => navigate("/nominate")}
-                className="px-8 py-3 bg-[#e50914] hover:bg-[#ff5e00] text-white rounded-full cursor-pointer font-semibold"
+                onClick={() => navigate("/voting-over")}
+                className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-full cursor-pointer font-semibold"
               >
-                Nominate Now ??
-              </button>
-              <button
-                onClick={() => navigate("/vote")}
-                className="px-8 py-3 bg-[#ffb700] hover:bg-[#ffb700]/80 text-black rounded-full cursor-pointer font-semibold"
-              >
-                Vote Now
+                More Information
               </button>
             </div>
           </div>
