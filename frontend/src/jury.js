@@ -4,6 +4,7 @@ import sudarsan from "./assets/sudar'.png";
 import archita from "./assets/archita.png";
 import sofia from "./assets/sofia.png";
 import sabyasachi from "./assets/sabya.png";
+import kartik from "./assets/kartik.jpg";
 
 const jury = [
   {
@@ -35,6 +36,12 @@ const jury = [
     name: "Sabyasachi Mishra",
     designation: "Eminent Actor",
     image: sabyasachi
+  },
+  {
+    id: 6,
+    name: "Kartik Parmar",
+    designation: "Renowned Cinematographer",
+    image: kartik
   }
 ];
 
