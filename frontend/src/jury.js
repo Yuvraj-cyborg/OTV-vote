@@ -5,6 +5,9 @@ import archita from "./assets/archita.png";
 import sofia from "./assets/sofia.png";
 import sabyasachi from "./assets/sabya.png";
 import kartik from "./assets/kartik.jpg";
+import goodly from "./assets/Goodly.jpg"
+import biraja from "./assets/Biraja.jpg"
+import mahadeo from "./assets/Mahadeo.jpg";
 
 const jury = [
   {
@@ -42,6 +45,24 @@ const jury = [
     name: "Kartik Parmar",
     designation: "Renowned Cinematographer",
     image: kartik
+  },
+  {
+    id: 7,
+    name: "Goodly Rath",
+    designation: "Inidan Composer and Singer",
+    image: goodly
+  },
+  {
+    id: 8,
+    name: "Biraja Rout",
+    designation: "Entrepreneur, Founder Biggies Burger",
+    image: biraja
+  },
+  {
+    id: 9,
+    name: "Mahadeo Jaiswal",
+    designation: "Director at IIM,Sambalpur",
+    image: mahadeo
   }
 ];
 
