@@ -8,6 +8,7 @@ import kartik from "./assets/kartik.jpg";
 import goodly from "./assets/Goodly.jpg"
 import biraja from "./assets/Biraja.jpg"
 import mahadeo from "./assets/Mahadeo.jpg";
+import pappu from "./assets/pappu.jpg";
 
 const jury = [
   {
@@ -63,7 +64,14 @@ const jury = [
     name: "Mahadeo Jaiswal",
     designation: "Director at IIM,Sambalpur",
     image: mahadeo
-  }
+  },
+  {
+    id: 10,
+    name: "Pappu Pom Pom",
+    designation: "Eminent Comic Artist",
+    image: pappu
+  },
+
 ];
 
 export default jury; 
