@@ -21,6 +21,7 @@ import RefundPolicy from "./pages/RefundPolicy"; // Import the RefundPolicy comp
 import PrivacyPolicy from "./pages/Privay"; // Import the PrivacyPolicy component
 import Rules from "./pages/Rules"; // Import the Rules component
 import VotingOver from "./pages/VotingOver"; // Import the VotingOver component
+import Gallery from "./pages/Gallery";
 
 // Protected Route component
 const ProtectedAdminRoute = ({ children }) => {
@@ -70,6 +71,7 @@ export default function App() {
         <Route path="/price-detail" element={<PriceDetail />} /> 
         <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/gallery" element={<Gallery />}/>
       </Routes>
     </Router>
   );
